@@ -9,7 +9,7 @@ class AppColors {
   /// grey background
   static const Color primarySecondaryBackground = Color.fromARGB(255, 247, 247, 249);
   /// main widget color blue
-  static const Color primaryElement = Color.fromARGB(255, 61, 61, 216);
+  static const Color primaryElement = Color.fromARGB(255, 61, 216, 149);
   /// main text color black
   static const Color primaryText = Color.fromARGB(255, 0, 0, 0);
   // video background color

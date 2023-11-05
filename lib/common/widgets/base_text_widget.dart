@@ -6,11 +6,9 @@ Widget reusableText(String text,
     {Color color = AppColors.primaryText,
     double fontSize = 16,
     FontWeight fontWeight = FontWeight.bold}) {
-  return Container(
-    child: Text(
-      text,
-      style: TextStyle(
-          color: color, fontWeight: fontWeight, fontSize: fontSize.sp),
-    ),
+  return Text(
+    text,
+    style:
+        TextStyle(color: color, fontWeight: fontWeight, fontSize: fontSize.sp),
   );
 }

@@ -15,9 +15,8 @@ Widget mainTitleBar() {
           child: Container(
             child: Column(
               children: [
-                reusableText(
+                bigText(
                   "Bangladesh",
-                  fontSize: 18.sp,
                   color: AppColors.primaryElement,
                 ),
                 Row(

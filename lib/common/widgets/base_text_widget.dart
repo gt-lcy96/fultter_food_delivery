@@ -5,10 +5,12 @@ import 'package:food_delivery/common/values/colors.dart';
 Widget reusableText(String text,
     {Color color = AppColors.primaryText,
     double fontSize = 16,
-    FontWeight fontWeight = FontWeight.bold}) {
+    FontWeight fontWeight = FontWeight.bold,
+    overflow = TextOverflow.ellipsis
+    }) {
   return Text(
     text,
     style:
-        TextStyle(color: color, fontWeight: fontWeight, fontSize: fontSize.sp),
+        TextStyle(color: color, fontWeight: fontWeight, fontSize: fontSize.sp, overflow: overflow),
   );
 }

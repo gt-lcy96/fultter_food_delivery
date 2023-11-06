@@ -22,7 +22,7 @@ Widget smallText(String text,
     {Color color = AppColors.primaryText,
     double fontSize = 12,
     double height = 1.2,
-    FontWeight fontWeight = FontWeight.w400,
+    FontWeight fontWeight = FontWeight.w200,
     overflow = TextOverflow.ellipsis}) {
   return Text(
     text,

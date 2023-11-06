@@ -47,32 +47,6 @@ Widget mainTitleBar() {
   );
 }
 
-
-
-Widget buildPageItem(int index) {
-  return Stack(
-    children: [
-      Container(
-        height: 160.h,
-        margin: const EdgeInsets.only(left: 5, right: 5),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20.w),
-          color:
-              index.isEven ? const Color(0xFF69c5df) : const Color(0xFF9294cc),
-          image: DecorationImage(
-            fit: BoxFit.cover,
-            image: AssetImage("assets/images/chinese_food_1.jpg"),
-          ),
-        ),
-      ),
-      Align(
-        alignment: Alignment.bottomCenter,
-        child: pageViewSmallBlock(),
-      ),
-    ],
-  );
-}
-
 Widget pageViewSmallBlock() {
   return Container(
     height: 120.h,

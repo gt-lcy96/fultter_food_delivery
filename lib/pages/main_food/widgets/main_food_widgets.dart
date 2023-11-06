@@ -55,7 +55,6 @@ Widget foodPageView() {
       itemBuilder: (context, position){
       return Container(
         height: 220,
-        color: Colors.red,
         child:  _buildPageItem(position),
         );
     },
@@ -68,8 +67,14 @@ Widget _buildPageItem(int index) {
     height: 220,
     margin: const EdgeInsets.only(left: 5, right: 5),
     decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(15.w),
-      color: Colors.blue
+      borderRadius: BorderRadius.circular(20.w),
+      color: index.isEven ? const Color(0xFF69c5df) : const Color(0xFF9294cc),
+      image: DecorationImage(
+        fit: BoxFit.cover,
+        image: AssetImage(
+          "assets/images/chinese_food_1.jpg"
+        ),
+      ),
     ),
   );
 }

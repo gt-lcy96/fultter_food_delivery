@@ -51,7 +51,6 @@ Widget foodPageView() {
   PageController pageController = PageController(viewportFraction: 0.85);
   return Container(
     height: 240.h,
-    color: Colors.yellow,
     child: PageView.builder(
       controller: pageController,
       itemCount: 5,
@@ -91,13 +90,20 @@ Widget _buildPageItem(int index) {
 
 Widget pageViewSmallBlock() {
   return Container(
-    height: 140.h,
+    height: 120.h,
     width: 280.w,
     margin: const EdgeInsets.only(left: 15, right: 15, bottom: 15),
     decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(20.w),
-      color: Colors.white,
-    ),
+        borderRadius: BorderRadius.circular(20.w),
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey,
+            offset: Offset(0, 5),
+            blurRadius: 10.0,
+            spreadRadius: 0.5
+          ),
+        ]),
     child: Container(
       padding: EdgeInsets.all(20),
       child: Column(

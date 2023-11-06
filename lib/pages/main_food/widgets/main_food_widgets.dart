@@ -12,20 +12,20 @@ Widget mainTitleBar() {
         Positioned(
           left: 20,
           top: 20,
-            child: Column(
-              children: [
-                bigText(
-                  "Bangladesh",
-                  color: AppColors.primaryElement,
-                ),
-                Row(
-                  children: [
-                    reusableText("Narshingdi",
-                        fontSize: 12.sp, fontWeight: FontWeight.normal),
-                    const Icon(Icons.arrow_drop_down)
-                  ],
-                )
-              ],
+          child: Column(
+            children: [
+              bigText(
+                "Bangladesh",
+                color: AppColors.primaryElement,
+              ),
+              Row(
+                children: [
+                  reusableText("Narshingdi",
+                      fontSize: 12.sp, fontWeight: FontWeight.normal),
+                  const Icon(Icons.arrow_drop_down)
+                ],
+              )
+            ],
           ),
         ),
         Positioned(
@@ -55,12 +55,12 @@ Widget foodPageView() {
     child: PageView.builder(
       controller: pageController,
       itemCount: 5,
-      itemBuilder: (context, position){
-      return Container(
-        height: 220,
-        child:  _buildPageItem(position),
+      itemBuilder: (context, position) {
+        return Container(
+          height: 220,
+          child: _buildPageItem(position),
         );
-    },
+      },
     ),
   );
 }
@@ -73,27 +73,29 @@ Widget _buildPageItem(int index) {
         margin: const EdgeInsets.only(left: 5, right: 5),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.w),
-          color: index.isEven ? const Color(0xFF69c5df) : const Color(0xFF9294cc),
+          color:
+              index.isEven ? const Color(0xFF69c5df) : const Color(0xFF9294cc),
           image: DecorationImage(
             fit: BoxFit.cover,
-            image: AssetImage(
-              "assets/images/chinese_food_1.jpg"
-            ),
+            image: AssetImage("assets/images/chinese_food_1.jpg"),
           ),
         ),
       ),
       Align(
         alignment: Alignment.bottomCenter,
-        child: Container(
-          height: 140,
-          margin: const EdgeInsets.only(left: 30, right: 30, bottom: 15),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20.w),
-            color: Colors.white,
-          ),
-        ),
+        child: pageViewSmallBlock(),
       ),
-    
     ],
+  );
+}
+
+Widget pageViewSmallBlock() {
+  return Container(
+    height: 140,
+    margin: const EdgeInsets.only(left: 30, right: 30, bottom: 15),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(20.w),
+      color: Colors.white,
+    ),
   );
 }

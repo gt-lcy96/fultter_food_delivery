@@ -51,6 +51,7 @@ Widget bigText(String text,
         fontWeight: fontWeight,
         fontSize: fontSize.sp,
         height: height,
+        fontFamily: 'OpenSans'
         ),
   );
 }

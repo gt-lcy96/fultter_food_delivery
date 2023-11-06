@@ -98,11 +98,10 @@ Widget pageViewSmallBlock() {
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            color: Colors.grey,
-            offset: Offset(0, 5),
-            blurRadius: 10.0,
-            spreadRadius: 0.5
-          ),
+              color: Colors.grey,
+              offset: Offset(0, 5),
+              blurRadius: 10.0,
+              spreadRadius: 0.5),
         ]),
     child: Container(
       padding: EdgeInsets.all(20),
@@ -110,8 +109,26 @@ Widget pageViewSmallBlock() {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           bigText("Bitter Orange Marinade", fontSize: 18),
+          SizedBox(height: 5.h,),
+          Row(
+            children: [
+              RatingList(),
+              SizedBox(width: 15.w,),
+              smallText("4.5"),
+              SizedBox(width: 15.w,),
+              smallText("1287 comments"),
+            ],
+          )
         ],
       ),
     ),
+  );
+}
+
+Widget RatingList() {
+  return Row(
+    children: List.generate(5, (index) {
+      return Icon(Icons.star, color: AppColors.primaryElement);
+    }),
   );
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery/common/widgets/base_text_widget.dart';
 import 'package:food_delivery/pages/main_food/widgets/main_food_widgets.dart';
+import 'package:food_delivery/pages/main_food/foodPageSlider.dart';
 
 class MainFoodPage extends StatelessWidget {
   const MainFoodPage({super.key});
@@ -12,7 +12,7 @@ class MainFoodPage extends StatelessWidget {
         child: Column(
           children: [
             mainTitleBar(),
-            foodPageView(),
+            const FoodPageSlider(),
           ],
         ),
       ),

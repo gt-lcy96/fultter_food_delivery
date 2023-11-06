@@ -47,24 +47,9 @@ Widget mainTitleBar() {
   );
 }
 
-Widget foodPageView() {
-  PageController pageController = PageController(viewportFraction: 0.85);
-  return Container(
-    height: 240.h,
-    child: PageView.builder(
-      controller: pageController,
-      itemCount: 5,
-      itemBuilder: (context, position) {
-        return Container(
-          height: 220,
-          child: _buildPageItem(position),
-        );
-      },
-    ),
-  );
-}
 
-Widget _buildPageItem(int index) {
+
+Widget buildPageItem(int index) {
   return Stack(
     children: [
       Container(

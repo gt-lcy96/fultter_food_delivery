@@ -67,7 +67,7 @@ Widget pageViewSmallBlock() {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          bigText("Chinese Wanton", fontSize: 18),
+          bigText("Chinese Side", fontSize: 18),
           SizedBox(
             height: 5.h,
           ),

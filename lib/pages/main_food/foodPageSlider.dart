@@ -32,18 +32,22 @@ class _FoodPageSliderState extends State<FoodPageSlider> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 240.h,
-      child: PageView.builder(
-        controller: pageController,
-        itemCount: 5,
-        itemBuilder: (context, position) {
-          return Container(
-            height: 160.h,
-            child: _buildPageItem(position),
-          );
-        },
-      ),
+    return Column(
+      children: [
+        Container(
+          height: 240.h,
+          child: PageView.builder(
+            controller: pageController,
+            itemCount: 5,
+            itemBuilder: (context, position) {
+              return Container(
+                height: 160.h,
+                child: _buildPageItem(position),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 

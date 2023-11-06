@@ -108,20 +108,39 @@ Widget pageViewSmallBlock() {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          bigText("Bitter Orange Marinade", fontSize: 18),
-          SizedBox(height: 5.h,),
+          bigText("Chinese Wanton", fontSize: 18),
+          SizedBox(
+            height: 5.h,
+          ),
           Row(
             children: [
               RatingList(),
-              SizedBox(width: 15.w,),
+              SizedBox(
+                width: 15.w,
+              ),
               smallText("4.5"),
-              SizedBox(width: 15.w,),
+              SizedBox(
+                width: 15.w,
+              ),
               smallText("1287 comments"),
             ],
-          )
+          ),
+          SizedBox(height: 10.h),
+          IconStatusList('Normal', '1.7km', '32min'),
         ],
       ),
     ),
+  );
+}
+
+Widget IconStatusList(status, distance, time) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      NamedIcon(Icons.circle_sharp, status, color: Colors.yellow),
+      NamedIcon(Icons.location_on, distance),
+      NamedIcon(Icons.access_time_rounded, time, color: Colors.red[200]),
+    ],
   );
 }
 
@@ -131,4 +150,14 @@ Widget RatingList() {
       return Icon(Icons.star, color: AppColors.primaryElement);
     }),
   );
+}
+
+Widget NamedIcon(icon, text, {color = AppColors.primaryElement}) {
+  return Row(children: [
+    Icon(
+      icon,
+      color: color,
+    ),
+    Text(text)
+  ]);
 }

@@ -50,7 +50,7 @@ Widget mainTitleBar() {
 Widget foodPageView() {
   PageController pageController = PageController(viewportFraction: 0.85);
   return Container(
-    height: 320,
+    height: 240.h,
     color: Colors.yellow,
     child: PageView.builder(
       controller: pageController,
@@ -69,7 +69,7 @@ Widget _buildPageItem(int index) {
   return Stack(
     children: [
       Container(
-        height: 220,
+        height: 160.h,
         margin: const EdgeInsets.only(left: 5, right: 5),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.w),
@@ -91,11 +91,21 @@ Widget _buildPageItem(int index) {
 
 Widget pageViewSmallBlock() {
   return Container(
-    height: 140,
-    margin: const EdgeInsets.only(left: 30, right: 30, bottom: 15),
+    height: 140.h,
+    width: 280.w,
+    margin: const EdgeInsets.only(left: 15, right: 15, bottom: 15),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(20.w),
       color: Colors.white,
+    ),
+    child: Container(
+      padding: EdgeInsets.all(20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          bigText("Bitter Orange Marinade", fontSize: 18),
+        ],
+      ),
     ),
   );
 }

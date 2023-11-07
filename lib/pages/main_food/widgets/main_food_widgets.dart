@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/common/values/colors.dart';
+import 'package:food_delivery/common/widgets/app_detail.dart';
 import 'package:food_delivery/common/widgets/base_text_widget.dart';
 
 Widget mainTitleBar() {
@@ -55,7 +56,7 @@ Widget pageViewSmallBlock() {
     decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20.w),
         color: Colors.white,
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
               color: Colors.grey,
               offset: Offset(0, 5),
@@ -63,7 +64,7 @@ Widget pageViewSmallBlock() {
               spreadRadius: 0.5),
         ]),
     child: Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -82,35 +83,6 @@ Widget pageViewSmallBlock() {
       ),
     ),
   );
-}
-
-Widget IconStatusList(status, distance, time) {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceAround,
-    children: [
-      NamedIcon(Icons.circle_sharp, status, color: Colors.yellow),
-      NamedIcon(Icons.location_on, distance),
-      NamedIcon(Icons.access_time_rounded, time, color: Colors.red[200]),
-    ],
-  );
-}
-
-Widget RatingList() {
-  return Row(
-    children: List.generate(5, (index) {
-      return Icon(Icons.star, color: AppColors.primaryElement);
-    }),
-  );
-}
-
-Widget NamedIcon(icon, text, {color = AppColors.primaryElement}) {
-  return Row(children: [
-    Icon(
-      icon,
-      color: color,
-    ),
-    Text(text)
-  ]);
 }
 
 Widget popularTitleTexts() {

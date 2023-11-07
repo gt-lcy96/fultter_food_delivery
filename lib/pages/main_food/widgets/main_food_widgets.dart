@@ -66,25 +66,17 @@ Widget pageViewSmallBlock() {
       padding: EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           bigText("Chinese Side", fontSize: 18),
-          SizedBox(
-            height: 5.h,
-          ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               RatingList(),
-              SizedBox(
-                width: 15.w,
-              ),
               smallText("4.5"),
-              SizedBox(
-                width: 15.w,
-              ),
               smallText("1287 comments"),
             ],
           ),
-          SizedBox(height: 10.h),
           IconStatusList('Normal', '1.7km', '32min'),
         ],
       ),

@@ -136,7 +136,7 @@ Widget popularTitleTexts() {
 Widget popularSuggestList() {
   return ListView.separated(
       shrinkWrap: true,
-      physics: AlwaysScrollableScrollPhysics(),
+      physics: NeverScrollableScrollPhysics(),
       scrollDirection: Axis.vertical,
       separatorBuilder: (context, index) => SizedBox(height: 10.h),
       itemCount: 5,
@@ -155,9 +155,31 @@ Widget popularSuggestList() {
                     color: Colors.white38,
                     image: const DecorationImage(
                       fit: BoxFit.cover,
-                      image: AssetImage("assets/images/pizza.jpg"),
+                      image: AssetImage("assets/images/Nutritious meal.jpg"),
                     ),
                   )),
+              Expanded(
+                child: Container(
+                  height: 90.h,
+                  margin: EdgeInsets.only(top: 20, bottom: 20, right: 10),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20.w),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 7.5, top: 7.5, right: 7.5),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        bigText("Nutritious fruit meal", fontSize: 16.sp),
+                        smallText("With Chinese characteristic"),
+                        IconStatusList("Normal", "1.5km", "30mins"),
+                      ],
+                    ),
+                  ),
+                ),
+              )
             ],
           ),
         );

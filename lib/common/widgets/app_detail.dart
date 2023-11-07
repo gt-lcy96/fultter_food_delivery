@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/common/values/colors.dart';
 
-Widget IconStatusList(status, distance, time) {
+Widget IconStatusList(status, distance, time, {alignment= MainAxisAlignment.spaceAround}) {
   return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceAround,
+    mainAxisAlignment: alignment,
     children: [
       NamedIcon(Icons.circle_sharp, status, color: Colors.yellow),
       NamedIcon(Icons.location_on, distance),

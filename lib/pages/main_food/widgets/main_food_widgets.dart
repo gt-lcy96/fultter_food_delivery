@@ -112,3 +112,23 @@ Widget NamedIcon(icon, text, {color = AppColors.primaryElement}) {
     Text(text)
   ]);
 }
+
+Widget popularTitleTexts() {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.start,
+    children: [
+      Container(
+        margin: EdgeInsets.only(left: 20),
+        child: bigText("Popular"),
+      ),
+      Container(
+        margin: EdgeInsets.only(left: 20),
+        child: bigText("."),
+      ),
+      Container(
+        margin: EdgeInsets.only(left: 20, top: 10),
+        child: smallText('Food paring'),
+      )
+    ],
+  );
+}

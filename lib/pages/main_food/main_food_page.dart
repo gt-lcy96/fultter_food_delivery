@@ -13,6 +13,7 @@ class MainFoodPage extends StatelessWidget {
           children: [
             mainTitleBar(),
             const FoodPageSlider(),
+            popularTitleTexts(),
           ],
         ),
       ),

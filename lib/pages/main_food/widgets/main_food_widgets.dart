@@ -132,3 +132,34 @@ Widget popularTitleTexts() {
     ],
   );
 }
+
+Widget popularSuggestList() {
+  return ListView.separated(
+      shrinkWrap: true,
+      physics: AlwaysScrollableScrollPhysics(),
+      scrollDirection: Axis.vertical,
+      separatorBuilder: (context, index) => SizedBox(height: 10.h),
+      itemCount: 5,
+      itemBuilder: (context, index) {
+        return Container(
+          height: 100.h,
+          width: 120.w,
+          child: Row(
+            children: [
+              Container(
+                  margin: EdgeInsets.only(left: 20),
+                  height: 100.h,
+                  width: 120.w,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15.w),
+                    color: Colors.white38,
+                    image: const DecorationImage(
+                      fit: BoxFit.cover,
+                      image: AssetImage("assets/images/pizza.jpg"),
+                    ),
+                  )),
+            ],
+          ),
+        );
+      });
+}

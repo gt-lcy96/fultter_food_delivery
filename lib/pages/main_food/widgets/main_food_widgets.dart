@@ -86,7 +86,7 @@ Widget pageViewSmallBlock() {
 
 Widget IconStatusList(status, distance, time) {
   return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    mainAxisAlignment: MainAxisAlignment.spaceAround,
     children: [
       NamedIcon(Icons.circle_sharp, status, color: Colors.yellow),
       NamedIcon(Icons.location_on, distance),
@@ -143,13 +143,13 @@ Widget popularSuggestList() {
       itemBuilder: (context, index) {
         return Container(
           height: 100.h,
-          width: 120.w,
+          width: 100.w,
           child: Row(
             children: [
               Container(
-                  margin: EdgeInsets.only(left: 20),
+                  margin: EdgeInsets.only(left: 10),
                   height: 100.h,
-                  width: 120.w,
+                  width: 100.w,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15.w),
                     color: Colors.white38,
@@ -161,7 +161,7 @@ Widget popularSuggestList() {
               Expanded(
                 child: Container(
                   height: 90.h,
-                  margin: EdgeInsets.only(top: 20, bottom: 20, right: 10),
+                  margin: EdgeInsets.only(top: 10, bottom: 10),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(20.w),

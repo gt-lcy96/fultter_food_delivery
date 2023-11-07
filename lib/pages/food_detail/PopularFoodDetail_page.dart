@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/common/values/colors.dart';
 import 'package:food_delivery/common/widgets/app_icons.dart';
+import 'package:food_delivery/common/widgets/base_text_widget.dart';
 import 'package:food_delivery/pages/food_detail/widgets/PopularFoodDetail_widget.dart';
 
 class PopularFoodDetail extends StatelessWidget {
@@ -64,8 +65,10 @@ class PopularFoodDetail extends StatelessWidget {
               topRight: Radius.circular(20.w * 2),
             )),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             counterWidget(),
+            addToCartWithPrice_button(),
           ],
         ),
       ),

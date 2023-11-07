@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:food_delivery/common/values/colors.dart';
 import 'package:food_delivery/common/widgets/app_detail.dart';
 import 'package:food_delivery/common/widgets/base_text_widget.dart';
 
@@ -13,9 +14,13 @@ Widget counterWidget() {
           Icons.remove,
           color: Colors.black,
         ),
-        SizedBox(width: 5.h,),
+        SizedBox(
+          width: 5.h,
+        ),
         bigText("0"),
-        SizedBox(width: 5.h,),
+        SizedBox(
+          width: 5.h,
+        ),
         const Icon(
           Icons.add,
           color: Colors.black,
@@ -59,4 +64,15 @@ Widget detailList() {
           height: 2.0),
     ],
   );
+}
+
+Widget addToCartWithPrice_button() {
+  return Container(
+      padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 10.w),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20.w),
+        color: AppColors.primaryElement,
+      ),
+      child: bigText("\$10 | Add to cart",
+          color: AppColors.primaryBackground, fontSize: 16.sp));
 }

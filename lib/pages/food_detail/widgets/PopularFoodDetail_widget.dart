@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/common/values/colors.dart';
 import 'package:food_delivery/common/widgets/app_detail.dart';
 import 'package:food_delivery/common/widgets/base_text_widget.dart';
+import 'package:food_delivery/pages/food_detail/widgets/expandable_text_widget.dart';
 
 Widget counterWidget() {
   return Container(
@@ -58,10 +59,14 @@ Widget detailList() {
       bigText("Introduce"),
       SizedBox(height: 15.h),
       //description
-      smallText(
-          "This salmon salad is the epitome of versatility. Enjoy it as a light and healthy lunch, a delightful appetizer, or a satisfying dinner. It's a great choice for those who appreciate gourmet flavors and nutritious ingredients.",
-          overflow: TextOverflow.visible,
-          height: 2.0),
+
+      ExpandableTextWidget(
+          text:
+              "This salmon salad is the epitome of versatility. Enjoy it as a light and healthy lunch, a delightful appetizer, or a satisfying dinner. It's a great choice for those who appreciate gourmet flavors and nutritious ingredients."),
+      // smallText(
+      //     "This salmon salad is the epitome of versatility. Enjoy it as a light and healthy lunch, a delightful appetizer, or a satisfying dinner. It's a great choice for those who appreciate gourmet flavors and nutritious ingredients.",
+      //     overflow: TextOverflow.visible,
+      //     height: 2.0),
     ],
   );
 }

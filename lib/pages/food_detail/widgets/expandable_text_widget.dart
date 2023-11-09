@@ -5,10 +5,12 @@ import 'package:food_delivery/common/widgets/base_text_widget.dart';
 
 class ExpandableTextWidget extends StatefulWidget {
   final String text;
+  final double lineHeight;
 
   const ExpandableTextWidget({
     super.key,
     required this.text,
+    this.lineHeight=1.2,
   });
 
   @override
@@ -50,6 +52,7 @@ class _ExpandableTextWidgetState extends State<ExpandableTextWidget> {
           : Column(
               children: [
                 smallText(
+                    height: widget.lineHeight,
                     hiddenText ? (firstHalf + "...") : (firstHalf + secondHalf),
                     overflow: TextOverflow.visible),
                 InkWell(

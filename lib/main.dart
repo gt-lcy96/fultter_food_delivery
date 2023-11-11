@@ -4,8 +4,12 @@ import 'package:food_delivery/pages/food_detail/PopularFoodDetail_page.dart';
 import 'package:food_delivery/pages/food_detail/recommended_food_detail.dart';
 import 'package:food_delivery/pages/main_food/main_food_page.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'helper/dependencies.dart' as dep;
+
 // import 'package:get/get.dart';
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await dep.init();
   runApp(const MyApp());
 }
 

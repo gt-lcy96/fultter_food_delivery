@@ -1,4 +1,5 @@
 import 'package:food_delivery/data/repository/popular_product_repo.dart';
+import 'package:food_delivery/models/products_model.dart';
 import 'package:get/get.dart';
 
 class PopularProductController extends GetxController {
@@ -10,11 +11,12 @@ class PopularProductController extends GetxController {
   Future<void> getPopularProductList() async {
     Response response = await popularProductRepo.getPopularProductList();
     if(response.statusCode == 200) {
+      // print("got product");
       _popularProducList = [];
-      // _popularProducList.addAll();
+      _popularProducList.addAll(Product.fromJson(response.body[0]).products);
       update();
     } else {
-
+      print("response.statusCode:  ${response.statusCode}");
     }
   }
 }

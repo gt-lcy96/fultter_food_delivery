@@ -30,7 +30,7 @@ class ProductModel {
   int? id;
   String? name;
   String? description;
-  int? price;
+  double? price;
   int? stars;
   String? img;
   String? location;
@@ -54,7 +54,7 @@ class ProductModel {
     id = json['id'];
     name = json['name'];
     description = json['description'];
-    price = json['price'];
+    price = double.parse(json['price']);
     stars = json['stars'];
     img = json['img'];
     location = json['location'];

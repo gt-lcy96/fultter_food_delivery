@@ -6,7 +6,7 @@ import 'package:food_delivery/common/values/constants.dart';
 
 Future<void> init() async {
   //api client
-  Get.lazyPut(() => ApiClient(appBaseUrl:AppConstants.Base_Url));
+  Get.lazyPut(() => ApiClient(appBaseUrl:AppConstants.BASE_URL));
 
   //repos
   Get.lazyPut(() => PopularProductRepo(apiClient:Get.find()));

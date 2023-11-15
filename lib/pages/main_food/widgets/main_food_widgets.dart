@@ -86,13 +86,13 @@ Widget pageViewSmallBlock(ProductModel popularProduct) {
   );
 }
 
-Widget popularTitleTexts() {
+Widget recommendedTitleTexts() {
   return Row(
     mainAxisAlignment: MainAxisAlignment.start,
     children: [
       Container(
         margin: EdgeInsets.only(left: 20),
-        child: bigText("Popular"),
+        child: bigText("Recommended"),
       ),
       Container(
         margin: EdgeInsets.only(left: 20),

@@ -15,7 +15,7 @@ class MainFoodPage extends StatelessWidget {
             const FoodPageSlider(),
             Padding(
               padding: const EdgeInsets.only(bottom: 10),
-              child: popularTitleTexts(),
+              child: recommendedTitleTexts(),
             ),
             Expanded(child: SingleChildScrollView(child: popularSuggestList())),
           ],

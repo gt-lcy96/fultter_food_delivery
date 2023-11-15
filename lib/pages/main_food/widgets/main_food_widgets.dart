@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/common/values/colors.dart';
+import 'package:food_delivery/common/values/constants.dart';
 import 'package:food_delivery/common/widgets/app_detail.dart';
 import 'package:food_delivery/common/widgets/base_text_widget.dart';
+import 'package:food_delivery/controllers/recommended_product_controller.dart';
 import 'package:food_delivery/models/products_model.dart';
+import 'package:get/get.dart';
 
 Widget mainTitleBar() {
   return Container(
@@ -107,54 +110,64 @@ Widget recommendedTitleTexts() {
 }
 
 Widget recommendedSuggestList() {
-  return ListView.separated(
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      scrollDirection: Axis.vertical,
-      separatorBuilder: (context, index) => SizedBox(height: 10.h),
-      itemCount: 5,
-      itemBuilder: (context, index) {
-        return Container(
-          height: 100.h,
-          width: 100.w,
-          child: Row(
-            children: [
-              Container(
-                  margin: EdgeInsets.only(left: 10),
-                  height: 100.h,
-                  width: 100.w,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15.w),
-                    color: Colors.white38,
-                    image: const DecorationImage(
-                      fit: BoxFit.cover,
-                      image: AssetImage("assets/images/Nutritious meal.jpg"),
-                    ),
-                  )),
-              Expanded(
-                child: Container(
-                  height: 90.h,
-                  margin: EdgeInsets.only(top: 10, bottom: 10),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20.w),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 7.5, top: 7.5, right: 7.5),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+  return GetBuilder <
+      RecommendedProductController>(builder: (recommendedProduct) {
+        return recommendedProduct.isLoaded
+            ? ListView.separated(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                scrollDirection: Axis.vertical,
+                separatorBuilder: (context, index) => SizedBox(height: 10.h),
+                itemCount: recommendedProduct.recommendedProductList.length,
+                itemBuilder: (context, index) {
+                  var currentRecommendedProduct = recommendedProduct.recommendedProductList[index];
+                  return Container(
+                    height: 100.h,
+                    width: 100.w,
+                    child: Row(
                       children: [
-                        bigText("Nutritious fruit meal", fontSize: 16.sp),
-                        smallText("With Chinese characteristic"),
-                        IconStatusList("Normal", "1.5km", "30mins"),
+                        Container(
+                            margin: EdgeInsets.only(left: 10),
+                            height: 100.h,
+                            width: 100.w,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15.w),
+                              color: Colors.white38,
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: NetworkImage(
+                                    AppConstants.BASE_URL+currentRecommendedProduct.img!),
+                              ),
+                            )),
+                        Expanded(
+                          child: Container(
+                            height: 90.h,
+                            margin: EdgeInsets.only(top: 10, bottom: 10),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(20.w),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 7.5, top: 7.5, right: 7.5),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  bigText(currentRecommendedProduct.name!,
+                                      fontSize: 16.sp),
+                                  smallText(currentRecommendedProduct.description!),
+                                  IconStatusList("Normal", "1.5km", "30mins"),
+                                ],
+                              ),
+                            ),
+                          ),
+                        )
                       ],
                     ),
-                  ),
-                ),
-              )
-            ],
-          ),
-        );
+                  );
+                })
+            : CircularProgressIndicator(color: AppColors.primaryElement);
       });
 }

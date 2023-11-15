@@ -106,7 +106,7 @@ Widget recommendedTitleTexts() {
   );
 }
 
-Widget popularSuggestList() {
+Widget recommendedSuggestList() {
   return ListView.separated(
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),

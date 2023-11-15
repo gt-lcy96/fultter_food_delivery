@@ -2,7 +2,11 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/common/values/colors.dart';
+import 'package:food_delivery/common/values/constants.dart';
+import 'package:food_delivery/controllers/popular_product_controller.dart';
+import 'package:food_delivery/models/products_model.dart';
 import 'package:food_delivery/pages/main_food/widgets/main_food_widgets.dart';
+import 'package:get/get.dart';
 
 class FoodPageSlider extends StatefulWidget {
   const FoodPageSlider({super.key});
@@ -36,34 +40,42 @@ class _FoodPageSliderState extends State<FoodPageSlider> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          height: 240.h,
-          child: PageView.builder(
-            controller: pageController,
-            itemCount: 5,
-            itemBuilder: (context, position) {
-              return Container(
-                height: 160.h,
-                child: _buildPageItem(position),
-              );
-            },
-          ),
-        ),
-        DotsIndicator(dotsCount: 5,
-        position: _currPageValue,
-        decorator: DotsDecorator(
-          activeColor: AppColors.primaryElement,
-          size: const Size.square(9.0),
-          activeSize: const Size(18.0, 9.0),
-          activeShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-        ),
-        
-        )
+        GetBuilder<PopularProductController>(builder: (popularProducts) {
+          return Container(
+            height: 240.h,
+            child: PageView.builder(
+              controller: pageController,
+              itemCount: popularProducts.popularProductList.length,
+              itemBuilder: (context, position) {
+                return Container(
+                  height: 160.h,
+                  child: _buildPageItem(
+                      position, popularProducts.popularProductList[position]),
+                );
+              },
+            ),
+          );
+        }),
+        GetBuilder<PopularProductController>(builder: (popularProducts) {
+          return DotsIndicator(
+            dotsCount: popularProducts.popularProductList.isEmpty
+                ? 1
+                : popularProducts.popularProductList.length,
+            position: _currPageValue,
+            decorator: DotsDecorator(
+              activeColor: AppColors.primaryElement,
+              size: const Size.square(9.0),
+              activeSize: const Size(18.0, 9.0),
+              activeShape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5.0)),
+            ),
+          );
+        })
       ],
     );
   }
 
-  Widget _buildPageItem(int index) {
+  Widget _buildPageItem(int index, ProductModel popularProduct) {
     Matrix4 matrix = new Matrix4.identity();
     if (index == _currPageValue.floor()) {
       //current Slide
@@ -104,15 +116,16 @@ class _FoodPageSliderState extends State<FoodPageSlider> {
               color: index.isEven
                   ? const Color(0xFF69c5df)
                   : const Color(0xFF9294cc),
-              image: const DecorationImage(
+              image: DecorationImage(
                 fit: BoxFit.cover,
-                image: AssetImage("assets/images/chinese_food_1.jpg"),
+                image:
+                    NetworkImage(AppConstants.BASE_URL + popularProduct.img!),
               ),
             ),
           ),
           Align(
             alignment: Alignment.bottomCenter,
-            child: pageViewSmallBlock(),
+            child: pageViewSmallBlock(popularProduct),
           ),
         ],
       ),

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/common/values/colors.dart';
 import 'package:food_delivery/common/widgets/app_detail.dart';
 import 'package:food_delivery/common/widgets/base_text_widget.dart';
+import 'package:food_delivery/models/products_model.dart';
 
 Widget mainTitleBar() {
   return Container(
@@ -48,7 +49,7 @@ Widget mainTitleBar() {
   );
 }
 
-Widget pageViewSmallBlock() {
+Widget pageViewSmallBlock(ProductModel popularProduct) {
   return Container(
     height: 120.h,
     width: 280.w,
@@ -69,7 +70,7 @@ Widget pageViewSmallBlock() {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          bigText("Chinese Side", fontSize: 18),
+          bigText(popularProduct.name!, fontSize: 18),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

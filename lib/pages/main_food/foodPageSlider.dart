@@ -41,20 +41,24 @@ class _FoodPageSliderState extends State<FoodPageSlider> {
     return Column(
       children: [
         GetBuilder<PopularProductController>(builder: (popularProducts) {
-          return Container(
-            height: 240.h,
-            child: PageView.builder(
-              controller: pageController,
-              itemCount: popularProducts.popularProductList.length,
-              itemBuilder: (context, position) {
-                return Container(
-                  height: 160.h,
-                  child: _buildPageItem(
-                      position, popularProducts.popularProductList[position]),
+          return popularProducts.isLoaded
+              ? Container(
+                  height: 240.h,
+                  child: PageView.builder(
+                    controller: pageController,
+                    itemCount: popularProducts.popularProductList.length,
+                    itemBuilder: (context, position) {
+                      return Container(
+                        height: 160.h,
+                        child: _buildPageItem(position,
+                            popularProducts.popularProductList[position]),
+                      );
+                    },
+                  ),
+                )
+              : CircularProgressIndicator(
+                  color: AppColors.primaryElement,
                 );
-              },
-            ),
-          );
         }),
         GetBuilder<PopularProductController>(builder: (popularProducts) {
           return DotsIndicator(

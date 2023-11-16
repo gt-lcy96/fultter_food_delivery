@@ -5,6 +5,7 @@ import 'package:food_delivery/controllers/recommended_product_controller.dart';
 import 'package:food_delivery/pages/food_detail/PopularFoodDetail_page.dart';
 import 'package:food_delivery/pages/food_detail/recommended_food_detail.dart';
 import 'package:food_delivery/pages/main_food/main_food_page.dart';
+import 'package:food_delivery/routes/route_helper.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'helper/dependencies.dart' as dep;
@@ -27,12 +28,11 @@ class MyApp extends StatelessWidget {
         child: GetMaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-          ),
+          
           // home: const RecommendedFoodDetail(),
           home: const MainFoodPage(),
-          
+          initialRoute: RouteHelper.initial,
+          getPages: RouteHelper.routes,
         ),
       );
     }

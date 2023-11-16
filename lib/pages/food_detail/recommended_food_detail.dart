@@ -1,31 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/common/values/colors.dart';
+import 'package:food_delivery/common/values/constants.dart';
 import 'package:food_delivery/common/widgets/app_icons.dart';
 import 'package:food_delivery/common/widgets/base_text_widget.dart';
+import 'package:food_delivery/controllers/recommended_product_controller.dart';
 import 'package:food_delivery/pages/food_detail/widgets/PopularFoodDetail_widget.dart';
 import 'package:food_delivery/pages/food_detail/widgets/expandable_text_widget.dart';
+import 'package:food_delivery/routes/route_helper.dart';
+import 'package:get/get.dart';
 
 class RecommendedFoodDetail extends StatelessWidget {
-  const RecommendedFoodDetail({super.key});
+  final int pageId;
+  const RecommendedFoodDetail({super.key, required this.pageId});
 
   @override
   Widget build(BuildContext context) {
+    var product =
+        Get.find<RecommendedProductController>().recommendedProductList[pageId];
     return Scaffold(
       backgroundColor: Colors.white,
       body: CustomScrollView(slivers: [
         SliverAppBar(
+          automaticallyImplyLeading: false,
           toolbarHeight: 70.h,
-          title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                AppIcon(icon: Icons.clear),
-                AppIcon(icon: Icons.shopping_cart_outlined)
-              ]),
+          title:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            GestureDetector(
+                onTap: () {
+                  Get.toNamed(RouteHelper.getInitial());
+                },
+                child: AppIcon(icon: Icons.clear)),
+            AppIcon(icon: Icons.shopping_cart_outlined)
+          ]),
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(20),
             child: Container(
-                child: Center(child: bigText("Pizza", fontSize: 26.sp)),
+                child: Center(child: bigText(product.name!, fontSize: 26.sp)),
                 width: double.maxFinite,
                 padding: EdgeInsets.only(top: 5.h, bottom: 7.5.h),
                 decoration: BoxDecoration(
@@ -40,8 +51,9 @@ class RecommendedFoodDetail extends StatelessWidget {
           backgroundColor: AppColors.primaryElement,
           expandedHeight: 300,
           flexibleSpace: FlexibleSpaceBar(
-            background: Image.asset(
-              "assets/images/pizza.jpg",
+            background: Image.network(
+              AppConstants.BASE_URL + product.img!,
+              // "assets/images/pizza.jpg",
               width: double.maxFinite,
               fit: BoxFit.cover,
             ),
@@ -51,11 +63,10 @@ class RecommendedFoodDetail extends StatelessWidget {
           child: Column(
             children: [
               Container(
-                  margin: EdgeInsets.only(left: 20.w, right: 20.w),
-                  child: ExpandableTextWidget(
-                      lineHeight: 1.5,
-                      text:
-                          "In the ever-expanding realm of culinary delights, few dishes can claim to have achieved the iconic status that pizza enjoys. Picture this: a symphony of flavors, a harmony of textures, all orchestrated on a canvas of perfectly baked dough. Welcome to Pizza Paradise, where each slice is a passport to a world of gastronomic ecstasy.At the heart of our menu lies a commitment to quality ingredients. Our dough is a labor of love, crafted with precision and patience to achieve the ideal balance of chewiness and crispiness. The foundation of any good pizza, our dough serves as the canvas upon which we paint a masterpiece of flavors."))
+                margin: EdgeInsets.only(left: 20.w, right: 20.w),
+                child: ExpandableTextWidget(
+                    lineHeight: 1.5, text: product.description!),
+              )
             ],
           ),
         ),
@@ -106,7 +117,7 @@ class RecommendedFoodDetail extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15.w),
                   ),
                 ),
-                addToCartWithPrice_button(),
+                addToCartWithPrice_button(product),
               ],
             ),
           ),

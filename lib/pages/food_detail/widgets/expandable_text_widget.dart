@@ -30,9 +30,6 @@ class _ExpandableTextWidgetState extends State<ExpandableTextWidget> {
     screenHeight = Dimensions.screenHeight;
     double textHeight = screenHeight / 5.63;
 
-    print("screenHeight:  ${screenHeight}");
-    print("textHeight:  ${textHeight}");
-
     if (widget.text.length > textHeight) {
       firstHalf = widget.text.substring(0, textHeight.toInt());
       secondHalf =

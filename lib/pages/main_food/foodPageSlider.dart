@@ -5,7 +5,9 @@ import 'package:food_delivery/common/values/colors.dart';
 import 'package:food_delivery/common/values/constants.dart';
 import 'package:food_delivery/controllers/popular_product_controller.dart';
 import 'package:food_delivery/models/products_model.dart';
+import 'package:food_delivery/pages/food_detail/PopularFoodDetail_page.dart';
 import 'package:food_delivery/pages/main_food/widgets/main_food_widgets.dart';
+import 'package:food_delivery/routes/route_helper.dart';
 import 'package:get/get.dart';
 
 class FoodPageSlider extends StatefulWidget {
@@ -112,18 +114,23 @@ class _FoodPageSliderState extends State<FoodPageSlider> {
       transform: matrix,
       child: Stack(
         children: [
-          Container(
-            height: 160.h,
-            margin: const EdgeInsets.only(left: 5, right: 5),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20.w),
-              color: index.isEven
-                  ? const Color(0xFF69c5df)
-                  : const Color(0xFF9294cc),
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image:
-                    NetworkImage(AppConstants.BASE_URL + popularProduct.img!),
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(RouteHelper.getPopularFood(index));
+            },
+            child: Container(
+              height: 160.h,
+              margin: const EdgeInsets.only(left: 5, right: 5),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20.w),
+                color: index.isEven
+                    ? const Color(0xFF69c5df)
+                    : const Color(0xFF9294cc),
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image:
+                      NetworkImage(AppConstants.BASE_URL + popularProduct.img!),
+                ),
               ),
             ),
           ),

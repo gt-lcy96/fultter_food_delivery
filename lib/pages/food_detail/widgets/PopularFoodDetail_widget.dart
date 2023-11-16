@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/common/values/colors.dart';
 import 'package:food_delivery/common/widgets/app_detail.dart';
 import 'package:food_delivery/common/widgets/base_text_widget.dart';
+import 'package:food_delivery/models/products_model.dart';
 import 'package:food_delivery/pages/food_detail/widgets/expandable_text_widget.dart';
 
 Widget counterWidget() {
@@ -29,11 +30,11 @@ Widget counterWidget() {
       ]));
 }
 
-Widget detailList() {
+Widget detailList(ProductModel product) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      bigText("Salad"),
+      bigText(product.name!),
       Padding(
         padding: const EdgeInsets.only(top: 5.0),
         child: Row(
@@ -61,23 +62,19 @@ Widget detailList() {
       //description
 
       ExpandableTextWidget(
-          text:
-              "This salmon salad is the epitome of versatility. Enjoy it as a light and healthy lunch, a delightful appetizer, or a satisfying dinner. It's a great choice for those who appreciate gourmet flavors and nutritious ingredients."),
-      // smallText(
-      //     "This salmon salad is the epitome of versatility. Enjoy it as a light and healthy lunch, a delightful appetizer, or a satisfying dinner. It's a great choice for those who appreciate gourmet flavors and nutritious ingredients.",
-      //     overflow: TextOverflow.visible,
-      //     height: 2.0),
+          text: product.description!
+              ),
     ],
   );
 }
 
-Widget addToCartWithPrice_button() {
+Widget addToCartWithPrice_button(ProductModel? product) {
   return Container(
       padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 10.w),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20.w),
         color: AppColors.primaryElement,
       ),
-      child: bigText("\$10 | Add to cart",
+      child: bigText("\$${product?.price} | Add to cart",
           color: AppColors.primaryBackground, fontSize: 16.sp));
 }

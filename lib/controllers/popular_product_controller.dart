@@ -68,6 +68,7 @@ class PopularProductController extends GetxController {
   void addItem(ProductModel product) {
     if(_quantity>0) {
       _cart.addItem(product, _quantity);
+      _quantity=0;
       _cart.items.forEach((key, value) {
         print("The id is ${value.id}, The quantity is ${value.quantity}");
       });

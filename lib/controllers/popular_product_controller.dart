@@ -1,5 +1,6 @@
 import 'package:food_delivery/common/values/colors.dart';
 import 'package:food_delivery/common/values/constants.dart';
+import 'package:food_delivery/controllers/cart_controller.dart';
 import 'package:food_delivery/data/repository/popular_product_repo.dart';
 import 'package:food_delivery/models/products_model.dart';
 import 'package:get/get.dart';
@@ -9,6 +10,7 @@ class PopularProductController extends GetxController {
   PopularProductController({required this.popularProductRepo});
   List<dynamic> _popularProducList=[];
   List<dynamic> get popularProductList => _popularProducList;
+  late CartController _cart;
 
   bool _isLoaded = false;
   bool get isLoaded => _isLoaded;
@@ -16,6 +18,8 @@ class PopularProductController extends GetxController {
   int _quantity = 0;
   int get quantity => _quantity;
 
+  int _inCartItems = 0;
+  int get inCartItems => _inCartItems + _quantity;
 
   Future<void> getPopularProductList() async {
     Response response = await popularProductRepo.getPopularProductList();
@@ -51,4 +55,26 @@ class PopularProductController extends GetxController {
       return quantity;
     }
   }
+
+  void initProduct(ProductModel product, CartController cart) {
+    _quantity = 0;
+    _inCartItems = 0;
+    _cart = cart;
+    var exist=false;
+    exist = _cart.existInCart(product);
+    print("exist or not: "+ exist.toString());
+  }
+
+  void addItem(ProductModel product) {
+    if(_quantity>0) {
+      _cart.addItem(product, _quantity);
+      _cart.items.forEach((key, value) {
+        print("The id is ${value.id}, The quantity is ${value.quantity}");
+      });
+    }else {
+      Get.snackbar("Item count", "You should at least add an item in the cart", backgroundColor: AppColors.primaryElement, colorText: AppColors.primaryBackground);
+    }
+  }
+
+  
 }

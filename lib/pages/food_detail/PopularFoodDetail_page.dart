@@ -4,6 +4,7 @@ import 'package:food_delivery/common/values/colors.dart';
 import 'package:food_delivery/common/values/constants.dart';
 import 'package:food_delivery/common/widgets/app_icons.dart';
 import 'package:food_delivery/common/widgets/base_text_widget.dart';
+import 'package:food_delivery/controllers/cart_controller.dart';
 import 'package:food_delivery/controllers/popular_product_controller.dart';
 import 'package:food_delivery/pages/food_detail/widgets/PopularFoodDetail_widget.dart';
 import 'package:food_delivery/pages/main_food/main_food_page.dart';
@@ -16,7 +17,10 @@ class PopularFoodDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var product = Get.find<PopularProductController>().popularProductList[pageId];
+    var product =
+        Get.find<PopularProductController>().popularProductList[pageId];
+    Get.find<PopularProductController>()
+        .initProduct(product, Get.find<CartController>());
 
     return Scaffold(
       body: Stack(children: [
@@ -30,7 +34,7 @@ class PopularFoodDetail extends StatelessWidget {
                 image: DecorationImage(
               fit: BoxFit.cover,
               // image: AssetImage("assets/images/Nutritious meal.jpg"),
-              image: NetworkImage(AppConstants.BASE_URL+product.img),
+              image: NetworkImage(AppConstants.BASE_URL + product.img),
             )),
           ),
         ),
@@ -42,10 +46,10 @@ class PopularFoodDetail extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 GestureDetector(
-                  onTap: (){
-                    Get.to(()=> MainFoodPage());
-                  },
-                  child: AppIcon(icon: Icons.arrow_back_ios)),
+                    onTap: () {
+                      Get.to(() => MainFoodPage());
+                    },
+                    child: AppIcon(icon: Icons.arrow_back_ios)),
                 AppIcon(icon: Icons.shopping_cart_outlined),
               ],
             )),
@@ -66,23 +70,28 @@ class PopularFoodDetail extends StatelessWidget {
           ),
         ),
       ]),
-      bottomNavigationBar: Container(
-        height: 100.h,
-        padding:
-            EdgeInsets.only(top: 15.h, bottom: 15.h, left: 20.w, right: 20.w),
-        decoration: BoxDecoration(
-            color: AppColors.primarySecondaryElementText.withOpacity(0.1),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20.w * 2),
-              topRight: Radius.circular(20.w * 2),
-            )),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            counterWidget(),
-            addToCartWithPrice_button(product),
-          ],
-        ),
+      bottomNavigationBar: GetBuilder<PopularProductController>(
+        builder: (popularProduct) {
+          return Container(
+            height: 100.h,
+            padding: EdgeInsets.only(
+                top: 15.h, bottom: 15.h, left: 20.w, right: 20.w),
+            decoration: BoxDecoration(
+                color: AppColors.primarySecondaryElementText.withOpacity(0.1),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20.w * 2),
+                  topRight: Radius.circular(20.w * 2),
+                )),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                counterWidget(),
+                addToCartWithPrice_button(product,
+                    popularProduct: popularProduct),
+              ],
+            ),
+          );
+        },
       ),
     );
   }

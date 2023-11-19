@@ -82,13 +82,18 @@ Widget detailList(ProductModel product) {
   );
 }
 
-Widget addToCartWithPrice_button(ProductModel? product) {
+Widget addToCartWithPrice_button(ProductModel? product, {PopularProductController? popularProduct}) {
   return Container(
       padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 10.w),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20.w),
         color: AppColors.primaryElement,
       ),
-      child: bigText("\$${product?.price} | Add to cart",
-          color: AppColors.primaryBackground, fontSize: 16.sp));
+      child: GestureDetector(
+        onTap: () {
+          popularProduct?.addItem(product!);
+        },
+        child: bigText("\$${product?.price} | Add to cart",
+            color: AppColors.primaryBackground, fontSize: 16.sp),
+      ));
 }

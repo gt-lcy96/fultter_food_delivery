@@ -11,22 +11,21 @@ class CartController extends GetxController {
   Map<int, CartModel> get items => _items;
 
   void addItem(ProductModel product, int quantity) {
-    if(_items.containsKey(product.id!)) {
+    if (_items.containsKey(product.id!)) {
       _items.update(product.id!, (value) {
         return CartModel(
           id: value.id,
           name: value.name,
           price: value.price,
           img: value.img,
-          quantity: value.quantity!+quantity,
+          quantity: value.quantity! + quantity,
           isExist: true,
           time: DateTime.now().toString(),
         );
       });
     } else {
       _items.putIfAbsent(product.id!, () {
-        _items.forEach((key, value) {
-        });
+        _items.forEach((key, value) {});
         return CartModel(
           id: product.id,
           name: product.name,
@@ -38,13 +37,24 @@ class CartController extends GetxController {
         );
       });
     }
-
   }
 
   bool existInCart(ProductModel product) {
-    if(_items.containsKey(product.id)) {
+    if (_items.containsKey(product.id)) {
       return true;
     }
     return false;
+  }
+
+  int getQuantity(ProductModel product) {
+    var quantity = 0;
+    if (_items.containsKey(product.id)) {
+      _items.forEach((key, value) {
+        if (key == product.id) {
+          quantity = value.quantity!;
+        }
+      });
+    }
+    return quantity;
   }
 }

@@ -27,7 +27,7 @@ Widget counterWidget() {
         SizedBox(
           width: 5.h,
         ),
-        bigText(popularProudct.quantity.toString()),
+        bigText(popularProudct.inCartItems.toString()),
         SizedBox(
           width: 5.h,
         ),

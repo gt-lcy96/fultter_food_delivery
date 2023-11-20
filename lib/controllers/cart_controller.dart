@@ -1,3 +1,4 @@
+import 'package:food_delivery/common/values/colors.dart';
 import 'package:food_delivery/data/repository/cart_repo.dart';
 import 'package:food_delivery/models/cart_model.dart';
 import 'package:food_delivery/models/products_model.dart';
@@ -11,6 +12,7 @@ class CartController extends GetxController {
   Map<int, CartModel> get items => _items;
 
   void addItem(ProductModel product, int quantity) {
+    //update existing cart if product id is existed
     if (_items.containsKey(product.id!)) {
       _items.update(product.id!, (value) {
         return CartModel(
@@ -24,7 +26,9 @@ class CartController extends GetxController {
         );
       });
     } else {
-      _items.putIfAbsent(product.id!, () {
+      //create a new cart if product id cart not existed
+      if(quantity>0) {
+        _items.putIfAbsent(product.id!, () {
         _items.forEach((key, value) {});
         return CartModel(
           id: product.id,
@@ -36,6 +40,9 @@ class CartController extends GetxController {
           time: DateTime.now().toString(),
         );
       });
+      } else {
+          Get.snackbar("Item count", "You should at least add an item in the cart", backgroundColor: AppColors.primaryElement, colorText: AppColors.primaryBackground);
+      }
     }
   }
 

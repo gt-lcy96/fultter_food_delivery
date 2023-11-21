@@ -50,7 +50,11 @@ class PopularProductController extends GetxController {
       return 0;
     } else if ((_inCartItems + quantity) > AppConstants.COUTNER_MAX_QUANTITY) {
       Get.snackbar("Item count", "You can't add more", backgroundColor: AppColors.primaryElement, colorText: AppColors.primaryBackground);
-      return AppConstants.COUTNER_MAX_QUANTITY;
+      if(_inCartItems >= 20) {
+        return 0;
+      } else {
+        return AppConstants.COUTNER_MAX_QUANTITY;
+      }
     } else {
       return quantity;
     }
@@ -71,16 +75,12 @@ class PopularProductController extends GetxController {
   }
 
   void addItem(ProductModel product) {
-    // if(_quantity>0) {
       _cart.addItem(product, _quantity);
       _quantity=0;
       _inCartItems = _cart.getQuantity(product);
       _cart.items.forEach((key, value) {
         print("The id is ${value.id}, The quantity is ${value.quantity}");
       });
-    // }else {
-    //   Get.snackbar("Item count", "You should at least add an item in the cart", backgroundColor: AppColors.primaryElement, colorText: AppColors.primaryBackground);
-    // }
   }
 
   

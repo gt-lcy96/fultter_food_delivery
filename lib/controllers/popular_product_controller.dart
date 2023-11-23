@@ -40,6 +40,7 @@ class PopularProductController extends GetxController {
       _quantity = checkQuantity(quantity + 1);
     } else {
       _quantity = checkQuantity(quantity - 1);
+      print(quantity);
     }
     update();
   }
@@ -47,7 +48,7 @@ class PopularProductController extends GetxController {
   int checkQuantity(int quantity) {
     if((_inCartItems + quantity) < 0) {
       Get.snackbar("Item count", "You can't reduce more", backgroundColor: AppColors.primaryElement, colorText: AppColors.primaryBackground);
-      return 0;
+      return quantity + 1; //return previous negative
     } else if ((_inCartItems + quantity) > AppConstants.COUTNER_MAX_QUANTITY) {
       Get.snackbar("Item count", "You can't add more", backgroundColor: AppColors.primaryElement, colorText: AppColors.primaryBackground);
       if(_inCartItems >= 20) {

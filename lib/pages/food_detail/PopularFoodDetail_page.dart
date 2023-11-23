@@ -24,6 +24,7 @@ class PopularFoodDetail extends StatelessWidget {
 
     return Scaffold(
       body: Stack(children: [
+        //background image
         Positioned(
           left: 0,
           right: 0,
@@ -38,6 +39,7 @@ class PopularFoodDetail extends StatelessWidget {
             )),
           ),
         ),
+        //icon widget
         Positioned(
             left: 20.w,
             right: 20.w,
@@ -50,9 +52,14 @@ class PopularFoodDetail extends StatelessWidget {
                       Get.to(() => MainFoodPage());
                     },
                     child: AppIcon(icon: Icons.arrow_back_ios)),
-                AppIcon(icon: Icons.shopping_cart_outlined),
+                GetBuilder<PopularProductController>(
+                  builder: (controller) {
+                    return shopping_cart_icon();
+                  },
+                ),
               ],
             )),
+        //introduction of food
         Positioned(
           left: 0,
           right: 0,

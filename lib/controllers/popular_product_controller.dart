@@ -48,7 +48,11 @@ class PopularProductController extends GetxController {
   int checkQuantity(int quantity) {
     if((_inCartItems + quantity) < 0) {
       Get.snackbar("Item count", "You can't reduce more", backgroundColor: AppColors.primaryElement, colorText: AppColors.primaryBackground);
-      return quantity + 1; //return previous negative
+      if(_inCartItems > 0) {
+        _quantity = -_inCartItems;
+        return _quantity;
+      }
+      return 0; //return previous negative
     } else if ((_inCartItems + quantity) > AppConstants.COUTNER_MAX_QUANTITY) {
       Get.snackbar("Item count", "You can't add more", backgroundColor: AppColors.primaryElement, colorText: AppColors.primaryBackground);
       if(_inCartItems >= 20) {

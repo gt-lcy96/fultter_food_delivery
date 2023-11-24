@@ -52,11 +52,7 @@ class PopularFoodDetail extends StatelessWidget {
                       Get.to(() => MainFoodPage());
                     },
                     child: AppIcon(icon: Icons.arrow_back_ios)),
-                GetBuilder<PopularProductController>(
-                  builder: (controller) {
-                    return shopping_cart_icon();
-                  },
-                ),
+                shopping_cart_icon(),
               ],
             )),
         //introduction of food

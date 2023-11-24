@@ -83,46 +83,52 @@ Widget detailList(ProductModel product) {
 
 Widget addToCartWithPrice_button(ProductModel? product,
     {PopularProductController? popularProduct}) {
-  return Container(
+  return GestureDetector(
+    onTap: () {
+      popularProduct?.addItem(product!);
+    },
+    child: Container(
       padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 10.w),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20.w),
         color: AppColors.primaryElement,
       ),
-      child: GestureDetector(
-        onTap: () {
-          popularProduct?.addItem(product!);
-        },
-        child: bigText("\$${product?.price} | Add to cart",
-            color: AppColors.primaryBackground, fontSize: 16.sp),
-      ));
+      child: bigText("\$${product?.price} | Add to cart",
+          color: AppColors.primaryBackground, fontSize: 16.sp),
+    ),
+  );
 }
 
 Widget shopping_cart_icon() {
-  return Stack(
-    children: [
-      AppIcon(icon: Icons.shopping_cart_outlined),
-      Get.find<PopularProductController>().totalItems >= 1
-          ? const Positioned(
-              right: 0,
-              top: 0,
-              child: AppIcon(
-                icon: Icons.circle,
-                size: 20,
-                iconColor: Colors.transparent,
-                backgroundColor: AppColors.primaryElement,
-              ))
-          : Container(),
-      Get.find<PopularProductController>().totalItems >= 1
-          ? Positioned(
-              right: 5.w,
-              top: 5.h,
-              child: bigText(
-                Get.find<PopularProductController>().totalItems.toString(),
-                fontSize: 12, color: Colors.white,
-              ),
-            )
-          : Container(),
-    ],
+  return GetBuilder<PopularProductController>(
+    builder: (controller) {
+      return Stack(
+        children: [
+          AppIcon(icon: Icons.shopping_cart_outlined),
+          Get.find<PopularProductController>().totalItems >= 1
+              ? const Positioned(
+                  right: 0,
+                  top: 0,
+                  child: AppIcon(
+                    icon: Icons.circle,
+                    size: 20,
+                    iconColor: Colors.transparent,
+                    backgroundColor: AppColors.primaryElement,
+                  ))
+              : Container(),
+          Get.find<PopularProductController>().totalItems >= 1
+              ? Positioned(
+                  right: 5.w,
+                  top: 5.h,
+                  child: bigText(
+                    Get.find<PopularProductController>().totalItems.toString(),
+                    fontSize: 12,
+                    color: Colors.white,
+                  ),
+                )
+              : Container(),
+        ],
+      );
+    },
   );
 }

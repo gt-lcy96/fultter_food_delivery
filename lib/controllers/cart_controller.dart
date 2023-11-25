@@ -13,7 +13,7 @@ class CartController extends GetxController {
 
   void addItem(ProductModel product, int quantity) {
     var totalQuantity = 0;
-    
+
     //update existing cart if product id is existed
     if (_items.containsKey(product.id!)) {
       _items.update(product.id!, (value) {
@@ -30,26 +30,29 @@ class CartController extends GetxController {
         );
       });
 
-      if(totalQuantity<=0) {
+      if (totalQuantity <= 0) {
         _items.remove(product.id);
       }
     } else {
       //create a new cart if product id cart not existed
-      if(quantity>0) {
+      if (quantity > 0) {
         _items.putIfAbsent(product.id!, () {
-        _items.forEach((key, value) {});
-        return CartModel(
-          id: product.id,
-          name: product.name,
-          price: product.price,
-          img: product.img,
-          quantity: quantity,
-          isExist: true,
-          time: DateTime.now().toString(),
-        );
-      });
+          _items.forEach((key, value) {});
+          return CartModel(
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            img: product.img,
+            quantity: quantity,
+            isExist: true,
+            time: DateTime.now().toString(),
+          );
+        });
       } else {
-          Get.snackbar("Item count", "You should at least add an item in the cart", backgroundColor: AppColors.primaryElement, colorText: AppColors.primaryBackground);
+        Get.snackbar(
+            "Item count", "You should at least add an item in the cart",
+            backgroundColor: AppColors.primaryElement,
+            colorText: AppColors.primaryBackground);
       }
     }
   }
@@ -80,5 +83,11 @@ class CartController extends GetxController {
     });
 
     return totalQuantity;
+  }
+
+  List<CartModel> get getItems {
+    return _items.entries.map((e) {
+      return e.value;
+    }).toList();
   }
 }

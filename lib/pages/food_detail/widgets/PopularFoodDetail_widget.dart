@@ -7,6 +7,7 @@ import 'package:food_delivery/common/widgets/base_text_widget.dart';
 import 'package:food_delivery/controllers/popular_product_controller.dart';
 import 'package:food_delivery/models/products_model.dart';
 import 'package:food_delivery/pages/food_detail/widgets/expandable_text_widget.dart';
+import 'package:food_delivery/routes/route_helper.dart';
 import 'package:get/get.dart';
 
 Widget counterWidget() {
@@ -102,32 +103,37 @@ Widget addToCartWithPrice_button(ProductModel? product,
 Widget shopping_cart_icon() {
   return GetBuilder<PopularProductController>(
     builder: (controller) {
-      return Stack(
-        children: [
-          AppIcon(icon: Icons.shopping_cart_outlined),
-          Get.find<PopularProductController>().totalItems >= 1
-              ? const Positioned(
-                  right: 0,
-                  top: 0,
-                  child: AppIcon(
-                    icon: Icons.circle,
-                    size: 20,
-                    iconColor: Colors.transparent,
-                    backgroundColor: AppColors.primaryElement,
-                  ))
-              : Container(),
-          Get.find<PopularProductController>().totalItems >= 1
-              ? Positioned(
-                  right: 5.w,
-                  top: 5.h,
-                  child: bigText(
-                    Get.find<PopularProductController>().totalItems.toString(),
-                    fontSize: 12,
-                    color: Colors.white,
-                  ),
-                )
-              : Container(),
-        ],
+      return GestureDetector(
+        onTap: () {
+          Get.toNamed(RouteHelper.getCart());
+        },
+        child: Stack(
+          children: [
+            AppIcon(icon: Icons.shopping_cart_outlined),
+            Get.find<PopularProductController>().totalItems >= 1
+                ? const Positioned(
+                    right: 0,
+                    top: 0,
+                    child: AppIcon(
+                      icon: Icons.circle,
+                      size: 20,
+                      iconColor: Colors.transparent,
+                      backgroundColor: AppColors.primaryElement,
+                    ))
+                : Container(),
+            Get.find<PopularProductController>().totalItems >= 1
+                ? Positioned(
+                    right: 5.w,
+                    top: 5.h,
+                    child: bigText(
+                      Get.find<PopularProductController>().totalItems.toString(),
+                      fontSize: 12,
+                      color: Colors.white,
+                    ),
+                  )
+                : Container(),
+          ],
+        ),
       );
     },
   );

@@ -145,6 +145,7 @@ Widget counterWidget(CartController cartController, int index) {
         GestureDetector(
           onTap: () {
             // popularProudct.setQuantity(false);
+            cartController.addItem(cartItem.product!, -1);
           },
           child: const Icon(
             Icons.remove,
@@ -162,6 +163,7 @@ Widget counterWidget(CartController cartController, int index) {
         GestureDetector(
           onTap: () {
             // popularProudct.setQuantity(true);
+            cartController.addItem(cartItem.product!, 1);
           },
           child: const Icon(
             Icons.add,

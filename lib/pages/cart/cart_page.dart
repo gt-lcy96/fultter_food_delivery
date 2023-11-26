@@ -5,6 +5,8 @@ import 'package:food_delivery/common/values/constants.dart';
 import 'package:food_delivery/common/widgets/app_icons.dart';
 import 'package:food_delivery/common/widgets/base_text_widget.dart';
 import 'package:food_delivery/controllers/cart_controller.dart';
+import 'package:food_delivery/controllers/popular_product_controller.dart';
+import 'package:food_delivery/controllers/recommended_product_controller.dart';
 import 'package:food_delivery/pages/food_detail/widgets/PopularFoodDetail_widget.dart';
 import 'package:food_delivery/routes/route_helper.dart';
 import 'package:get/get.dart';
@@ -77,18 +79,36 @@ class CartPage extends StatelessWidget {
                             // color: Colors.blue,
                             child: Row(
                               children: [
-                                Container(
-                                  width: 100.w,
-                                  height: 100.h,
-                                  margin: EdgeInsets.only(bottom: 10.h),
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: NetworkImage(AppConstants.BASE_URL+_cartList[index].img!
-                                        ),
-                                            // "assets/images/chinese_food_1.jpg"),
-                                        fit: BoxFit.cover),
-                                    borderRadius: BorderRadius.circular(20.w),
-                                    color: Colors.white,
+                                GestureDetector(
+                                  onTap: () {
+                                    var popularIndex =
+                                        Get.find<PopularProductController>()
+                                            .popularProductList
+                                            .indexOf(_cartList[index].product);
+                                    if(popularIndex >= 0){ //if found
+                                      Get.toNamed(RouteHelper.getPopularFood(popularIndex));
+                                    } else {
+                                      var recommendedIndex =
+                                        Get.find<RecommendedProductController>()
+                                            .recommendedProductList
+                                            .indexOf(_cartList[index].product);
+                                      Get.toNamed(RouteHelper.getRecommendedFood(recommendedIndex));
+                                    }
+                                  },
+                                  child: Container(
+                                    width: 100.w,
+                                    height: 100.h,
+                                    margin: EdgeInsets.only(bottom: 10.h),
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                          image: NetworkImage(
+                                              AppConstants.BASE_URL +
+                                                  _cartList[index].img!),
+                                          // "assets/images/chinese_food_1.jpg"),
+                                          fit: BoxFit.cover),
+                                      borderRadius: BorderRadius.circular(20.w),
+                                      color: Colors.white,
+                                    ),
                                   ),
                                 ),
                                 SizedBox(
@@ -103,8 +123,7 @@ class CartPage extends StatelessWidget {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceEvenly,
                                           children: [
-                                            bigText(
-                                              _cartList[index].name!,
+                                            bigText(_cartList[index].name!,
                                                 color: Colors.black),
                                             smallText("Spicy"),
                                             Row(
@@ -114,10 +133,13 @@ class CartPage extends StatelessWidget {
                                               children: [
                                                 bigText(
                                                   // "\$ ${_cartList[index].price!}",
-                                                  _cartList[index].price.toString(),
+                                                  _cartList[index]
+                                                      .price
+                                                      .toString(),
                                                   color: Colors.redAccent,
                                                 ),
-                                                counterWidget(cartController, index),
+                                                counterWidget(
+                                                    cartController, index),
                                               ],
                                             )
                                           ],

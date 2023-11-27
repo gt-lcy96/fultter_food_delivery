@@ -28,6 +28,8 @@ class _HomePageState extends State<HomePage> {
         unselectedItemColor: AppColors.primarySecondaryElementText,
         showSelectedLabels: false,
         showUnselectedLabels: false,
+        unselectedFontSize: 0,
+        selectedFontSize: 0,
         onTap: (index) {
           setState(() {
             _selectedIndex = index;

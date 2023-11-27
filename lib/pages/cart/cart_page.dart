@@ -85,14 +85,19 @@ class CartPage extends StatelessWidget {
                                         Get.find<PopularProductController>()
                                             .popularProductList
                                             .indexOf(_cartList[index].product);
-                                    if(popularIndex >= 0){ //if found
-                                      Get.toNamed(RouteHelper.getPopularFood(popularIndex, RouteHelper.cart));
+                                    if (popularIndex >= 0) {
+                                      //if found
+                                      Get.toNamed(RouteHelper.getPopularFood(
+                                          popularIndex, RouteHelper.cart));
                                     } else {
-                                      var recommendedIndex =
-                                        Get.find<RecommendedProductController>()
-                                            .recommendedProductList
-                                            .indexOf(_cartList[index].product);
-                                      Get.toNamed(RouteHelper.getRecommendedFood(recommendedIndex, RouteHelper.cart));
+                                      var recommendedIndex = Get.find<
+                                              RecommendedProductController>()
+                                          .recommendedProductList
+                                          .indexOf(_cartList[index].product);
+                                      Get.toNamed(
+                                          RouteHelper.getRecommendedFood(
+                                              recommendedIndex,
+                                              RouteHelper.cart));
                                     }
                                   },
                                   child: Container(
@@ -153,8 +158,51 @@ class CartPage extends StatelessWidget {
               )),
         ),
       ]),
+      bottomNavigationBar: GetBuilder<CartController>(
+        builder: (cartController) {
+          return Container(
+            height: 100.h,
+            padding: EdgeInsets.only(
+                top: 15.h, bottom: 15.h, left: 20.w, right: 20.w),
+            decoration: BoxDecoration(
+                color: AppColors.primarySecondaryElementText.withOpacity(0.1),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20.w * 2),
+                  topRight: Radius.circular(20.w * 2),
+                )),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                priceValue(cartController),
+                checkOutButton(),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
+}
+
+Widget checkOutButton() {
+  return Container(
+    padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 10.w),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(20.w),
+      color: AppColors.primaryElement,
+    ),
+    child: bigText("Checkout",
+        color: AppColors.primaryBackground, fontSize: 16.sp),
+  );
+}
+
+Widget priceValue(CartController cartController) {
+  return Container(
+    padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 10.h),
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10.w), color: Colors.white),
+    child: bigText("\$ ${cartController.totalAmount}"),
+  );
 }
 
 Widget counterWidget(CartController cartController, int index) {

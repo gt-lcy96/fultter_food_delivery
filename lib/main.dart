@@ -20,23 +20,28 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-    const MyApp({super.key});
-    
-    @override
-    Widget build(BuildContext context) {
-      Get.find<PopularProductController>().getPopularProductList();
-      Get.find<RecommendedProductController>().getRecommendedProductList();
-      return ScreenUtilInit(
-        child: GetMaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Flutter Demo',
-          
-          // home: SplashScreen(),
-          // home: const MainFoodPage(),
-          initialRoute: RouteHelper.getSplashPage(),
-          getPages: RouteHelper.routes,
-        ),
-      );
-    }
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ScreenUtilInit(
+      child: GetBuilder<PopularProductController>(
+        builder: (_) {
+          return GetBuilder<RecommendedProductController>(
+            builder: (_) {
+              return GetMaterialApp(
+                debugShowCheckedModeBanner: false,
+                title: 'Flutter Demo',
+
+                // home: SplashScreen(),
+                // home: const MainFoodPage(),
+                initialRoute: RouteHelper.getSplashPage(),
+                getPages: RouteHelper.routes,
+              );
+            },
+          );
+        },
+      ),
+    );
+  }
 }
- 

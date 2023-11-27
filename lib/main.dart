@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
           title: 'Flutter Demo',
           
           // home: CartPage(),
-          home: const MainFoodPage(),
+          // home: const MainFoodPage(),
           initialRoute: RouteHelper.initial,
           getPages: RouteHelper.routes,
         ),

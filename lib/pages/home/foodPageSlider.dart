@@ -6,7 +6,7 @@ import 'package:food_delivery/common/values/constants.dart';
 import 'package:food_delivery/controllers/popular_product_controller.dart';
 import 'package:food_delivery/models/products_model.dart';
 import 'package:food_delivery/pages/food_detail/PopularFoodDetail_page.dart';
-import 'package:food_delivery/pages/main_food/widgets/main_food_widgets.dart';
+import 'package:food_delivery/pages/home/widgets/main_food_widgets.dart';
 import 'package:food_delivery/routes/route_helper.dart';
 import 'package:get/get.dart';
 

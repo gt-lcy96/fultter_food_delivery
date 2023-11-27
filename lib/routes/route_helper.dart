@@ -1,7 +1,7 @@
 import 'package:food_delivery/pages/cart/cart_page.dart';
 import 'package:food_delivery/pages/food_detail/PopularFoodDetail_page.dart';
 import 'package:food_delivery/pages/food_detail/recommended_food_detail.dart';
-import 'package:food_delivery/pages/main_food/main_food_page.dart';
+import 'package:food_delivery/pages/home/main_food_page.dart';
 import 'package:get/get.dart';
 
 class RouteHelper {

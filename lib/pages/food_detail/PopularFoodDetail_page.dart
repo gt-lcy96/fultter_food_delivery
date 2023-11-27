@@ -7,7 +7,7 @@ import 'package:food_delivery/common/widgets/base_text_widget.dart';
 import 'package:food_delivery/controllers/cart_controller.dart';
 import 'package:food_delivery/controllers/popular_product_controller.dart';
 import 'package:food_delivery/pages/food_detail/widgets/PopularFoodDetail_widget.dart';
-import 'package:food_delivery/pages/main_food/main_food_page.dart';
+import 'package:food_delivery/pages/home/main_food_page.dart';
 import 'package:food_delivery/routes/route_helper.dart';
 import 'package:get/get.dart';
 

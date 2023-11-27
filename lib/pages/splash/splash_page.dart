@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/controllers/popular_product_controller.dart';
 import 'package:food_delivery/controllers/recommended_product_controller.dart';
 import 'package:food_delivery/routes/route_helper.dart';
@@ -53,7 +54,7 @@ class _SplashScreenState extends State<SplashScreen>
               child: Center(
                   child: Image.asset(
                 'assets/images/food_delivery_logo.png',
-                width: 250,
+                width: 250.w,
               )))
         ],
       ),

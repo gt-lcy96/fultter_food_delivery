@@ -137,10 +137,7 @@ class CartPage extends StatelessWidget {
                                                       .spaceBetween,
                                               children: [
                                                 bigText(
-                                                  // "\$ ${_cartList[index].price!}",
-                                                  _cartList[index]
-                                                      .price
-                                                      .toString(),
+                                                  "\$ ${_cartList[index].price}",
                                                   color: Colors.redAccent,
                                                 ),
                                                 counterWidget(

@@ -124,7 +124,7 @@ Widget recommendedSuggestList() {
                   var currentRecommendedProduct = recommendedProduct.recommendedProductList[index];
                   return GestureDetector(
                     onTap: (){
-                      Get.toNamed(RouteHelper.getRecommendedFood(index));
+                      Get.toNamed(RouteHelper.getRecommendedFood(index, RouteHelper.initial));
                     },
                     child: Container(
                       height: 100.h,

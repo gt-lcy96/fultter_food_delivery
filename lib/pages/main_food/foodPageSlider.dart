@@ -116,7 +116,7 @@ class _FoodPageSliderState extends State<FoodPageSlider> {
         children: [
           GestureDetector(
             onTap: () {
-              Get.toNamed(RouteHelper.getPopularFood(index));
+              Get.toNamed(RouteHelper.getPopularFood(index, RouteHelper.initial));
             },
             child: Container(
               height: 160.h,

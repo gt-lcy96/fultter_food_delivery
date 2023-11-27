@@ -8,11 +8,14 @@ import 'package:food_delivery/controllers/cart_controller.dart';
 import 'package:food_delivery/controllers/popular_product_controller.dart';
 import 'package:food_delivery/pages/food_detail/widgets/PopularFoodDetail_widget.dart';
 import 'package:food_delivery/pages/main_food/main_food_page.dart';
+import 'package:food_delivery/routes/route_helper.dart';
 import 'package:get/get.dart';
 
 class PopularFoodDetail extends StatelessWidget {
   final int pageId;
-  const PopularFoodDetail({super.key, required this.pageId});
+  final String fromPage;
+  const PopularFoodDetail(
+      {super.key, required this.pageId, required this.fromPage});
   final double _imageCoverSize = 325;
 
   @override
@@ -49,7 +52,11 @@ class PopularFoodDetail extends StatelessWidget {
               children: [
                 GestureDetector(
                     onTap: () {
-                      Get.to(() => MainFoodPage());
+                      if ((fromPage == RouteHelper.cart)) {
+                        Get.toNamed(RouteHelper.getCart());
+                      } else if (fromPage == RouteHelper.initial) {
+                        Get.toNamed(RouteHelper.getInitial());
+                      }
                     },
                     child: AppIcon(icon: Icons.arrow_back_ios)),
                 shopping_cart_icon(),

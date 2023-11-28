@@ -24,7 +24,8 @@ class CartModel {
   CartModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
-    price = double.parse(json['price']);
+    // price = double.parse(json['price']);
+    price = json['price'];
     img = json['img'];
     quantity = json['quantity'];
     isExist = json['isExist'];

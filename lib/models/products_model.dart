@@ -54,7 +54,7 @@ class ProductModel {
     id = json['id'];
     name = json['name'];
     description = json['description'];
-    price = double.parse(json['price']);
+    price = json['price'] != null ? double.tryParse(json['price'].toString()) : null;
     stars = json['stars'];
     img = json['img'];
     location = json['location'];

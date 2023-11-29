@@ -9,4 +9,5 @@ class AppConstants {
   static const int COUTNER_MAX_QUANTITY = 20;
 
   static const String CART_LIST = "Cart-list";
+  static const String CART_HISTORY_LIST = "Cart-history-list";
 }

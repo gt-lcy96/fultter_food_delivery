@@ -171,7 +171,7 @@ class CartPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 priceValue(cartController),
-                checkOutButton(),
+                checkOutButton(cartController),
               ],
             ),
           );
@@ -181,15 +181,21 @@ class CartPage extends StatelessWidget {
   }
 }
 
-Widget checkOutButton() {
-  return Container(
-    padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 10.w),
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(20.w),
-      color: AppColors.primaryElement,
+Widget checkOutButton(CartController cartController) {
+  return GestureDetector(
+    onTap: (){
+      print("tapped");
+      cartController.addToHistory();
+    },
+    child: Container(
+      padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 10.w),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20.w),
+        color: AppColors.primaryElement,
+      ),
+      child: bigText("Checkout",
+          color: AppColors.primaryBackground, fontSize: 16.sp),
     ),
-    child: bigText("Checkout",
-        color: AppColors.primaryBackground, fontSize: 16.sp),
   );
 }
 

@@ -30,7 +30,6 @@ class PopularProductController extends GetxController {
         _popularProducList.addAll(Product.fromJson(response.body[0]).products);
         _isLoaded = true;
         update();
-      print("_popularProducList[0].name:  ${_popularProducList[0].name}");
     } else {
       print("response.statusCode:  ${response.statusCode}");
     }
@@ -76,7 +75,6 @@ class PopularProductController extends GetxController {
     if(exist) {
       _inCartItems = _cart.getQuantity(product);
     }
-    print("the quantity in the cart is"+_inCartItems.toString());
   }
 
   void addItem(ProductModel product) {

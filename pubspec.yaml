@@ -33,6 +33,7 @@ dependencies:
   get: 4.6.6
   dots_indicator: 2.0.0
   shared_preferences: ^2.0.11
+  intl: ^0.17.0
   # persistent_bottom_nav_bar: ^4.0.2
   
 

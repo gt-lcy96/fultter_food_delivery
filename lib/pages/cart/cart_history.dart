@@ -14,7 +14,8 @@ class CartHistory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var getCartHistoryList = Get.find<CartController>().getCartHistoryList().reversed.toList();
+    var getCartHistoryList =
+        Get.find<CartController>().getCartHistoryList().reversed.toList();
     Map<String, int> cartItemsPerOrder = Map();
 
     for (int i = 0; i < getCartHistoryList.length; i++) {
@@ -73,9 +74,13 @@ class CartHistory extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             (() {
-                              DateTime parsedDate = DateFormat("yyyy-MM-dd HH:mm:ss").parse(getCartHistoryList[listCounter].time!);
-                              var inputDate = DateTime.parse(parsedDate.toString());
-                              var outputFormat = DateFormat("MM/dd/yyyy hh:mm a");
+                              DateTime parsedDate =
+                                  DateFormat("yyyy-MM-dd HH:mm:ss").parse(
+                                      getCartHistoryList[listCounter].time!);
+                              var inputDate =
+                                  DateTime.parse(parsedDate.toString());
+                              var outputFormat =
+                                  DateFormat("MM/dd/yyyy hh:mm a");
                               var outputDate = outputFormat.format(inputDate);
                               return bigText(outputDate);
                             }()),
@@ -97,25 +102,7 @@ class CartHistory extends StatelessWidget {
                                         : Container();
                                   }),
                                 ),
-                                Container(
-                                  height: 80.h,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      smallText("Total", color: AppColors.primaryText),
-                                      bigText(itemsPerOrder[i].toString() + " Items", color: AppColors.primaryText),
-                                      Container(
-                                        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(5.w),
-                                          border: Border.all(width: 1.w, color: AppColors.primaryElement),
-                                        ),
-                                        child: smallText("one more", color: AppColors.primaryElement),
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                                CartItemInfo(itemsPerOrder[i]),
                               ],
                             )
                           ],
@@ -128,6 +115,34 @@ class CartHistory extends StatelessWidget {
       ],
     ));
   }
+}
+
+Widget CartItemInfo(int item_num) {
+  return GestureDetector(
+    onTap: () {
+      
+    },
+    child: Container(
+      height: 80.h,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          smallText("Total", color: AppColors.primaryText),
+          bigText("$item_num Items",
+              color: AppColors.primaryText),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5.w),
+              border: Border.all(width: 1.w, color: AppColors.primaryElement),
+            ),
+            child: smallText("one more", color: AppColors.primaryElement),
+          ),
+        ],
+      ),
+    ),
+  );
 }
 
 Widget CartRowItem(List<CartModel> getCartHistoryList, int listCounter) {

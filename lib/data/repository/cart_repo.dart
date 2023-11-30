@@ -12,12 +12,18 @@ class CartRepo {
   List<String> cart = [];
   List<String> cartHistory = [];
 
+  void removeCache() {
+    if(AppConstants.REMOVE_CACHE) {
+      sharedPreferences.remove(AppConstants.CART_LIST);
+      sharedPreferences.remove(AppConstants.CART_HISTORY_LIST);
+    }
+  }
+
   //convert objects to string because sharedPreference only accepts String
   void addToCartList(List<CartModel> cartList) {
     // test purpose, remove later
-    // sharedPreferences.remove(AppConstants.CART_LIST);
-    // sharedPreferences.remove(AppConstants.CART_HISTORY_LIST);
-
+    removeCache();
+  
     var time = DateTime.now().toString();
 
     cart = [];

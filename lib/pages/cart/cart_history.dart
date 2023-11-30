@@ -29,11 +29,11 @@ class CartHistory extends StatelessWidget {
 
     // print("cartItemsPerOrder:  ${cartItemsPerOrder}");
 
-    List<int> cartOrderTimeToList() {
+    List<int> cartItemsPerOrderToList() {
       return cartItemsPerOrder.entries.map((e) => e.value).toList();
     }
 
-    List<int> itemsPerOrder = cartOrderTimeToList();
+    List<int> itemsPerOrder = cartItemsPerOrderToList();
     print("itemsPerOrder:  ${itemsPerOrder}");
 
     var listCounter = 0;

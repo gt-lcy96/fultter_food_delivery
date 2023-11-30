@@ -195,13 +195,13 @@ class CartPage extends StatelessWidget {
                   topLeft: Radius.circular(20.w * 2),
                   topRight: Radius.circular(20.w * 2),
                 )),
-            child: Row(
+            child: cartController.getItems.length > 0 ? Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 priceValue(cartController),
                 checkOutButton(cartController),
               ],
-            ),
+            ) : Container(),
           );
         },
       ),

@@ -6,6 +6,7 @@ import 'package:food_delivery/common/values/colors.dart';
 import 'package:food_delivery/common/values/constants.dart';
 import 'package:food_delivery/common/widgets/app_icons.dart';
 import 'package:food_delivery/common/widgets/base_text_widget.dart';
+import 'package:food_delivery/common/widgets/no_data_page.dart';
 import 'package:food_delivery/controllers/cart_controller.dart';
 import 'package:food_delivery/models/cart_model.dart';
 import 'package:food_delivery/routes/route_helper.dart';
@@ -66,64 +67,77 @@ class CartHistory extends StatelessWidget {
                     iconColor: AppColors.primaryElement,
                   ),
                 ])),
-        Expanded(
-          child: Container(
-            margin: EdgeInsets.only(top: 20.h, left: 20.w, right: 20.h),
-            child: MediaQuery.removePadding(
-              removeTop: true,
-              context: context,
-              child: ListView(
-                children: [
-                  for (int i = 0; i < cartItemsPerOrder.length; i++)
-                    Container(
-                        height: 120.h,
-                        margin: EdgeInsets.only(bottom: 20.h),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            (() {
-                              DateTime parsedDate =
-                                  DateFormat("yyyy-MM-dd HH:mm:ss").parse(
-                                      getCartHistoryList[listCounter].time!);
-                              var inputDate =
-                                  DateTime.parse(parsedDate.toString());
-                              var outputFormat =
-                                  DateFormat("MM/dd/yyyy hh:mm a");
-                              var outputDate = outputFormat.format(inputDate);
-                              return bigText(outputDate);
-                            }()),
-                            SizedBox(height: 10.h),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Wrap(
-                                  direction: Axis.horizontal,
-                                  children:
-                                      List.generate(itemsPerOrder[i], (index) {
-                                    if (listCounter <
-                                        getCartHistoryList.length) {
-                                      listCounter++;
-                                    }
-                                    return index <= 2
-                                        ? CartRowItem(
-                                            getCartHistoryList, listCounter)
-                                        : Container();
-                                  }),
-                                ),
-                                CartItemInfo(
-                                    itemsPerOrder,
-                                    cartOrderTimeToList(),
-                                    getCartHistoryList,
-                                    i),
-                              ],
-                            )
-                          ],
-                        ))
-                ],
-              ),
-            ),
-          ),
-        ),
+        GetBuilder<CartController>(builder: (_cartController) {
+          return _cartController.getCartHistoryList().length > 0
+              ? Expanded(
+                  child: Container(
+                    margin: EdgeInsets.only(top: 20.h, left: 20.w, right: 20.h),
+                    child: MediaQuery.removePadding(
+                      removeTop: true,
+                      context: context,
+                      child: ListView(
+                        children: [
+                          for (int i = 0; i < cartItemsPerOrder.length; i++)
+                            Container(
+                                height: 120.h,
+                                margin: EdgeInsets.only(bottom: 20.h),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    (() {
+                                      DateTime parsedDate = DateFormat(
+                                              "yyyy-MM-dd HH:mm:ss")
+                                          .parse(getCartHistoryList[listCounter]
+                                              .time!);
+                                      var inputDate =
+                                          DateTime.parse(parsedDate.toString());
+                                      var outputFormat =
+                                          DateFormat("MM/dd/yyyy hh:mm a");
+                                      var outputDate =
+                                          outputFormat.format(inputDate);
+                                      return bigText(outputDate);
+                                    }()),
+                                    SizedBox(height: 10.h),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Wrap(
+                                          direction: Axis.horizontal,
+                                          children: List.generate(
+                                              itemsPerOrder[i], (index) {
+                                            if (listCounter <
+                                                getCartHistoryList.length) {
+                                              listCounter++;
+                                            }
+                                            return index <= 2
+                                                ? CartRowItem(
+                                                    getCartHistoryList,
+                                                    listCounter)
+                                                : Container();
+                                          }),
+                                        ),
+                                        CartItemInfo(
+                                            itemsPerOrder,
+                                            cartOrderTimeToList(),
+                                            getCartHistoryList,
+                                            i),
+                                      ],
+                                    )
+                                  ],
+                                ))
+                        ],
+                      ),
+                    ),
+                  ),
+                )
+              : Container(
+                height: MediaQuery.of(context).size.height/1.5,
+                  child: NoDataPage(
+                  text: "You didn't buy anything so far!",
+                  imgPath: "assets/images/empty_cart.png",
+                ));
+        }),
       ],
     ));
   }

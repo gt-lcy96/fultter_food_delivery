@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/common/values/colors.dart';
@@ -6,6 +8,8 @@ import 'package:food_delivery/common/widgets/app_icons.dart';
 import 'package:food_delivery/common/widgets/base_text_widget.dart';
 import 'package:food_delivery/controllers/cart_controller.dart';
 import 'package:food_delivery/models/cart_model.dart';
+import 'package:food_delivery/routes/route_helper.dart';
+import 'package:food_delivery/utils/logging.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -31,6 +35,10 @@ class CartHistory extends StatelessWidget {
 
     List<int> cartItemsPerOrderToList() {
       return cartItemsPerOrder.entries.map((e) => e.value).toList();
+    }
+
+    List<String> cartOrderTimeToList() {
+      return cartItemsPerOrder.entries.map((e) => e.key).toList();
     }
 
     List<int> itemsPerOrder = cartItemsPerOrderToList();
@@ -102,7 +110,11 @@ class CartHistory extends StatelessWidget {
                                         : Container();
                                   }),
                                 ),
-                                CartItemInfo(itemsPerOrder[i]),
+                                CartItemInfo(
+                                    itemsPerOrder,
+                                    cartOrderTimeToList(),
+                                    getCartHistoryList,
+                                    i),
                               ],
                             )
                           ],
@@ -117,10 +129,28 @@ class CartHistory extends StatelessWidget {
   }
 }
 
-Widget CartItemInfo(int item_num) {
+Widget CartItemInfo(List<int> itemsPerOrder, List<String> orderTime,
+    List<CartModel> getCartHistoryList, int i) {
   return GestureDetector(
     onTap: () {
-      
+      print("orderTime[i].toString();:  ${orderTime[i].toString()}");
+      Map<int, CartModel> moreOrder = {};
+      for (int j = 0; j < getCartHistoryList.length; j++) {
+        if (getCartHistoryList[j].time == orderTime[i]) {
+          moreOrder.putIfAbsent(
+              getCartHistoryList[j].id!,
+              () => CartModel.fromJson(
+                  jsonDecode(jsonEncode(getCartHistoryList[j]))));
+
+          // print("The cart or product id is" +
+          //     getCartHistoryList[j].id.toString());
+          // moreOrder.putIfAbsent(key, () => null)
+          // prettyPrintJsonEncodedString(jsonEncode(getCartHistoryList[j]));
+        }
+        Get.find<CartController>().setItems = moreOrder;
+        Get.find<CartController>().addToCartList();
+        Get.toNamed(RouteHelper.getCart());
+      }
     },
     child: Container(
       height: 80.h,
@@ -129,8 +159,7 @@ Widget CartItemInfo(int item_num) {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           smallText("Total", color: AppColors.primaryText),
-          bigText("$item_num Items",
-              color: AppColors.primaryText),
+          bigText("${itemsPerOrder[i]} Items", color: AppColors.primaryText),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
             decoration: BoxDecoration(

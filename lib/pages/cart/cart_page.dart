@@ -4,6 +4,7 @@ import 'package:food_delivery/common/values/colors.dart';
 import 'package:food_delivery/common/values/constants.dart';
 import 'package:food_delivery/common/widgets/app_icons.dart';
 import 'package:food_delivery/common/widgets/base_text_widget.dart';
+import 'package:food_delivery/common/widgets/no_data_page.dart';
 import 'package:food_delivery/controllers/cart_controller.dart';
 import 'package:food_delivery/controllers/popular_product_controller.dart';
 import 'package:food_delivery/controllers/recommended_product_controller.dart';
@@ -52,116 +53,135 @@ class CartPage extends StatelessWidget {
             ],
           ),
         ),
-        Positioned(
-          top: 100.h,
-          left: 20.w,
-          right: 20.w,
-          bottom: 0,
-          child: Container(
-              margin: EdgeInsets.only(top: 15.h),
-              // color: Colors.red,
-              child: MediaQuery.removePadding(
-                context: context,
-                removeTop: true,
-                child: GetBuilder<CartController>(
-                  builder: (cartController) {
-                    var _cartList = cartController.getItems;
-                    return ListView.builder(
-                        itemCount: _cartList.length,
-                        // itemCount: 10,
-                        // separatorBuilder: (context, index) => SizedBox(
-                        //       height: 10.w,
-                        //     ),
-                        itemBuilder: (_, index) {
-                          return Container(
-                            height: 100.h,
-                            width: double.maxFinite,
-                            // color: Colors.blue,
-                            child: Row(
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    var popularIndex =
-                                        Get.find<PopularProductController>()
-                                            .popularProductList
-                                            .indexOf(_cartList[index].product);
-                                    if (popularIndex >= 0) {
-                                      //if found
-                                      Get.toNamed(RouteHelper.getPopularFood(
-                                          popularIndex, RouteHelper.cart));
-                                    } else {
-                                      var recommendedIndex = Get.find<
-                                              RecommendedProductController>()
-                                          .recommendedProductList
-                                          .indexOf(_cartList[index].product);
-                                      if(recommendedIndex<0) { //cant found any
-                                        Get.snackbar(
-                                          "History product", "Product review is not available for history products",
-                                          backgroundColor: AppColors.primaryElement,
-                                          colorText: Colors.white,
-                                        );
-                                      } else {
-                                        Get.toNamed( //found recommended
-                                          RouteHelper.getRecommendedFood(
-                                              recommendedIndex,
-                                              RouteHelper.cart));
-                                      }
-                                    }
-                                  },
-                                  child: Container(
-                                    width: 100.w,
+        GetBuilder<CartController>(builder: (_cartController) {
+          return _cartController.getItems.length > 0
+              ? Positioned(
+                  top: 100.h,
+                  left: 20.w,
+                  right: 20.w,
+                  bottom: 0,
+                  child: Container(
+                      margin: EdgeInsets.only(top: 15.h),
+                      // color: Colors.red,
+                      child: MediaQuery.removePadding(
+                        context: context,
+                        removeTop: true,
+                        child: GetBuilder<CartController>(
+                          builder: (cartController) {
+                            var _cartList = cartController.getItems;
+                            return ListView.builder(
+                                itemCount: _cartList.length,
+                                // itemCount: 10,
+                                // separatorBuilder: (context, index) => SizedBox(
+                                //       height: 10.w,
+                                //     ),
+                                itemBuilder: (_, index) {
+                                  return Container(
                                     height: 100.h,
-                                    margin: EdgeInsets.only(bottom: 10.h),
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                          image: NetworkImage(
-                                              AppConstants.BASE_URL +
-                                                  _cartList[index].img!),
-                                          // "assets/images/chinese_food_1.jpg"),
-                                          fit: BoxFit.cover),
-                                      borderRadius: BorderRadius.circular(20.w),
-                                      color: Colors.white,
+                                    width: double.maxFinite,
+                                    // color: Colors.blue,
+                                    child: Row(
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () {
+                                            var popularIndex = Get.find<
+                                                    PopularProductController>()
+                                                .popularProductList
+                                                .indexOf(
+                                                    _cartList[index].product);
+                                            if (popularIndex >= 0) {
+                                              //if found
+                                              Get.toNamed(
+                                                  RouteHelper.getPopularFood(
+                                                      popularIndex,
+                                                      RouteHelper.cart));
+                                            } else {
+                                              var recommendedIndex = Get.find<
+                                                      RecommendedProductController>()
+                                                  .recommendedProductList
+                                                  .indexOf(
+                                                      _cartList[index].product);
+                                              if (recommendedIndex < 0) {
+                                                //cant found any
+                                                Get.snackbar(
+                                                  "History product",
+                                                  "Product review is not available for history products",
+                                                  backgroundColor:
+                                                      AppColors.primaryElement,
+                                                  colorText: Colors.white,
+                                                );
+                                              } else {
+                                                Get.toNamed(//found recommended
+                                                    RouteHelper
+                                                        .getRecommendedFood(
+                                                            recommendedIndex,
+                                                            RouteHelper.cart));
+                                              }
+                                            }
+                                          },
+                                          child: Container(
+                                            width: 100.w,
+                                            height: 100.h,
+                                            margin:
+                                                EdgeInsets.only(bottom: 10.h),
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: NetworkImage(
+                                                      AppConstants.BASE_URL +
+                                                          _cartList[index]
+                                                              .img!),
+                                                  // "assets/images/chinese_food_1.jpg"),
+                                                  fit: BoxFit.cover),
+                                              borderRadius:
+                                                  BorderRadius.circular(20.w),
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 10.w,
+                                        ),
+                                        Expanded(
+                                            child: Container(
+                                                height: 100.h,
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceEvenly,
+                                                  children: [
+                                                    bigText(
+                                                        _cartList[index].name!,
+                                                        color: Colors.black),
+                                                    smallText("Spicy"),
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        bigText(
+                                                          "\$ ${_cartList[index].price}",
+                                                          color:
+                                                              Colors.redAccent,
+                                                        ),
+                                                        counterWidget(
+                                                            cartController,
+                                                            index),
+                                                      ],
+                                                    )
+                                                  ],
+                                                ))),
+                                      ],
                                     ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 10.w,
-                                ),
-                                Expanded(
-                                    child: Container(
-                                        height: 100.h,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            bigText(_cartList[index].name!,
-                                                color: Colors.black),
-                                            smallText("Spicy"),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                bigText(
-                                                  "\$ ${_cartList[index].price}",
-                                                  color: Colors.redAccent,
-                                                ),
-                                                counterWidget(
-                                                    cartController, index),
-                                              ],
-                                            )
-                                          ],
-                                        ))),
-                              ],
-                            ),
-                          );
-                        });
-                  },
-                ),
-              )),
-        ),
+                                  );
+                                });
+                          },
+                        ),
+                      )),
+                )
+              : NoDataPage(text: "Your cart is empty");
+        }),
       ]),
       bottomNavigationBar: GetBuilder<CartController>(
         builder: (cartController) {
@@ -191,7 +211,7 @@ class CartPage extends StatelessWidget {
 
 Widget checkOutButton(CartController cartController) {
   return GestureDetector(
-    onTap: (){
+    onTap: () {
       print("tapped");
       cartController.addToHistory();
     },

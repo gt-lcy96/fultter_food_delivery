@@ -27,5 +27,5 @@ class AppColors {
 
   static const Color primaryElementBg = Color.fromARGB(255, 238, 121, 99);
 
-
+  static const Color yellowColor = Color.fromARGB(255, 255, 235, 85);
 }

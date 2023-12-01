@@ -11,10 +11,10 @@ Widget reusableText(String text,
     text,
     overflow: overflow,
     style: TextStyle(
-        color: color,
-        fontWeight: fontWeight,
-        fontSize: fontSize.sp,
-        ),
+      color: color,
+      fontWeight: fontWeight,
+      fontSize: fontSize.sp,
+    ),
   );
 }
 
@@ -28,11 +28,11 @@ Widget smallText(String text,
     text,
     overflow: overflow,
     style: TextStyle(
-        color: color,
-        fontWeight: fontWeight,
-        fontSize: fontSize.sp,
-        height: height,
-        ),
+      color: color,
+      fontWeight: fontWeight,
+      fontSize: fontSize.sp,
+      height: height,
+    ),
   );
 }
 
@@ -51,7 +51,40 @@ Widget bigText(String text,
         fontWeight: fontWeight,
         fontSize: fontSize.sp,
         height: height,
-        fontFamily: 'OpenSans'
-        ),
+        fontFamily: 'OpenSans'),
   );
+}
+
+class BigText extends 
+StatelessWidget {
+  const BigText({
+      super.key,
+      required this.text,
+      this.color = AppColors.primaryText,
+      this.fontSize = 20,
+      this.height = 1.2,
+      this.fontWeight = FontWeight.w400,
+      this.overflow = TextOverflow.ellipsis});
+
+  final String text;
+  final Color color;
+  final double fontSize;
+  final double height;
+  final FontWeight fontWeight;
+  final TextOverflow overflow;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      maxLines: 1,
+      overflow: overflow,
+      style: TextStyle(
+          color: color,
+          fontWeight: fontWeight,
+          fontSize: fontSize.sp,
+          height: height,
+          fontFamily: 'OpenSans'),
+    );
+  }
 }

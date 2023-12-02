@@ -5,6 +5,8 @@ import 'package:food_delivery/common/values/colors.dart';
 import 'package:food_delivery/common/values/dimensions.dart';
 import 'package:food_delivery/common/widgets/app_text_field.dart';
 import 'package:food_delivery/common/widgets/base_text_widget.dart';
+import 'package:food_delivery/common/widgets/showCustomSnackBar.dart';
+import 'package:food_delivery/models/signup_body_model.dart';
 import 'package:get/get.dart';
 
 class SignUpPage extends StatelessWidget {
@@ -22,6 +24,37 @@ class SignUpPage extends StatelessWidget {
       "twitter.png",
       "facebook.png",
     ];
+
+    void _registration() {
+      String name = nameController.text.trim();
+      String phone = phoneController.text.trim();
+      String email = emailController.text.trim();
+      String password = passwordController.text.trim();
+
+      if(name.isEmpty) {
+        showCustomSnackBar("Type in your name", title: "Name");
+      }else if(phone.isEmpty) {
+        showCustomSnackBar("Type in your phone number", title: "Phone number");
+      }else if(email.isEmpty) {
+        showCustomSnackBar("Type in your email address", title: "Email Address");
+      } else if(!GetUtils.isEmail(email)) {
+        showCustomSnackBar("Type in a valid email address", title: "InValid Email Address");
+      } else if(password.isEmpty) {
+        showCustomSnackBar("Type in your passnword", title: "Password");
+      } else if(password.length < 6) {
+        showCustomSnackBar("Password can not be less than six characters", title: "Password");
+      } else {
+        showCustomSnackBar("All went well", title: "Perfect");
+        SignUpBody signUpBody = SignUpBody(
+          name: name,
+          phone: phone,
+          email: email,
+          password: password
+        );
+        
+        print(signUpBody.email.toString());
+      }
+    }
 
     return Scaffold(
         backgroundColor: Colors.white,
@@ -62,14 +95,19 @@ class SignUpPage extends StatelessWidget {
                   icon: Icons.phone),
               SizedBox(height: 20.h),
               //sign up button
-              Container(
-                width: Dimensions.screenWidth / 2,
-                height: Dimensions.screenHeight / 13,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30.w),
-                    color: AppColors.primaryElement),
-                child: Center(
-                  child: bigText("Sign up", fontSize: 30, color: Colors.white),
+              GestureDetector(
+                onTap: (){
+                  _registration();
+                },
+                child: Container(
+                  width: Dimensions.screenWidth / 2,
+                  height: Dimensions.screenHeight / 13,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30.w),
+                      color: AppColors.primaryElement),
+                  child: Center(
+                    child: bigText("Sign up", fontSize: 30, color: Colors.white),
+                  ),
                 ),
               ),
               SizedBox(height: 10.h),

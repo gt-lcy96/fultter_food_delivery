@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/controllers/cart_controller.dart';
 import 'package:food_delivery/controllers/popular_product_controller.dart';
 import 'package:food_delivery/controllers/recommended_product_controller.dart';
+import 'package:food_delivery/pages/auth/sign_in_page.dart';
 import 'package:food_delivery/pages/auth/sign_up_page.dart';
 import 'package:food_delivery/pages/cart/cart_page.dart';
 import 'package:food_delivery/pages/food_detail/PopularFoodDetail_page.dart';
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
                 debugShowCheckedModeBanner: false,
                 title: 'Flutter Demo',
 
-                home: SignUpPage(),
+                home: SignInPage(),
                 // home: const MainFoodPage(),
                 // initialRoute: RouteHelper.getSplashPage(),
                 // getPages: RouteHelper.routes,

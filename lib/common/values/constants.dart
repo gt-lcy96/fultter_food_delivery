@@ -11,4 +11,7 @@ class AppConstants {
   static const String CART_LIST = "Cart-list";
   static const String CART_HISTORY_LIST = "Cart-history-list";
   static const bool REMOVE_CACHE = false;
+
+  //auth end points
+  static const String REGISTRATION_URI = "/api/signup";
 }

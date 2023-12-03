@@ -6,6 +6,7 @@ import 'package:food_delivery/common/values/dimensions.dart';
 import 'package:food_delivery/common/widgets/app_text_field.dart';
 import 'package:food_delivery/common/widgets/base_text_widget.dart';
 import 'package:food_delivery/common/widgets/showCustomSnackBar.dart';
+import 'package:food_delivery/controllers/auth_controller.dart';
 import 'package:food_delivery/models/signup_body_model.dart';
 import 'package:get/get.dart';
 
@@ -16,7 +17,7 @@ class SignUpPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var emailController = TextEditingController();
     var passwordController = TextEditingController();
-    var nameController = TextEditingController();
+    var usernameController = TextEditingController();
     var phoneController = TextEditingController();
 
     var signUpImages = [
@@ -26,13 +27,14 @@ class SignUpPage extends StatelessWidget {
     ];
 
     void _registration() {
-      String name = nameController.text.trim();
+      var authController = Get.find<AuthController>();
+      String username = usernameController.text.trim();
       String phone = phoneController.text.trim();
       String email = emailController.text.trim();
       String password = passwordController.text.trim();
 
-      if(name.isEmpty) {
-        showCustomSnackBar("Type in your name", title: "Name");
+      if(username.isEmpty) {
+        showCustomSnackBar("Type in your username", title: "username");
       }else if(phone.isEmpty) {
         showCustomSnackBar("Type in your phone number", title: "Phone number");
       }else if(email.isEmpty) {
@@ -44,15 +46,23 @@ class SignUpPage extends StatelessWidget {
       } else if(password.length < 6) {
         showCustomSnackBar("Password can not be less than six characters", title: "Password");
       } else {
-        showCustomSnackBar("All went well", title: "Perfect");
+        // showCustomSnackBar("All went well", title: "Perfect");
         SignUpBody signUpBody = SignUpBody(
-          name: name,
+          username: username,
           phone: phone,
           email: email,
           password: password
         );
         
-        print(signUpBody.email.toString());
+        authController.registration(signUpBody).then((status){
+          if(status.isSuccess) {
+            print("status.message:  ${status.message}");
+            showCustomSnackBar("Success registration", isError: false, title: "Success", backgroundColor: Colors.greenAccent);
+          } else {
+            // showCustomSnackBar(status.code);
+            showCustomSnackBar(status.message);
+          }
+        });
       }
     }
 
@@ -85,8 +95,8 @@ class SignUpPage extends StatelessWidget {
                   icon: Icons.password_sharp),
               SizedBox(height: 20.h),
               AppTextField(
-                  textController: nameController,
-                  hintText: "Name",
+                  textController: usernameController,
+                  hintText: "Username",
                   icon: Icons.person),
               SizedBox(height: 20.h),
               AppTextField(

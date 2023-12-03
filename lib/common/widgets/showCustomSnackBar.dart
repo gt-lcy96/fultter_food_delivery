@@ -3,7 +3,7 @@ import 'package:food_delivery/common/widgets/base_text_widget.dart';
 import 'package:get/get.dart';
 
 void showCustomSnackBar(String message,
-    {bool isError = true, String title = "Error"}) {
+    {bool isError = true, String title = "Error", backgroundColor = Colors.redAccent}) {
   Get.snackbar(
     title,
     message,
@@ -16,6 +16,6 @@ void showCustomSnackBar(String message,
     ),
     colorText: Colors.white,
     snackPosition: SnackPosition.TOP,
-    backgroundColor: Colors.redAccent
+    backgroundColor: backgroundColor
   );
 }

@@ -38,8 +38,8 @@ class _SplashScreenState extends State<SplashScreen>
     );
     Timer(
       Duration(seconds: 3),
-      // () => Get.offNamed(RouteHelper.getInitial())
-      () => Get.toNamed(RouteHelper.getInitial())
+      () => Get.offNamed(RouteHelper.getInitial())
+      // () => Get.toNamed(RouteHelper.getInitial())
     );
   }
 

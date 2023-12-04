@@ -14,4 +14,8 @@ class AppConstants {
 
   //auth end points
   static const String REGISTRATION_URI = "/api/signup";
+  static const String LOGIN_URI = "/api/login";
+
+  static const String PHONE = "";
+  static const String PASSWORD = "";
 }

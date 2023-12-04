@@ -22,9 +22,9 @@ class AppTextField extends StatelessWidget {
           borderRadius: BorderRadius.circular(30.w),
           boxShadow: [
             BoxShadow(
-                blurRadius: 10,
-                spreadRadius: 7,
-                offset: Offset(1, 10),
+                blurRadius: 3,
+                spreadRadius: 1,
+                offset: Offset(1, 1),
                 color: Colors.grey.withOpacity(0.2))
           ]),
       child: TextField(

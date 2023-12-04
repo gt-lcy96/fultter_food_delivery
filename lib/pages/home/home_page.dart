@@ -21,8 +21,7 @@ class _HomePageState extends State<HomePage> {
 
   List pages = [
     MainFoodPage(),
-    // Container(child: Text("History Page")),
-    SignInPage(),
+    Container(child: Text("History Page")),
     CartHistory(),
     AccountPage(),
   ];

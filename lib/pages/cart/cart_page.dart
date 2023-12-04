@@ -5,6 +5,7 @@ import 'package:food_delivery/common/values/constants.dart';
 import 'package:food_delivery/common/widgets/app_icons.dart';
 import 'package:food_delivery/common/widgets/base_text_widget.dart';
 import 'package:food_delivery/common/widgets/no_data_page.dart';
+import 'package:food_delivery/controllers/auth_controller.dart';
 import 'package:food_delivery/controllers/cart_controller.dart';
 import 'package:food_delivery/controllers/popular_product_controller.dart';
 import 'package:food_delivery/controllers/recommended_product_controller.dart';
@@ -212,8 +213,12 @@ class CartPage extends StatelessWidget {
 Widget checkOutButton(CartController cartController) {
   return GestureDetector(
     onTap: () {
-      print("tapped");
-      cartController.addToHistory();
+      if(Get.find<AuthController>().userLoggedIn()) {
+        cartController.addToHistory();
+      } else {
+        Get.toNamed(RouteHelper.getSignIn());
+      }
+
     },
     child: Container(
       padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 10.w),

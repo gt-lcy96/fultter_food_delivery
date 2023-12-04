@@ -5,7 +5,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/common/values/colors.dart';
 import 'package:food_delivery/common/widgets/app_icons.dart';
 import 'package:food_delivery/common/widgets/base_text_widget.dart';
+import 'package:food_delivery/controllers/auth_controller.dart';
+import 'package:food_delivery/controllers/cart_controller.dart';
 import 'package:food_delivery/pages/account/widgets/account_widget.dart';
+import 'package:food_delivery/routes/route_helper.dart';
+import 'package:get/get.dart';
 
 class AccountPage extends StatelessWidget {
   const AccountPage({super.key});
@@ -82,8 +86,29 @@ class AccountPage extends StatelessWidget {
                               iconColor: Colors.white,
                               iconSize: 25,
                               size: 50),
-                          bigText: const BigText(text: "Ahmed")),
+                          bigText: const BigText(text: "Message")),
                       SizedBox(height: 20.h),
+                      GestureDetector(
+                        onTap: (){
+                          if(Get.find<AuthController>().userLoggedIn()) { 
+                            Get.find<AuthController>().clearSharedData();
+                            Get.find<CartController>().clearCartHistory();
+                            Get.find<CartController>().clear();
+                            Get.offNamed(RouteHelper.getSignIn());
+                          } else {
+                            print("you logged out");
+                          }
+
+                        },
+                        child: AccountWidget(
+                            appIcon: const AppIcon(
+                                icon: Icons.logout,
+                                backgroundColor: Colors.redAccent,
+                                iconColor: Colors.white,
+                                iconSize: 25,
+                                size: 50),
+                            bigText: const BigText(text: "Logout")),
+                      ),
                     ],
                   ),
                 ),

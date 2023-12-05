@@ -9,18 +9,19 @@ import 'package:food_delivery/common/widgets/customLoader.dart';
 import 'package:food_delivery/common/widgets/showCustomSnackBar.dart';
 import 'package:food_delivery/controllers/auth_controller.dart';
 import 'package:food_delivery/models/signup_body_model.dart';
+import 'package:food_delivery/routes/route_helper.dart';
 import 'package:get/get.dart';
 
 class SignUpPage extends StatelessWidget {
-  const SignUpPage({super.key});
+  SignUpPage({super.key});
+
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final usernameController = TextEditingController();
+  final phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    var emailController = TextEditingController();
-    var passwordController = TextEditingController();
-    var usernameController = TextEditingController();
-    var phoneController = TextEditingController();
-
     var signUpImages = [
       "google.png",
       "twitter.png",
@@ -60,6 +61,7 @@ class SignUpPage extends StatelessWidget {
                 isError: false,
                 title: "Success",
                 backgroundColor: Colors.greenAccent);
+            Get.offNamed(RouteHelper.getSignIn());
           } else {
             // showCustomSnackBar(status.code);
             showCustomSnackBar(status.message);
@@ -96,11 +98,11 @@ class SignUpPage extends StatelessWidget {
                             icon: Icons.email),
                         SizedBox(height: 20.h),
                         AppTextField(
-                            textController: passwordController,
-                            hintText: "Password",
-                            icon: Icons.password_sharp,
-                            isObscure: true,
-                            ),
+                          textController: passwordController,
+                          hintText: "Password",
+                          icon: Icons.password_sharp,
+                          isObscure: true,
+                        ),
                         SizedBox(height: 20.h),
                         AppTextField(
                             textController: usernameController,

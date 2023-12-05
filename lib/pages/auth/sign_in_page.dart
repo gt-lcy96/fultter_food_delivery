@@ -13,12 +13,14 @@ import 'package:food_delivery/routes/route_helper.dart';
 import 'package:get/get.dart';
 
 class SignInPage extends StatelessWidget {
-  const SignInPage({super.key});
+  SignInPage({super.key});
+
+  var usernameController = TextEditingController();
+  var passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    var usernameController = TextEditingController();
-    var passwordController = TextEditingController();
+    
 
     void _login(AuthController authController) {
       String username = usernameController.text.trim();

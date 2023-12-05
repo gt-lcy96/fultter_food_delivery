@@ -41,7 +41,7 @@ class SignInPage extends StatelessWidget {
             //     isError: false,
             //     title: "Success",
             //     backgroundColor: Colors.greenAccent);
-            Get.toNamed(RouteHelper.getCart());
+            Get.toNamed(RouteHelper.getInitial());
           } else {
             // showCustomSnackBar(status.code);
             showCustomSnackBar(status.message);

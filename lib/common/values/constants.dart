@@ -11,11 +11,13 @@ class AppConstants {
   static const String CART_HISTORY_LIST = "Cart-history-list";
   static const bool REMOVE_CACHE = false;
 
-  //auth end points
+  //user and auth end points
   static const String REGISTRATION_URI = "/api/signup";
   static const String LOGIN_URI = "/api/login";
+  static const String USER_INFO_URI = "/api/customer/info";
 
   static const String TOKEN = "";
   static const String PHONE = "";
   static const String PASSWORD = "";
+  static const String USERNAME = "";
 }

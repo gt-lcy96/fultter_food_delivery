@@ -102,6 +102,41 @@ class _AddAddressPageState extends State<AddAddressPage> {
                           }),
                     ]),
                   ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 20.w, top: 20.h),
+                    child: SizedBox(height: 50.h,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: locationController.addressTypeList.length,
+                      itemBuilder: (context, index){
+                      return InkWell(
+                        onTap: (){
+                          locationController.setAddressTypeIndex(index);
+                        },
+                        child: Container(
+                          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                          margin: EdgeInsets.only(right: 10.w),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5.w),
+                            color: Theme.of(context).cardColor,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey[200]!,
+                                spreadRadius: 1,
+                                blurRadius: 5,
+                              )
+                            ]
+                          ),
+                          child: 
+                              Icon(
+                                index == 0 ? Icons.home_filled: index == 1 ? Icons.work: Icons.location_on,
+                                color: locationController.addressTypeIndex == index ? AppColors.primaryElement : Theme.of(context).disabledColor,
+                              )
+                        ),
+                      );
+                    }),),
+                  ),
                   SizedBox(height: 20.h),
                   Padding(
                     padding: EdgeInsets.only(left: 20.w),

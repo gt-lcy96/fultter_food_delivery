@@ -21,7 +21,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
   late bool _isLogged;
   CameraPosition _cameraPosition =
       const CameraPosition(target: LatLng(45.51563, -122.677433), zoom: 17);
-  late LatLng  _initialPosition = LatLng(45.51563, -122.677433);
+  late LatLng _initialPosition = LatLng(45.51563, -122.677433);
 
   @override
   void initState() {
@@ -51,24 +51,39 @@ class _AddAddressPageState extends State<AddAddressPage> {
         title: Text("Address page"),
         backgroundColor: AppColors.primaryElement,
       ),
-      body: Column(children: [
-        Container(
-          height: 140.h,
-          width: MediaQuery.of(context).size.width,
-          margin: EdgeInsets.only(left: 5.w, right: 5.w, top: 5.h),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              border: Border.all(
-                width: 2.w,
-                color: Theme.of(context).primaryColor,
-              )),
-          child: Stack(
-            children: [
-              GoogleMap(initialCameraPosition: CameraPosition(target: _initialPosition, zoom: 17)),
-            ]
-          ),
-        ),
-      ]),
+      body: GetBuilder<LocationController>(
+        builder: (locationController) {
+          return Column(children: [
+            Container(
+              height: 140.h,
+              width: MediaQuery.of(context).size.width,
+              margin: EdgeInsets.only(left: 5.w, right: 5.w, top: 5.h),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  border: Border.all(
+                    width: 2.w,
+                    color: Theme.of(context).primaryColor,
+                  )),
+              child: Stack(children: [
+                GoogleMap(
+                    initialCameraPosition:
+                        CameraPosition(target: _initialPosition, zoom: 17),
+                    zoomControlsEnabled: false,
+                    compassEnabled: false,
+                    indoorViewEnabled: true,
+                    mapToolbarEnabled: false,
+                    onCameraIdle: () {
+                      locationController.updatePosition(_cameraPosition,  true);
+                    },
+                    onCameraMove: ((position) => _cameraPosition = position),
+                    onMapCreated: (GoogleMapController controller) {
+                      locationController.setMapController(controller);
+                    }),
+              ]),
+            ),
+          ]);
+        },
+      ),
     );
   }
 }

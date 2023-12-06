@@ -5,6 +5,7 @@ class AppConstants {
   static const RECOMMENDED_TYPE_ID = 3;
   static const String POPULAR_PRODUCT_URI = "/api/product-containers/type/${POPULAR_TYPE_ID}";
   static const String RECOMMENDED_PRODUCT_URI = "/api/product-containers/type/${RECOMMENDED_TYPE_ID}";
+  static const String GEOCODE_URI = "/api/config/geocode";
 
   static const int COUTNER_MAX_QUANTITY = 20;
 

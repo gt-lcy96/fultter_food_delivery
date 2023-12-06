@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/common/values/colors.dart';
+import 'package:food_delivery/common/widgets/app_icons.dart';
 import 'package:food_delivery/common/widgets/app_text_field.dart';
 import 'package:food_delivery/common/widgets/base_text_widget.dart';
 import 'package:food_delivery/controllers/auth_controller.dart';
@@ -174,7 +175,42 @@ class _AddAddressPageState extends State<AddAddressPage> {
           },
         );
       }),
-      
+      bottomNavigationBar: GetBuilder<LocationController>(
+        builder: (locationController) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                height: 100.h,
+                padding: EdgeInsets.only(
+                    top: 15.h, bottom: 15.h, left: 20.w, right: 20.w),
+                decoration: BoxDecoration(
+                    color:
+                        AppColors.primarySecondaryElementText.withOpacity(0.1),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20.w * 2),
+                      topRight: Radius.circular(20.w * 2),
+                    )),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.w),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15.w),
+                        color: AppColors.primaryElement,
+                      ),
+                      child: bigText("Save Info", color: Colors.white, fontSize: 26),
+
+                    )
+                  ],
+                ),
+              ),
+            ],
+          );
+        },
+      ),
+    
     );
   }
 }

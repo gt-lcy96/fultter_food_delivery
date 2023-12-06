@@ -22,4 +22,5 @@ class AppConstants {
   static const String PHONE = "";
   static const String PASSWORD = "";
   static const String USERNAME = "";
+  static const String USER_ADDRESS = "user_address";
 }

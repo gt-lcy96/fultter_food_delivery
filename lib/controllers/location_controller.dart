@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:food_delivery/data/api/api_client.dart';
 import 'package:food_delivery/data/repository/location_repo.dart';
 import 'package:food_delivery/models/address_model.dart';
@@ -16,6 +18,9 @@ class LocationController extends GetxController implements GetxService {
 
   Placemark _placemark = Placemark();
   Placemark _pickPlacemark = Placemark();
+
+  Placemark get placemark => _placemark;
+  Placemark get pickPlacemark => _pickPlacemark;
 
   List<AddressModel> _addressList = [];
   List<AddressModel> get addressList => _addressList;
@@ -71,17 +76,14 @@ class LocationController extends GetxController implements GetxService {
         }
 
         if (_changeAddress) {
-          
           String _address = await getAddressFromGeocode(LatLng(
             position.target.latitude,
             position.target.longitude,
           ));
-          print('--------------------------------');
-          print("_address:  ${_address}");
-          print('--------------------------------');
+          fromAddress
+              ? _placemark = Placemark(name: _address)
+              : _pickPlacemark = Placemark(name: _address);
         }
-
-        
       } catch (e) {
         print(e);
       }
@@ -92,11 +94,24 @@ class LocationController extends GetxController implements GetxService {
     String _address = "Unknown Location Found";
 
     Response response = await locationRepo.getAddressFromGeocode(latlng);
-    if(response.body["status"] == "OK") {
+    if (response.body["status"] == "OK") {
       _address = response.body["results"][0]['formatted_address'].toString();
     } else {
       print("Error getting the google api");
     }
     return _address;
+  }
+
+  getUserAddress() {
+    late AddressModel _addressModel;
+    //converting to map using jsonDecode
+    _getAddress = jsonDecode(locationRepo.getUserAddress());
+    try {
+      _addressModel = AddressModel.fromJson(jsonDecode(locationRepo.getUserAddress()));
+    } catch (e) {
+      print(e);
+    }
+
+    return _addressModel;
   }
 }

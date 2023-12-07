@@ -56,7 +56,6 @@ class SignUpPage extends StatelessWidget {
 
         authController.registration(signUpBody).then((status) {
           if (status.isSuccess) {
-            print("status.message:  ${status.message}");
             showCustomSnackBar("Success registration",
                 isError: false,
                 title: "Success",

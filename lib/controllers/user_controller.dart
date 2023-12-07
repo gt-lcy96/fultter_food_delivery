@@ -25,17 +25,17 @@ class UserController extends GetxController implements GetxService {
       _isLoading=true;
       responseModel = ResponseModel(true, "successfully");
     }else{
-      
+      _userModel = UserModel(
+        username: "None",
+        email: "none@gmail.com",
+        phone: "00000000",
+        orderCount: 0
+      );
       // _isLoading=false;
       print("did not get user data in userController");
       responseModel = ResponseModel(false, response.statusText!);
     }
-    // _userModel = UserModel(
-    //     username: "None",
-    //     email: "none@gmail.com",
-    //     phone: "00000000",
-    //     orderCount: 0
-    //   );
+    
     update();
     return responseModel;
   }

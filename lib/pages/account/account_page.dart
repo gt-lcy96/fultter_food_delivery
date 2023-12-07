@@ -131,6 +131,7 @@ class AccountPage extends StatelessWidget {
                       ],
                     ),
                   )
+                //Custom Loader and SignInButton
                 : Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

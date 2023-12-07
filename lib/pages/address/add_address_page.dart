@@ -36,6 +36,10 @@ class _AddAddressPageState extends State<AddAddressPage> {
       Get.find<UserController>().getUserInfo();
     }
     if (Get.find<LocationController>().addressList.isNotEmpty) {
+      // new
+      Get.find<UserController>().getUserInfo();
+      // end new
+
       _cameraPosition = CameraPosition(
           target: LatLng(
         double.parse(Get.find<LocationController>().getAddress["latitude"]),

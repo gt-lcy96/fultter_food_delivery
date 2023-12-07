@@ -7,6 +7,8 @@ import 'package:food_delivery/common/widgets/base_text_widget.dart';
 import 'package:food_delivery/controllers/auth_controller.dart';
 import 'package:food_delivery/controllers/location_controller.dart';
 import 'package:food_delivery/controllers/user_controller.dart';
+import 'package:food_delivery/models/address_model.dart';
+import 'package:food_delivery/utils/logging.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -55,11 +57,13 @@ class _AddAddressPageState extends State<AddAddressPage> {
         backgroundColor: AppColors.primaryElement,
       ),
       body: GetBuilder<UserController>(builder: (userController) {
-        if(userController.userModel != null && _contactPersonName.text.isEmpty) {
+        if (userController.userModel != null &&
+            _contactPersonName.text.isEmpty) {
           _contactPersonName.text = '${userController.userModel?.username}';
           _contactPersonNumber.text = '${userController.userModel?.phone}';
-          if(Get.find<LocationController>().addressList.isNotEmpty) {
-            _addressController.text = Get.find<LocationController>().getUserAddress().address;
+          if (Get.find<LocationController>().addressList.isNotEmpty) {
+            _addressController.text =
+                Get.find<LocationController>().getUserAddress().address;
           }
         }
         return GetBuilder<LocationController>(
@@ -106,38 +110,48 @@ class _AddAddressPageState extends State<AddAddressPage> {
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: 20.w, top: 20.h),
-                      child: SizedBox(height: 50.h,
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: locationController.addressTypeList.length,
-                        itemBuilder: (context, index){
-                        return InkWell(
-                          onTap: (){
-                            locationController.setAddressTypeIndex(index);
-                          },
-                          child: Container(
-                            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-                            margin: EdgeInsets.only(right: 10.w),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5.w),
-                              color: Theme.of(context).cardColor,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey[200]!,
-                                  spreadRadius: 1,
-                                  blurRadius: 5,
-                                )
-                              ]
-                            ),
-                            child: 
-                                Icon(
-                                  index == 0 ? Icons.home_filled: index == 1 ? Icons.work: Icons.location_on,
-                                  color: locationController.addressTypeIndex == index ? AppColors.primaryElement : Theme.of(context).disabledColor,
-                                )
-                          ),
-                        );
-                      }),),
+                      child: SizedBox(
+                        height: 50.h,
+                        child: ListView.builder(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            itemCount:
+                                locationController.addressTypeList.length,
+                            itemBuilder: (context, index) {
+                              return InkWell(
+                                onTap: () {
+                                  locationController.setAddressTypeIndex(index);
+                                },
+                                child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 20.w, vertical: 10.h),
+                                    margin: EdgeInsets.only(right: 10.w),
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(5.w),
+                                        color: Theme.of(context).cardColor,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey[200]!,
+                                            spreadRadius: 1,
+                                            blurRadius: 5,
+                                          )
+                                        ]),
+                                    child: Icon(
+                                      index == 0
+                                          ? Icons.home_filled
+                                          : index == 1
+                                              ? Icons.work
+                                              : Icons.location_on,
+                                      color:
+                                          locationController.addressTypeIndex ==
+                                                  index
+                                              ? AppColors.primaryElement
+                                              : Theme.of(context).disabledColor,
+                                    )),
+                              );
+                            }),
+                      ),
                     ),
                     SizedBox(height: 20.h),
                     Padding(
@@ -169,7 +183,6 @@ class _AddAddressPageState extends State<AddAddressPage> {
                         textController: _contactPersonNumber,
                         hintText: "Your Phone",
                         icon: Icons.phone),
-            
                   ]),
             );
           },
@@ -194,14 +207,37 @@ class _AddAddressPageState extends State<AddAddressPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.w),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15.w),
-                        color: AppColors.primaryElement,
+                    GestureDetector(
+                      onTap: () {
+                        AddressModel _addressModel = AddressModel(
+                          addressType: locationController.addressTypeList[
+                              locationController.addressTypeIndex],
+                          contactPersonName: _contactPersonName.text,
+                          contactPersonNumber: _contactPersonNumber.text,
+                          address: _addressController.text, 
+                          latitude: locationController.position.latitude.toString(),
+                          longitude: locationController.position.longitude.toString(),
+                        );
+                        locationController.addAddress(_addressModel).then((response) {
+                          print(response.isSuccess);
+                          if(response.isSuccess) {
+                            Get.back();
+                            Get.snackbar("Address", "Added Successfully");
+                          } else {
+                            Get.snackbar("Address", "Couldn't save address");
+                          }
+                        });
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 15.w, vertical: 15.w),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15.w),
+                          color: AppColors.primaryElement,
+                        ),
+                        child: bigText("Save Info",
+                            color: Colors.white, fontSize: 26),
                       ),
-                      child: bigText("Save Info", color: Colors.white, fontSize: 26),
-
                     )
                   ],
                 ),
@@ -210,7 +246,6 @@ class _AddAddressPageState extends State<AddAddressPage> {
           );
         },
       ),
-    
     );
   }
 }

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:food_delivery/data/api/api_client.dart';
 import 'package:food_delivery/data/repository/location_repo.dart';
 import 'package:food_delivery/models/address_model.dart';
+import 'package:food_delivery/models/response_model.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -121,5 +122,23 @@ class LocationController extends GetxController implements GetxService {
   void setAddressTypeIndex(int index) {
     _addressTypeIndex = index;
     update();
+  }
+
+  Future<ResponseModel> addAddress(AddressModel addressModel) async {
+    _loading = true;
+    update();
+    Response response = await locationRepo.addAddress(addressModel);
+    ResponseModel responseModel;
+    if(response.statusCode == 200) {
+      String message = response.body["message"];
+      // String message = response.body("message");
+      responseModel = ResponseModel(true, message);
+
+    } else {
+      print("couldn't save the adrress");
+      responseModel = ResponseModel(false, response.statusText!);
+    }
+    update();
+    return responseModel;
   }
 }

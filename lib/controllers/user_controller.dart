@@ -26,6 +26,7 @@ class UserController extends GetxController implements GetxService {
     late ResponseModel responseModel;
     try {
     Response response = await userRepo.getUserInfo();
+    // _isLoading = true;
     
     if(response.statusCode == 200) {
       print("response.body in user_controller:  ${response.body}");
@@ -42,7 +43,7 @@ class UserController extends GetxController implements GetxService {
       print("Exception occurred while fetching user info: $e");
       responseModel = ResponseModel(false, "An error occurred while fetching user info");
     }  finally {
-      _isLoading = false;
+      // _isLoading = false;
       update();
     }
     return responseModel;

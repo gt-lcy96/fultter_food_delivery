@@ -9,6 +9,7 @@ import 'package:food_delivery/controllers/location_controller.dart';
 import 'package:food_delivery/controllers/user_controller.dart';
 import 'package:food_delivery/models/address_model.dart';
 import 'package:food_delivery/models/user_model.dart';
+import 'package:food_delivery/routes/route_helper.dart';
 import 'package:food_delivery/utils/logging.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -257,7 +258,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
                             .then((response) {
                           print(response.isSuccess);
                           if (response.isSuccess) {
-                            Get.back();
+                            Get.toNamed(RouteHelper.getInitial());
                             Get.snackbar("Address", "Added Successfully");
                           } else {
                             Get.snackbar("Address", "Couldn't save address");

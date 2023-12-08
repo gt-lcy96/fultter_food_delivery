@@ -39,11 +39,12 @@ class _AddAddressPageState extends State<AddAddressPage> {
   }
 
   Future<void> loadUserData() async {
+    UserController userController = Get.find<UserController>();
     try {
-      await Get.find<UserController>().getUserInfo();
+      // await userController.getUserInfo();
       _isLogged = Get.find<AuthController>().userLoggedIn();
-      if (_isLogged && Get.find<UserController>().userModel == null) {
-        await Get.find<UserController>().getUserInfo();
+      if (_isLogged && userController.userModel == null) {
+        await userController.getUserInfo();
       }
       if (Get.find<LocationController>().addressList.isNotEmpty) {
         // new

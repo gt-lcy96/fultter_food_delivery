@@ -33,6 +33,7 @@ class LocationController extends GetxController implements GetxService {
   Map get getAddress => _getAddress;
   List<String> get addressTypeList => _addressTypeList;
   int get addressTypeIndex => _addressTypeIndex;
+  List<AddressModel> get allAddressList => _allAddressList;
 
   late GoogleMapController _mapController;
   bool _updateAddressData = true;
@@ -130,15 +131,37 @@ class LocationController extends GetxController implements GetxService {
     Response response = await locationRepo.addAddress(addressModel);
     ResponseModel responseModel;
     if(response.statusCode == 200) {
+      await getAddressList();
       String message = response.body["message"];
       // String message = response.body("message");
       responseModel = ResponseModel(true, message);
-
+      await saveUserAddress(addressModel);
     } else {
       print("couldn't save the adrress");
       responseModel = ResponseModel(false, response.statusText!);
     }
     update();
     return responseModel;
+  }
+
+  Future<void> getAddressList() async {
+    Response response = await locationRepo.getAllAddress();
+    if(response.statusCode == 200) {
+      _addressList = [];
+      _allAddressList = [];
+      response.body.forEach((address) {
+        _addressList.add(AddressModel.fromJson(address));
+        _allAddressList.add(AddressModel.fromJson(address));
+      });
+    } else {
+      _addressList = [];
+      _allAddressList = [];
+    }
+    update();
+  }
+
+  Future<bool> saveUserAddress(AddressModel addressModel) async {
+    String userAddress = jsonEncode(addressModel.toJson());
+    return await locationRepo.saveUserAddress(userAddress);
   }
 }

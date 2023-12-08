@@ -18,6 +18,7 @@ class AppConstants {
   static const String LOGIN_URI = "/api/login";
   static const String USER_INFO_URI = "/api/customer/info";
   static const String ADD_USER_ADDRESS_URI = '/api/customer/addresses/add';
+  static const String ADDRESS_LIST_URI = '/api/customer/addresses/list';
 
   static const String TOKEN = "";
   static const String PHONE = "";

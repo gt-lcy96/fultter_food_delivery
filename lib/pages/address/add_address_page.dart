@@ -47,8 +47,10 @@ class _AddAddressPageState extends State<AddAddressPage> {
         await userController.getUserInfo();
       }
       if (Get.find<LocationController>().addressList.isNotEmpty) {
-        // new
+
         await Get.find<UserController>().getUserInfo();
+        // new
+        Get.find<LocationController>().getUserAddress();
         // end new
 
         _cameraPosition = CameraPosition(

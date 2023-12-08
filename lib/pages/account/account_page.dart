@@ -8,6 +8,7 @@ import 'package:food_delivery/common/widgets/base_text_widget.dart';
 import 'package:food_delivery/common/widgets/customLoader.dart';
 import 'package:food_delivery/controllers/auth_controller.dart';
 import 'package:food_delivery/controllers/cart_controller.dart';
+import 'package:food_delivery/controllers/location_controller.dart';
 import 'package:food_delivery/controllers/user_controller.dart';
 import 'package:food_delivery/pages/account/widgets/account_widget.dart';
 import 'package:food_delivery/routes/route_helper.dart';
@@ -57,7 +58,9 @@ class AccountPage extends StatelessWidget {
                                         iconColor: Colors.white,
                                         iconSize: 25,
                                         size: 50),
-                                    bigText: BigText(text: userController.userModel.username)),
+                                    bigText: BigText(
+                                        text:
+                                            userController.userModel.username)),
                                 SizedBox(height: 20.h),
                                 //phone
                                 AccountWidget(
@@ -67,7 +70,8 @@ class AccountPage extends StatelessWidget {
                                         iconColor: Colors.white,
                                         iconSize: 25,
                                         size: 50),
-                                    bigText: BigText(text: userController.userModel.phone)),
+                                    bigText: BigText(
+                                        text: userController.userModel.phone)),
                                 SizedBox(height: 20.h),
                                 //email
                                 AccountWidget(
@@ -78,18 +82,47 @@ class AccountPage extends StatelessWidget {
                                         iconSize: 25,
                                         size: 50),
                                     bigText: BigText(
-                                        text: userController.userModel.email,)),
+                                      text: userController.userModel.email,
+                                    )),
                                 SizedBox(height: 20.h),
                                 //address
-                                AccountWidget(
-                                    appIcon: const AppIcon(
-                                        icon: Icons.location_on,
-                                        backgroundColor: AppColors.yellowColor,
-                                        iconColor: Colors.white,
-                                        iconSize: 25,
-                                        size: 50),
-                                    bigText: const BigText(
-                                        text: "Fill in your address")),
+                                GetBuilder<LocationController>(
+                                  builder: (locationController) {
+                                    if(_userLoggedIn && locationController.addressList.isEmpty) {
+                                      return GestureDetector(
+                                        onTap: (){
+                                          Get.toNamed(RouteHelper.getAddressPage());
+                                        },
+                                        child: AccountWidget(
+                                            appIcon: const AppIcon(
+                                                icon: Icons.location_on,
+                                                backgroundColor:
+                                                    AppColors.yellowColor,
+                                                iconColor: Colors.white,
+                                                iconSize: 25,
+                                                size: 50),
+                                            bigText: const BigText(
+                                                text: "Fill in your address")),
+                                      );
+                                    } else {
+                                      return GestureDetector(
+                                        onTap: (){
+                                          Get.toNamed(RouteHelper.getAddressPage());
+                                        },
+                                        child: AccountWidget(
+                                            appIcon: const AppIcon(
+                                                icon: Icons.location_on,
+                                                backgroundColor:
+                                                    AppColors.yellowColor,
+                                                iconColor: Colors.white,
+                                                iconSize: 25,
+                                                size: 50),
+                                            bigText: const BigText(
+                                                text: "Your address")),
+                                      );
+                                    }
+                                  },
+                                ),
                                 SizedBox(height: 20.h),
                                 //message
                                 AccountWidget(
@@ -133,61 +166,54 @@ class AccountPage extends StatelessWidget {
                   )
                 //Custom Loader and SignInButton
                 : Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CustomLoader(),
-                    SizedBox(height: 30.h),
-                    SignInButton(),
-                  ],
-                ))
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CustomLoader(),
+                      SizedBox(height: 30.h),
+                      SignInButton(),
+                    ],
+                  ))
             : LoginPrompt();
       }),
     );
   }
 }
 
-
 Widget LoginPrompt() {
   return Container(
-    
-    child: Center(child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
+      child: Center(
+          child: Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Container(
           width: double.maxFinite,
           height: 160.h,
           margin: EdgeInsets.only(left: 20.w, right: 20.w),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20.w),
-            image: DecorationImage(
-              fit: BoxFit.cover,
-              image: AssetImage(
-                "assets/images/sign_in_cont.png"
-              )
-            )
-          )
-        ),
-        SignInButton(),
-      ],
-    ))
-  );
+              borderRadius: BorderRadius.circular(20.w),
+              image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: AssetImage("assets/images/sign_in_cont.png")))),
+      SignInButton(),
+    ],
+  )));
 }
 
 Widget SignInButton() {
   return GestureDetector(
-          onTap: (){
-            Get.toNamed(RouteHelper.getSignIn());
-          },
-          child: Container(
-            width: double.maxFinite,
-            height: 40.h,
-            margin: EdgeInsets.only(left: 20.w, right: 20.w),
-            decoration: BoxDecoration(
-              color: AppColors.primaryElement,
-              borderRadius: BorderRadius.circular(20.w),
-              
-              ),
-              child: Center(child: bigText("Sign In", color: Colors.white, fontSize: 20)),
-            ),
-        );
+    onTap: () {
+      Get.toNamed(RouteHelper.getSignIn());
+    },
+    child: Container(
+      width: double.maxFinite,
+      height: 40.h,
+      margin: EdgeInsets.only(left: 20.w, right: 20.w),
+      decoration: BoxDecoration(
+        color: AppColors.primaryElement,
+        borderRadius: BorderRadius.circular(20.w),
+      ),
+      child:
+          Center(child: bigText("Sign In", color: Colors.white, fontSize: 20)),
+    ),
+  );
 }

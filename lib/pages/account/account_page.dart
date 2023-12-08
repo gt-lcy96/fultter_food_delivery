@@ -136,6 +136,7 @@ class AccountPage extends StatelessWidget {
                                 SizedBox(height: 20.h),
                                 GestureDetector(
                                   onTap: () {
+                                    //logout
                                     if (Get.find<AuthController>()
                                         .userLoggedIn()) {
                                       Get.find<AuthController>()
@@ -143,6 +144,7 @@ class AccountPage extends StatelessWidget {
                                       Get.find<CartController>()
                                           .clearCartHistory();
                                       Get.find<CartController>().clear();
+                                      Get.find<LocationController>().clearAddressList();
                                       Get.offNamed(RouteHelper.getSignIn());
                                     } else {
                                       print("you logged out");

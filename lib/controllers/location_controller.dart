@@ -104,6 +104,7 @@ class LocationController extends GetxController implements GetxService {
     } else {
       print("Error getting the google api");
     }
+    update();
     return _address;
   }
 
@@ -112,7 +113,8 @@ class LocationController extends GetxController implements GetxService {
     //converting to map using jsonDecode
     _getAddress = jsonDecode(locationRepo.getUserAddress());
     try {
-      _addressModel = AddressModel.fromJson(jsonDecode(locationRepo.getUserAddress()));
+      _addressModel =
+          AddressModel.fromJson(jsonDecode(locationRepo.getUserAddress()));
     } catch (e) {
       print(e);
     }
@@ -130,7 +132,7 @@ class LocationController extends GetxController implements GetxService {
     update();
     Response response = await locationRepo.addAddress(addressModel);
     ResponseModel responseModel;
-    if(response.statusCode == 200) {
+    if (response.statusCode == 200) {
       await getAddressList();
       String message = response.body["message"];
       // String message = response.body("message");
@@ -146,7 +148,7 @@ class LocationController extends GetxController implements GetxService {
 
   Future<void> getAddressList() async {
     Response response = await locationRepo.getAllAddress();
-    if(response.statusCode == 200) {
+    if (response.statusCode == 200) {
       _addressList = [];
       _allAddressList = [];
       response.body.forEach((address) {
@@ -163,5 +165,11 @@ class LocationController extends GetxController implements GetxService {
   Future<bool> saveUserAddress(AddressModel addressModel) async {
     String userAddress = jsonEncode(addressModel.toJson());
     return await locationRepo.saveUserAddress(userAddress);
+  }
+
+  void clearAddressList() {
+    _addressList = [];
+    _allAddressList = [];
+    update();
   }
 }

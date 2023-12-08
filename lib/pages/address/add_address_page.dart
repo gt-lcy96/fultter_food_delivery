@@ -8,6 +8,7 @@ import 'package:food_delivery/controllers/auth_controller.dart';
 import 'package:food_delivery/controllers/location_controller.dart';
 import 'package:food_delivery/controllers/user_controller.dart';
 import 'package:food_delivery/models/address_model.dart';
+import 'package:food_delivery/models/user_model.dart';
 import 'package:food_delivery/utils/logging.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -31,26 +32,56 @@ class _AddAddressPageState extends State<AddAddressPage> {
   @override
   void initState() {
     super.initState();
-    _isLogged = Get.find<AuthController>().userLoggedIn();
-    if (_isLogged && Get.find<UserController>().userModel == null) {
-      Get.find<UserController>().getUserInfo();
-    }
-    if (Get.find<LocationController>().addressList.isNotEmpty) {
-      // new
-      Get.find<UserController>().getUserInfo();
-      // end new
+    loadUserData();
+    setText();
+    // print("Get.find<UserController>().userModel:  ${Get.find<UserController>().userModel}");
+    print("testing after loadUserData");
+  }
 
-      _cameraPosition = CameraPosition(
-          target: LatLng(
-        double.parse(Get.find<LocationController>().getAddress["latitude"]),
-        double.parse(Get.find<LocationController>().getAddress["longitude"]),
-      ));
+  Future<void> loadUserData() async {
+    try {
+      await Get.find<UserController>().getUserInfo();
+      _isLogged = Get.find<AuthController>().userLoggedIn();
+      if (_isLogged && Get.find<UserController>().userModel == null) {
+        await Get.find<UserController>().getUserInfo();
+      }
+      if (Get.find<LocationController>().addressList.isNotEmpty) {
+        // new
+        await Get.find<UserController>().getUserInfo();
+        // end new
 
-      _initialPosition = LatLng(
-        double.parse(Get.find<LocationController>().getAddress["latitude"]),
-        double.parse(Get.find<LocationController>().getAddress["longitude"]),
-      );
+        _cameraPosition = CameraPosition(
+            target: LatLng(
+          double.parse(Get.find<LocationController>().getAddress["latitude"]),
+          double.parse(Get.find<LocationController>().getAddress["longitude"]),
+        ));
+
+        _initialPosition = LatLng(
+          double.parse(Get.find<LocationController>().getAddress["latitude"]),
+          double.parse(Get.find<LocationController>().getAddress["longitude"]),
+        );
+      }
+      // Use userModel for further operations
+    } catch (error) {
+      // Handle error
+      print("Error fetching user info: $error");
     }
+  }
+
+  Future<void> setText() async {
+    var userController = Get.find<UserController>();
+      await userController.getUserInfo();
+
+      if (userController.userModel != null &&
+            _contactPersonName.text.isEmpty) {
+        // if(_contactPersonName.text.isEmpty) {
+          _contactPersonName.text = '${userController.userModel.username}';
+          _contactPersonNumber.text = '${userController.userModel.phone}';
+          if (Get.find<LocationController>().addressList.isNotEmpty) {
+            _addressController.text =
+                Get.find<LocationController>().getUserAddress().address;
+          }
+        }
   }
 
   @override
@@ -61,15 +92,8 @@ class _AddAddressPageState extends State<AddAddressPage> {
         backgroundColor: AppColors.primaryElement,
       ),
       body: GetBuilder<UserController>(builder: (userController) {
-        if (userController.userModel != null &&
-            _contactPersonName.text.isEmpty) {
-          _contactPersonName.text = '${userController.userModel?.username}';
-          _contactPersonNumber.text = '${userController.userModel?.phone}';
-          if (Get.find<LocationController>().addressList.isNotEmpty) {
-            _addressController.text =
-                Get.find<LocationController>().getUserAddress().address;
-          }
-        }
+        
+        print('Get Builder<UserController> is get trigged');
         return GetBuilder<LocationController>(
           builder: (locationController) {
             _addressController.text =
@@ -218,13 +242,17 @@ class _AddAddressPageState extends State<AddAddressPage> {
                               locationController.addressTypeIndex],
                           contactPersonName: _contactPersonName.text,
                           contactPersonNumber: _contactPersonNumber.text,
-                          address: _addressController.text, 
-                          latitude: locationController.position.latitude.toString(),
-                          longitude: locationController.position.longitude.toString(),
+                          address: _addressController.text,
+                          latitude:
+                              locationController.position.latitude.toString(),
+                          longitude:
+                              locationController.position.longitude.toString(),
                         );
-                        locationController.addAddress(_addressModel).then((response) {
+                        locationController
+                            .addAddress(_addressModel)
+                            .then((response) {
                           print(response.isSuccess);
-                          if(response.isSuccess) {
+                          if (response.isSuccess) {
                             Get.back();
                             Get.snackbar("Address", "Added Successfully");
                           } else {

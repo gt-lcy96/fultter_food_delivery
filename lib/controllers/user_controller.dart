@@ -9,6 +9,12 @@ class UserController extends GetxController implements GetxService {
     required this.userRepo
   });
 
+  // UserModel _userModel = UserModel(
+  //       username: "None",
+  //       email: "none@gmail.com",
+  //       phone: "00000000",
+  //       orderCount: 0
+  //     );
   late UserModel _userModel;
   UserModel get userModel => _userModel;
 
@@ -17,26 +23,28 @@ class UserController extends GetxController implements GetxService {
 
   Future<ResponseModel> getUserInfo() async {
     // _isLoading = true;
-    Response response = await userRepo.getUserInfo();
     late ResponseModel responseModel;
+    try {
+    Response response = await userRepo.getUserInfo();
+    
     if(response.statusCode == 200) {
       print("response.body in user_controller:  ${response.body}");
       _userModel = UserModel.fromJson(response.body);
       _isLoading=true;
       responseModel = ResponseModel(true, "successfully");
     }else{
-      _userModel = UserModel(
-        username: "None",
-        email: "none@gmail.com",
-        phone: "00000000",
-        orderCount: 0
-      );
       // _isLoading=false;
       print("did not get user data in userController");
       responseModel = ResponseModel(false, response.statusText!);
     }
-    
-    update();
+    } catch (e) {
+      // Handle exceptions here
+      print("Exception occurred while fetching user info: $e");
+      responseModel = ResponseModel(false, "An error occurred while fetching user info");
+    }  finally {
+      _isLoading = false;
+      update();
+    }
     return responseModel;
   }
 }

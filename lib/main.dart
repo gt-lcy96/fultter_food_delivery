@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:food_delivery/common/values/colors.dart';
 import 'package:food_delivery/controllers/cart_controller.dart';
 import 'package:food_delivery/controllers/popular_product_controller.dart';
 import 'package:food_delivery/controllers/recommended_product_controller.dart';
@@ -41,6 +42,10 @@ class MyApp extends StatelessWidget {
                 // home: const MainFoodPage(),
                 initialRoute: RouteHelper.getSplashPage(),
                 getPages: RouteHelper.routes,
+                theme: ThemeData(
+                  primaryColor: AppColors.primaryElement,
+                  fontFamily: "Lato",
+                )
               );
             },
           );

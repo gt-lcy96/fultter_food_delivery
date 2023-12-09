@@ -121,7 +121,9 @@ class _PickAddressMapState extends State<PickAddressMap> {
                                       locationController.pickPosition.longitude,
                                     ),
                                   )));
+                                  locationController.setAddAddressData();
                                 }
+                                Get.back();
                               }
                             }
                           },

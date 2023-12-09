@@ -93,9 +93,10 @@ class LocationController extends GetxController implements GetxService {
       } catch (e) {
         print(e);
       }
-    }
+    
     _loading = false;
     update();
+    } 
   }
 
   Future<String> getAddressFromGeocode(LatLng latlng) async {
@@ -178,5 +179,13 @@ class LocationController extends GetxController implements GetxService {
 
   String getUserAddressFromLocalStorage() {
     return locationRepo.getUserAddress();
+  }
+
+  void setAddAddressData(){
+    //these are variable keep changing when you move the camera
+    _position = _pickPosition;
+    _placemark = _pickPlacemark;
+    _updateAddressData = false;
+    update();
   }
 }

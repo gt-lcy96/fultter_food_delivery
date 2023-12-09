@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/common/values/colors.dart';
 import 'package:food_delivery/common/widgets/custom_button.dart';
 import 'package:food_delivery/controllers/location_controller.dart';
+import 'package:food_delivery/routes/route_helper.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -100,7 +101,7 @@ class _PickAddressMapState extends State<PickAddressMap> {
                   ),
                 ),
                 Positioned(
-                  bottom: 200.h,
+                  bottom: 80.h,
                   left: 20.w,
                   right: 20.w,
                   child: CustomButton(
@@ -123,7 +124,8 @@ class _PickAddressMapState extends State<PickAddressMap> {
                                   )));
                                   locationController.setAddAddressData();
                                 }
-                                Get.back();
+                                //Get.back() creates update problem
+                                Get.toNamed(RouteHelper.getAddressPage());
                               }
                             }
                           },

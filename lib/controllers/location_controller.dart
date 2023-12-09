@@ -42,6 +42,7 @@ class LocationController extends GetxController implements GetxService {
   bool get loading => _loading;
   Position get position => _position;
   Position get pickPosition => _pickPosition;
+  GoogleMapController get mapController => _mapController;
 
   void setMapController(GoogleMapController mapController) {
     _mapController = mapController;
@@ -93,6 +94,8 @@ class LocationController extends GetxController implements GetxService {
         print(e);
       }
     }
+    _loading = false;
+    update();
   }
 
   Future<String> getAddressFromGeocode(LatLng latlng) async {
@@ -171,5 +174,9 @@ class LocationController extends GetxController implements GetxService {
     _addressList = [];
     _allAddressList = [];
     update();
+  }
+
+  String getUserAddressFromLocalStorage() {
+    return locationRepo.getUserAddress();
   }
 }

@@ -10,6 +10,7 @@ import 'package:food_delivery/controllers/location_controller.dart';
 import 'package:food_delivery/controllers/user_controller.dart';
 import 'package:food_delivery/models/address_model.dart';
 import 'package:food_delivery/models/user_model.dart';
+import 'package:food_delivery/pages/address/pick_address_map.dart';
 import 'package:food_delivery/routes/route_helper.dart';
 import 'package:food_delivery/utils/logging.dart';
 import 'package:get/get.dart';
@@ -59,6 +60,9 @@ class _AddAddressPageState extends State<AddAddressPage> {
         await Get.find<UserController>().getUserInfo();
         // new
         Get.find<LocationController>().getUserAddress();
+        if(Get.find<LocationController>().getUserAddressFromLocalStorage()==""){
+          Get.find<LocationController>().saveUserAddress(Get.find<LocationController>().addressList.last);
+        }
         // end new
 
         _cameraPosition = CameraPosition(
@@ -130,6 +134,15 @@ class _AddAddressPageState extends State<AddAddressPage> {
                         GoogleMap(
                             initialCameraPosition: CameraPosition(
                                 target: _initialPosition, zoom: 17),
+                            onTap: (latlng){
+                              Get.toNamed(RouteHelper.getPickAddressPage(),
+                                arguments: PickAddressMap(
+                                  fromSignUp: false,
+                                  fromAddress: true,
+                                  googleMapController: locationController.mapController,
+                                )
+                              );
+                            },
                             zoomControlsEnabled: false,
                             compassEnabled: false,
                             indoorViewEnabled: true,

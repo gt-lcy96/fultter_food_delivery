@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/common/values/colors.dart';
+import 'package:food_delivery/common/widgets/custom_button.dart';
 import 'package:food_delivery/controllers/location_controller.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -98,6 +99,34 @@ class _PickAddressMapState extends State<PickAddressMap> {
                     ]),
                   ),
                 ),
+                Positioned(
+                  bottom: 200.h,
+                  left: 20.w,
+                  right: 20.w,
+                  child: CustomButton(
+                    buttonText: 'Pick Address',
+                    onPressed: locationController.loading
+                        ? null
+                        : () {
+                            if (locationController.pickPosition.latitude != 0 &&
+                                locationController.pickPlacemark.name != null) {
+                              if (widget.fromAddress) {
+                                if (widget.googleMapController != null) {
+                                  print("Now you can clicked on this");
+                                  widget.googleMapController!.moveCamera(
+                                      CameraUpdate.newCameraPosition(
+                                          CameraPosition(
+                                    target: LatLng(
+                                      locationController.pickPosition.latitude,
+                                      locationController.pickPosition.longitude,
+                                    ),
+                                  )));
+                                }
+                              }
+                            }
+                          },
+                  ),
+                )
               ],
             ),
           )),

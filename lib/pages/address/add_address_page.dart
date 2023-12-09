@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/common/values/colors.dart';
+import 'package:food_delivery/common/values/constants.dart';
 import 'package:food_delivery/common/widgets/app_icons.dart';
 import 'package:food_delivery/common/widgets/app_text_field.dart';
 import 'package:food_delivery/common/widgets/base_text_widget.dart';
@@ -29,6 +30,8 @@ class _AddAddressPageState extends State<AddAddressPage> {
   CameraPosition _cameraPosition =
       const CameraPosition(target: LatLng(45.51563, -122.677433), zoom: 17);
   late LatLng _initialPosition = LatLng(45.51563, -122.677433);
+  bool _userMovedMap = false;
+  bool _isUserInteraction = false;
 
   @override
   void initState() {
@@ -36,7 +39,12 @@ class _AddAddressPageState extends State<AddAddressPage> {
     loadUserData();
     setText();
     // print("Get.find<UserController>().userModel:  ${Get.find<UserController>().userModel}");
-    print("testing after loadUserData");
+
+    // Delay setting the user interaction flag
+    Future.delayed(Duration(seconds: AppConstants.ALLOW_USER_SET_MAP_AFTER_SECONDS), () {
+      _isUserInteraction = true;
+    });
+
   }
 
   Future<void> loadUserData() async {
@@ -48,7 +56,6 @@ class _AddAddressPageState extends State<AddAddressPage> {
         await userController.getUserInfo();
       }
       if (Get.find<LocationController>().addressList.isNotEmpty) {
-
         await Get.find<UserController>().getUserInfo();
         // new
         Get.find<LocationController>().getUserAddress();
@@ -74,18 +81,17 @@ class _AddAddressPageState extends State<AddAddressPage> {
 
   Future<void> setText() async {
     var userController = Get.find<UserController>();
-      await userController.getUserInfo();
+    await userController.getUserInfo();
 
-      if (userController.userModel != null &&
-            _contactPersonName.text.isEmpty) {
-        // if(_contactPersonName.text.isEmpty) {
-          _contactPersonName.text = '${userController.userModel.username}';
-          _contactPersonNumber.text = '${userController.userModel.phone}';
-          if (Get.find<LocationController>().addressList.isNotEmpty) {
-            _addressController.text =
-                Get.find<LocationController>().getUserAddress().address;
-          }
-        }
+    if (userController.userModel != null && _contactPersonName.text.isEmpty) {
+      // if(_contactPersonName.text.isEmpty) {
+      _contactPersonName.text = '${userController.userModel.username}';
+      _contactPersonNumber.text = '${userController.userModel.phone}';
+      if (Get.find<LocationController>().addressList.isNotEmpty) {
+        _addressController.text =
+            Get.find<LocationController>().getUserAddress().address;
+      }
+    }
   }
 
   @override
@@ -96,7 +102,6 @@ class _AddAddressPageState extends State<AddAddressPage> {
         backgroundColor: AppColors.primaryElement,
       ),
       body: GetBuilder<UserController>(builder: (userController) {
-        
         print('Get Builder<UserController> is get trigged');
         return GetBuilder<LocationController>(
           builder: (locationController) {
@@ -131,11 +136,14 @@ class _AddAddressPageState extends State<AddAddressPage> {
                             mapToolbarEnabled: false,
                             myLocationEnabled: true,
                             onCameraIdle: () {
-                              locationController.updatePosition(
-                                  _cameraPosition, true);
+                              if (_isUserInteraction) {
+                                locationController.updatePosition(
+                                    _cameraPosition, true);
+                              }
                             },
-                            onCameraMove: ((position) =>
-                                _cameraPosition = position),
+                            onCameraMove: ((position) {
+                              _cameraPosition = position;
+                            }),
                             onMapCreated: (GoogleMapController controller) {
                               locationController.setMapController(controller);
                             }),

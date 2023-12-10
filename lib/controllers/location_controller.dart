@@ -44,6 +44,15 @@ class LocationController extends GetxController implements GetxService {
   Position get pickPosition => _pickPosition;
   GoogleMapController get mapController => _mapController;
 
+  // for service zone
+  bool _isLoading = false;
+  bool _inZone = false;
+  bool _buttonDisabled = true;
+
+  bool get isLoading => _isLoading;
+  bool get inZone => _inZone;
+  bool get buttonDisabled => _buttonDisabled;
+
   void setMapController(GoogleMapController mapController) {
     _mapController = mapController;
   }
@@ -81,6 +90,11 @@ class LocationController extends GetxController implements GetxService {
           );
         }
 
+      ResponseModel _responseModel = await getZone(position.target.latitude.toString(), position.target.longitude.toString(), false);
+      _responseModel.isSuccess;
+      //if button value is false, we are in  the service area
+      _buttonDisabled = !_responseModel.isSuccess;
+
         if (_changeAddress) {
           String _address = await getAddressFromGeocode(LatLng(
             position.target.latitude,
@@ -93,9 +107,9 @@ class LocationController extends GetxController implements GetxService {
       } catch (e) {
         print(e);
       }
-    
-    _loading = false;
-    update();
+
+      _loading = false;
+      update();
     } else {
       _updateAddressData = true;
     }
@@ -183,11 +197,32 @@ class LocationController extends GetxController implements GetxService {
     return locationRepo.getUserAddress();
   }
 
-  void setAddAddressData(){
+  void setAddAddressData() {
     //these are variable keep changing when you move the camera
     _position = _pickPosition;
     _placemark = _pickPlacemark;
     _updateAddressData = false;
     update();
+  }
+
+  Future<ResponseModel> getZone(String lat, String lng, bool markerLoad) async {
+    late ResponseModel _responseModel;
+    if (markerLoad) {
+      _loading = true;
+    } else {
+      _isLoading = true;
+    }
+    update();
+    await Future.delayed(Duration(seconds: 2), () {
+      _responseModel = ResponseModel(true, "success");
+      if (markerLoad) {
+        _loading = false;
+      } else {
+        _isLoading = false;
+      }
+      _inZone = false;
+    });
+    update();
+    return _responseModel;
   }
 }

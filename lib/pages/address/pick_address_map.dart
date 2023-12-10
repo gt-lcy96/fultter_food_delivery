@@ -104,9 +104,9 @@ class _PickAddressMapState extends State<PickAddressMap> {
                   bottom: 80.h,
                   left: 20.w,
                   right: 20.w,
-                  child: CustomButton(
-                    buttonText: 'Pick Address',
-                    onPressed: locationController.loading
+                  child: locationController.isLoading ? Center(child: CircularProgressIndicator(),) : CustomButton(
+                    buttonText: locationController.inZone ? widget.fromAddress ? 'Pick Address' : 'Pick Location' : 'Service is not available in your area',
+                    onPressed: (locationController.buttonDisabled || locationController.loading)
                         ? null
                         : () {
                             if (locationController.pickPosition.latitude != 0 &&

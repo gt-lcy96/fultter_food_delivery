@@ -1,6 +1,8 @@
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 class AppConstants {
-  static const String BASE_URL = "http://127.0.0.1:8000";
-  // static const String BASE_URL = "http://192.168.68.103:8000";
+  // static const String BASE_URL = "http://127.0.0.1:8000";
+  static const String BASE_URL = "http://192.168.68.103:8000";
   static const POPULAR_TYPE_ID = 2;
   static const RECOMMENDED_TYPE_ID = 3;
   static const String POPULAR_PRODUCT_URI = "/api/product-containers/type/${POPULAR_TYPE_ID}";
@@ -10,7 +12,9 @@ class AppConstants {
 
   static const int COUTNER_MAX_QUANTITY = 20;
   static const int ALLOW_USER_SET_MAP_AFTER_SECONDS = 3;
+  static const int GET_GPS_LOCATION_TIMEOUT = 5;
   static const int DELAY_FOR_GET_ZONE = 10;
+  static const LatLng MAP_INITIAL_POSITION = LatLng(1.43431832155932, 103.7903622897778);
 
   static const String CART_LIST = "Cart-list";
   static const String CART_HISTORY_LIST = "Cart-history-list";

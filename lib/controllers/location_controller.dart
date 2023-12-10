@@ -226,4 +226,44 @@ class LocationController extends GetxController implements GetxService {
     update();
     return _responseModel;
   }
+
+  // this one should be call on initState
+  Future<void> requestPermissions() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      // Location services are not enabled, request user to enable it.
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+    
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error('Location permissions are permanently denied');
+    } 
+  }
+
+  // void getCurrentGPSLocation() async {
+  //   _loading = true;
+  //   update();
+  //   try {
+  //     Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+  //     _position = position; // Set the current position
+  //     // Update your camera position or other variables as needed
+  //   } catch (e) {
+  //     // Handle exception
+  //     print("Error getting current location: $e");
+  //   }
+  //   _loading = false;
+  //   update();
+  // }
 }

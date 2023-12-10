@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:food_delivery/common/values/constants.dart';
 import 'package:food_delivery/data/api/api_client.dart';
 import 'package:food_delivery/data/repository/location_repo.dart';
 import 'package:food_delivery/models/address_model.dart';
@@ -213,14 +214,14 @@ class LocationController extends GetxController implements GetxService {
       _isLoading = true;
     }
     update();
-    await Future.delayed(Duration(seconds: 2), () {
+    await Future.delayed(Duration(milliseconds: AppConstants.DELAY_FOR_GET_ZONE), () {
       _responseModel = ResponseModel(true, "success");
       if (markerLoad) {
         _loading = false;
       } else {
         _isLoading = false;
       }
-      _inZone = false;
+      _inZone = true;
     });
     update();
     return _responseModel;

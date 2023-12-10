@@ -6,9 +6,11 @@ class AppConstants {
   static const String POPULAR_PRODUCT_URI = "/api/product-containers/type/${POPULAR_TYPE_ID}";
   static const String RECOMMENDED_PRODUCT_URI = "/api/product-containers/type/${RECOMMENDED_TYPE_ID}";
   static const String GEOCODE_URI = "/api/config/geocode";
+  static const String ZONE_URI = "/api/config/get-zone-id";
 
   static const int COUTNER_MAX_QUANTITY = 20;
   static const int ALLOW_USER_SET_MAP_AFTER_SECONDS = 3;
+  static const int DELAY_FOR_GET_ZONE = 10;
 
   static const String CART_LIST = "Cart-list";
   static const String CART_HISTORY_LIST = "Cart-history-list";

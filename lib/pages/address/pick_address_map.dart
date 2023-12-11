@@ -6,6 +6,7 @@ import 'package:food_delivery/common/values/colors.dart';
 import 'package:food_delivery/common/values/constants.dart';
 import 'package:food_delivery/common/widgets/custom_button.dart';
 import 'package:food_delivery/controllers/location_controller.dart';
+import 'package:food_delivery/pages/address/widgets/search_location_dialogue_page.dart';
 import 'package:food_delivery/routes/route_helper.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -27,7 +28,7 @@ class PickAddressMap extends StatefulWidget {
 }
 
 class _PickAddressMapState extends State<PickAddressMap> {
-  late LatLng _initialPosition=AppConstants.MAP_INITIAL_POSITION;
+  late LatLng _initialPosition = AppConstants.MAP_INITIAL_POSITION;
   late GoogleMapController _mapController;
   late CameraPosition _cameraPosition;
 
@@ -139,6 +140,36 @@ class _PickAddressMapState extends State<PickAddressMap> {
                             child: InkWell(
                               onTap: () => Get.dialog(LocationDialogue(
                                   mapController: _mapController)),
+                              child: Container(
+                                padding: EdgeInsets.symmetric(horizontal: 10.w),
+                                height: 50.h,
+                                decoration: BoxDecoration(
+                                  color: AppColors.primaryElement,
+                                  borderRadius: BorderRadius.circular(10.w),
+                                ),
+                                child: Row(children: [
+                                  Icon(Icons.location_on,
+                                      size: 25, color: AppColors.yellowColor),
+                                  Expanded(
+                                    child: Text(
+                                        '${locationController.pickPlacemark.name ?? ""}',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 16.sp),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis),
+                                  ),
+                                  SizedBox(width: 10.w),
+                                  VerticalDivider(
+                                    color: Colors.white,
+                                    thickness: 2,
+                                    indent: 10.h,
+                                    endIndent: 10.h,
+                                  ),
+                                  Icon(Icons.search,
+                                      size: 25.w, color: Colors.white),
+                                ]),
+                              ),
                             ),
                           ),
                           Positioned(

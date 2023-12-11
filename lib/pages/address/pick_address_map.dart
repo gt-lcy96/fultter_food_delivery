@@ -27,7 +27,7 @@ class PickAddressMap extends StatefulWidget {
 }
 
 class _PickAddressMapState extends State<PickAddressMap> {
-  late LatLng _initialPosition;
+  late LatLng _initialPosition=AppConstants.MAP_INITIAL_POSITION;
   late GoogleMapController _mapController;
   late CameraPosition _cameraPosition;
 

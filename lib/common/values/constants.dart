@@ -11,9 +11,9 @@ class AppConstants {
   static const String ZONE_URI = "/api/config/get-zone-id";
 
   static const int COUTNER_MAX_QUANTITY = 20;
-  static const int ALLOW_USER_SET_MAP_AFTER_SECONDS = 3;
-  static const int GET_GPS_LOCATION_TIMEOUT = 5;
-  static const int DELAY_FOR_GET_ZONE = 10;
+  static const int ALLOW_USER_SET_MAP_AFTER_SECONDS = 2;
+  static const int GET_GPS_LOCATION_TIMEOUT = 2;
+  static const int DELAY_FOR_GET_ZONE = 2;
   static const LatLng MAP_INITIAL_POSITION = LatLng(1.43431832155932, 103.7903622897778);
 
   static const String CART_LIST = "Cart-list";

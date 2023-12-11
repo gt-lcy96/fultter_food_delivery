@@ -119,6 +119,10 @@ class _PickAddressMapState extends State<PickAddressMap> {
                               Get.find<LocationController>()
                                   .updatePosition(_cameraPosition, false);
                             },
+                            onMapCreated: (GoogleMapController mapController) {
+                              _mapController = mapController;
+                              //if(!widget.fromAddress) and other stuff
+                            },
                           ),
                           Center(
                               child: !locationController.loading
@@ -132,25 +136,9 @@ class _PickAddressMapState extends State<PickAddressMap> {
                             top: 45.h,
                             left: 20.w,
                             right: 20.w,
-                            child: Container(
-                              padding: EdgeInsets.symmetric(horizontal: 10.w),
-                              height: 50.h,
-                              decoration: BoxDecoration(
-                                color: AppColors.primaryElement,
-                                borderRadius: BorderRadius.circular(10.w),
-                              ),
-                              child: Row(children: [
-                                Icon(Icons.location_on,
-                                    size: 25, color: AppColors.yellowColor),
-                                Expanded(
-                                  child: Text(
-                                      '${locationController.pickPlacemark.name ?? ""}',
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 16.sp),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis),
-                                )
-                              ]),
+                            child: InkWell(
+                              onTap: () => Get.dialog(LocationDialogue(
+                                  mapController: _mapController)),
                             ),
                           ),
                           Positioned(

@@ -252,18 +252,4 @@ class LocationController extends GetxController implements GetxService {
     } 
   }
 
-  // void getCurrentGPSLocation() async {
-  //   _loading = true;
-  //   update();
-  //   try {
-  //     Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-  //     _position = position; // Set the current position
-  //     // Update your camera position or other variables as needed
-  //   } catch (e) {
-  //     // Handle exception
-  //     print("Error getting current location: $e");
-  //   }
-  //   _loading = false;
-  //   update();
-  // }
 }

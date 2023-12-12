@@ -10,6 +10,7 @@ class AppConstants {
   static const String GEOCODE_URI = "/api/config/geocode";
   static const String ZONE_URI = "/api/config/get-zone-id";
   static const String SEARCH_LOCATION_URI = "/api/config/auto_complete";
+  static const String PLACE_DETAILS_URI = "/api/config/place_details";
 
   static const int COUTNER_MAX_QUANTITY = 20;
   static const int ALLOW_USER_SET_MAP_AFTER_SECONDS = 2;

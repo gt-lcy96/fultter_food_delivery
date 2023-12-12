@@ -44,11 +44,15 @@ class LocationDialogue extends StatelessWidget {
                         ),
                         hintStyle: Theme.of(context).textTheme.headline2?.copyWith(
                                 color: Theme.of(context).disabledColor,
-                                fontSize: 20.sp,
+                                fontSize: 20
+                                .sp,
                               )
                       )
                     ),
-                    onSuggestionSelected: (suggestion) {},
+                    onSuggestionSelected: (Prediction suggestion) {
+                      Get.find<LocationController>().setLocation(suggestion.placeId!, suggestion.description!, mapController); 
+                      Get.back();
+                    },
                     suggestionsCallback: (String pattern) async { //as we type, it gives us suggestion
                       return await Get.find<LocationController>().searchLocation(context, pattern);
                     },

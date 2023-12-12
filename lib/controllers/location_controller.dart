@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:food_delivery/common/values/constants.dart';
+import 'package:food_delivery/data/api/api_checker.dart';
 import 'package:food_delivery/data/api/api_client.dart';
 import 'package:food_delivery/data/repository/location_repo.dart';
 import 'package:food_delivery/models/address_model.dart';
@@ -9,6 +11,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_maps_webservice/src/places.dart'; //for Prediction
 
 class LocationController extends GetxController implements GetxService {
   LocationRepo locationRepo;
@@ -54,6 +57,9 @@ class LocationController extends GetxController implements GetxService {
   bool get inZone => _inZone;
   bool get buttonDisabled => _buttonDisabled;
 
+  // save the google map suggestions for address
+  List<Prediction> _predictionList = [];
+
   void setMapController(GoogleMapController mapController) {
     _mapController = mapController;
   }
@@ -91,10 +97,13 @@ class LocationController extends GetxController implements GetxService {
           );
         }
 
-      ResponseModel _responseModel = await getZone(position.target.latitude.toString(), position.target.longitude.toString(), false);
-      _responseModel.isSuccess;
-      //if button value is false, we are in  the service area
-      _buttonDisabled = !_responseModel.isSuccess;
+        ResponseModel _responseModel = await getZone(
+            position.target.latitude.toString(),
+            position.target.longitude.toString(),
+            false);
+        _responseModel.isSuccess;
+        //if button value is false, we are in  the service area
+        _buttonDisabled = !_responseModel.isSuccess;
 
         if (_changeAddress) {
           String _address = await getAddressFromGeocode(LatLng(
@@ -214,7 +223,8 @@ class LocationController extends GetxController implements GetxService {
       _isLoading = true;
     }
     update();
-    await Future.delayed(Duration(milliseconds: AppConstants.DELAY_FOR_GET_ZONE), () {
+    await Future.delayed(
+        Duration(milliseconds: AppConstants.DELAY_FOR_GET_ZONE), () {
       _responseModel = ResponseModel(true, "success");
       if (markerLoad) {
         _loading = false;
@@ -246,10 +256,23 @@ class LocationController extends GetxController implements GetxService {
         return Future.error('Location permissions are denied');
       }
     }
-    
+
     if (permission == LocationPermission.deniedForever) {
       return Future.error('Location permissions are permanently denied');
-    } 
+    }
   }
 
+  Future<List<Prediction>> searchLocation(BuildContext context, String text) async {
+    if (text.isNotEmpty) {
+      Response response = await locationRepo.searchLocation(text);
+      if (response.statusCode == 200 && response.body['status'] == 'OK') {
+        _predictionList = [];
+        response.body['predictions'].forEach((prediction) =>
+            _predictionList.add(Prediction.fromJson(prediction)));
+      } else {
+        ApiChecker.checkApi(response);
+      }
+    }
+    return _predictionList;
+  }
 }

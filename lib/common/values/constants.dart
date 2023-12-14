@@ -35,4 +35,8 @@ class AppConstants {
   static const String USERNAME = "";
   static const String USER_ADDRESS = "user_address";
 
+  static const String STRIPE_PUBLISHABLE_KEY = "pk_test_51OMmDtCIn4X0lBeBLK9CzoJTEAFSW1GsDcgRsqV51THIZvp69k9yEVjTrEWFCm83YwLPQ95cwU4bPDbkCCEMGGJo00T4X5dyzx";
+  static const String PAYMENT_CREATE_INTENT_URI = '/api/payment/create_intent';
+
+  
 }

@@ -9,16 +9,52 @@ PODS:
   - google_maps_flutter_ios (0.0.1):
     - Flutter
     - GoogleMaps (< 9.0)
-  - GoogleMaps (5.2.0):
-    - GoogleMaps/Maps (= 5.2.0)
-  - GoogleMaps/Base (5.2.0)
-  - GoogleMaps/Maps (5.2.0):
+  - GoogleMaps (7.4.0):
+    - GoogleMaps/Maps (= 7.4.0)
+  - GoogleMaps/Base (7.4.0)
+  - GoogleMaps/Maps (7.4.0):
     - GoogleMaps/Base
   - package_info_plus (0.4.5):
     - Flutter
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
+  - Stripe (23.1.1):
+    - StripeApplePay (= 23.1.1)
+    - StripeCore (= 23.1.1)
+    - StripePayments (= 23.1.1)
+    - StripePaymentsUI (= 23.1.1)
+    - StripeUICore (= 23.1.1)
+  - stripe_ios (0.0.1):
+    - Flutter
+    - Stripe (~> 23.1.0)
+    - StripeApplePay (~> 23.1.0)
+    - StripeFinancialConnections (~> 23.1.0)
+    - StripePayments (~> 23.1.0)
+    - StripePaymentSheet (~> 23.1.0)
+    - StripePaymentsUI (~> 23.1.0)
+  - StripeApplePay (23.1.1):
+    - StripeCore (= 23.1.1)
+  - StripeCore (23.1.1)
+  - StripeFinancialConnections (23.1.1):
+    - StripeCore (= 23.1.1)
+    - StripeUICore (= 23.1.1)
+  - StripePayments (23.1.1):
+    - StripeCore (= 23.1.1)
+    - StripePayments/Stripe3DS2 (= 23.1.1)
+  - StripePayments/Stripe3DS2 (23.1.1):
+    - StripeCore (= 23.1.1)
+  - StripePaymentSheet (23.1.1):
+    - StripeApplePay (= 23.1.1)
+    - StripeCore (= 23.1.1)
+    - StripePayments (= 23.1.1)
+    - StripePaymentsUI (= 23.1.1)
+  - StripePaymentsUI (23.1.1):
+    - StripeCore (= 23.1.1)
+    - StripePayments (= 23.1.1)
+    - StripeUICore (= 23.1.1)
+  - StripeUICore (23.1.1):
+    - StripeCore (= 23.1.1)
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
@@ -28,10 +64,19 @@ DEPENDENCIES:
   - google_maps_flutter_ios (from `.symlinks/plugins/google_maps_flutter_ios/ios`)
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
+  - stripe_ios (from `.symlinks/plugins/stripe_ios/ios`)
 
 SPEC REPOS:
   trunk:
     - GoogleMaps
+    - Stripe
+    - StripeApplePay
+    - StripeCore
+    - StripeFinancialConnections
+    - StripePayments
+    - StripePaymentSheet
+    - StripePaymentsUI
+    - StripeUICore
 
 EXTERNAL SOURCES:
   Flutter:
@@ -48,6 +93,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/package_info_plus/ios"
   shared_preferences_foundation:
     :path: ".symlinks/plugins/shared_preferences_foundation/darwin"
+  stripe_ios:
+    :path: ".symlinks/plugins/stripe_ios/ios"
 
 SPEC CHECKSUMS:
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
@@ -55,9 +102,18 @@ SPEC CHECKSUMS:
   geocoding_ios: a389ea40f6f548de6e63006a2e31bf66ff80769a
   geolocator_apple: cc556e6844d508c95df1e87e3ea6fa4e58c50401
   google_maps_flutter_ios: 590249c67f34f422122c232f2a626192adbc78ee
-  GoogleMaps: 025272d5876d3b32604e5c080dc25eaf68764693
+  GoogleMaps: 032f676450ba0779bd8ce16840690915f84e57ac
   package_info_plus: 115f4ad11e0698c8c1c5d8a689390df880f47e85
   shared_preferences_foundation: 5b919d13b803cadd15ed2dc053125c68730e5126
+  Stripe: ff389e265eeffb891b871b62b2fa644e30e69338
+  stripe_ios: 728603d6aa71a76f00dd05e202cba7d5b357a4be
+  StripeApplePay: 4413b4f21c0206094df20775aa5e8e063b9c8b5d
+  StripeCore: 6318dff8f7e42125c6e8b671ac54a6e82804705a
+  StripeFinancialConnections: 3586b42043921d46eadf59bb0dcd2ac17ff109f2
+  StripePayments: 7e903765860f1cc914041069edc9cf5e202f5ef7
+  StripePaymentSheet: 49602fb474a86e7624a082f256fd786b2eac80cb
+  StripePaymentsUI: e4b2be5b5b5edb774fc8667a71429194c39ce2a4
+  StripeUICore: 149ba9dda3f48dff829d2ebb2e3d455bc59dc0ed
 
 PODFILE CHECKSUM: 70d9d25280d0dd177a5f637cdb0f0b0b12c6a189
 

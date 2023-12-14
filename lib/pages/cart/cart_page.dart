@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:food_delivery/common/values/colors.dart';
 import 'package:food_delivery/common/values/constants.dart';
 import 'package:food_delivery/common/widgets/app_icons.dart';
 import 'package:food_delivery/common/widgets/base_text_widget.dart';
 import 'package:food_delivery/common/widgets/no_data_page.dart';
+import 'package:food_delivery/common/widgets/showCustomSnackBar.dart';
 import 'package:food_delivery/controllers/auth_controller.dart';
 import 'package:food_delivery/controllers/cart_controller.dart';
 import 'package:food_delivery/controllers/location_controller.dart';
+import 'package:food_delivery/controllers/payment_controller.dart';
 import 'package:food_delivery/controllers/popular_product_controller.dart';
 import 'package:food_delivery/controllers/recommended_product_controller.dart';
+import 'package:food_delivery/models/response_model.dart';
 import 'package:food_delivery/pages/food_detail/widgets/PopularFoodDetail_widget.dart';
 import 'package:food_delivery/routes/route_helper.dart';
 import 'package:get/get.dart';
@@ -197,13 +201,15 @@ class CartPage extends StatelessWidget {
                   topLeft: Radius.circular(20.w * 2),
                   topRight: Radius.circular(20.w * 2),
                 )),
-            child: cartController.getItems.length > 0 ? Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                priceValue(cartController),
-                checkOutButton(cartController),
-              ],
-            ) : Container(),
+            child: cartController.getItems.length > 0
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      priceValue(cartController),
+                      checkOutButton(cartController),
+                    ],
+                  )
+                : Container(),
           );
         },
       ),
@@ -214,17 +220,15 @@ class CartPage extends StatelessWidget {
 Widget checkOutButton(CartController cartController) {
   return GestureDetector(
     onTap: () {
-      if(Get.find<AuthController>().userLoggedIn()) {
-        if(Get.find<LocationController>().addressList.isEmpty) {
+      if (Get.find<AuthController>().userLoggedIn()) {
+        if (Get.find<LocationController>().addressList.isEmpty) {
           Get.toNamed(RouteHelper.getAddressPage());
-          
         } else {
           // cartController.addToHistory();
         }
       } else {
         Get.toNamed(RouteHelper.getSignIn());
       }
-
     },
     child: Container(
       padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 10.w),

@@ -13,6 +13,7 @@ import 'package:food_delivery/controllers/location_controller.dart';
 import 'package:food_delivery/controllers/payment_controller.dart';
 import 'package:food_delivery/controllers/popular_product_controller.dart';
 import 'package:food_delivery/controllers/recommended_product_controller.dart';
+import 'package:food_delivery/models/cart_model.dart';
 import 'package:food_delivery/models/response_model.dart';
 import 'package:food_delivery/pages/food_detail/widgets/PopularFoodDetail_widget.dart';
 import 'package:food_delivery/routes/route_helper.dart';
@@ -219,13 +220,23 @@ class CartPage extends StatelessWidget {
 
 Widget checkOutButton(CartController cartController) {
   return GestureDetector(
-    onTap: () {
+    onTap: () async {
       if (Get.find<AuthController>().userLoggedIn()) {
-        if (Get.find<LocationController>().addressList.isEmpty) {
+        await Get.find<LocationController>().getAddressList();
+        if (Get.find<LocationController>().addressList.isNotEmpty) {
+          // await Get.find<UserController>().getUserInfo();
+          // new
+          Get.find<LocationController>().getUserAddress();
+          if (Get.find<LocationController>().getUserAddressFromLocalStorage() ==
+              "") {
+            Get.find<LocationController>().saveUserAddress(
+                Get.find<LocationController>().addressList.last);
+          }
+
+          make_payment(cartController.getItems);
+        } else if (Get.find<LocationController>().addressList.isEmpty) {
           Get.toNamed(RouteHelper.getAddressPage());
-        } else {
-          // cartController.addToHistory();
-        }
+        } 
       } else {
         Get.toNamed(RouteHelper.getSignIn());
       }
@@ -249,6 +260,69 @@ Widget priceValue(CartController cartController) {
         borderRadius: BorderRadius.circular(10.w), color: Colors.white),
     child: bigText("\$ ${cartController.totalAmount}"),
   );
+}
+
+Future<void> make_payment(List<CartModel> orderItems) async {
+  try {
+    // Map<String, dynamic> body = {
+    //   'amount': 500,
+    //   'currency': 'SGD',
+    // };
+
+    // var response = await http.post(
+    //   Uri.parse('https://api.stripe.com/v1/payment_intents'),
+    //   headers: {
+    //     'Authorization': 'Bearer ${AppConstants.STRIPE_PUBLISHABLE_KEY}',
+    //     'Content-type': 'application/x-www-form-urlencoded'
+    //   },
+    // );
+
+    var response =
+        await Get.find<PaymentController>().createTestPaymentSheet(orderItems);
+
+    // paymentIntent = json.decode(response.body);
+  } catch (error) {
+    throw Exception(error);
+  }
+
+  // Step 2 : Initialize payment sheet
+  // print("paymentIntent:  ${paymentIntent}");
+
+  if (Get.find<PaymentController>().isLoading == false &&
+      Get.find<PaymentController>().clientSecret != null) {
+    var client_secret = Get.find<PaymentController>().clientSecret;
+    // print("client_secret:  ${client_secret}");
+    await Stripe.instance
+        .initPaymentSheet(
+            paymentSheetParameters: SetupPaymentSheetParameters(
+                // paymentIntentClientSecret: paymentIntent!['client_secret'],
+                customFlow: false,
+                paymentIntentClientSecret: client_secret,
+                allowsDelayedPaymentMethods: false,
+                style: ThemeMode.light,
+                merchantDisplayName: 'lohcy'))
+        .then((value) => {});
+
+    // Step 3 :  Display payment sheet
+    try {
+      bool payment_isSuccess = false;
+      await Stripe.instance.presentPaymentSheet().then((value) {
+        // Success State
+        payment_isSuccess = true;
+        print("Payment success");
+      });
+
+      // await Stripe.instance.confirmPaymentSheetPayment();
+    } on Exception catch (e) {
+      if (e is StripeException) {
+        showCustomSnackBar('Error from Stripe: ${e.error.localizedMessage}');
+      } else {
+        showCustomSnackBar('Unforeseen error: $e');
+      }
+    }
+  } else {
+    showCustomSnackBar("fail to fetch client secret");
+  }
 }
 
 Widget counterWidget(CartController cartController, int index) {

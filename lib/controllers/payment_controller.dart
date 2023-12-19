@@ -12,12 +12,14 @@ class PaymentController extends GetxController {
   String? get clientSecret => _clientSecret;
   bool get isLoading => _isLoading;
 
-  Future<ResponseModel> createTestPaymentSheet() async {
+  Future<ResponseModel> createTestPaymentSheet(
+      List<CartModel> orderItems) async {
     late ResponseModel responseModel;
     _isLoading = true;
-    try {    
-      Response response = await paymentRepo.createTestPaymentSheet();
-      if(response.statusCode == 200) {
+    try {
+      Response response = await paymentRepo.createTestPaymentSheet(orderItems);
+
+      if (response.statusCode == 200) {
         _clientSecret = response.body['clientSecret'];
         responseModel = ResponseModel(true, "Successfully Loaded");
       } else {
@@ -27,7 +29,8 @@ class PaymentController extends GetxController {
       return responseModel;
     } catch (e) {
       print("Exception occurred while creating Test Payment Sheet: $e");
-      responseModel = ResponseModel(false, "An error occurred while creating Test Payment Sheet");
+      responseModel = ResponseModel(
+          false, "An error occurred while creating Test Payment Sheet");
       return responseModel;
     } finally {
       _isLoading = false;

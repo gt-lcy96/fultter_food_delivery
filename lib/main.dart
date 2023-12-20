@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
                 title: 'Flutter Demo',
 
                 // home: SignInPage(),
-                home: PaymentForm(),
+                // home: PaymentForm(),
                 initialRoute: RouteHelper.getSplashPage(),
                 getPages: RouteHelper.routes,
                 theme: ThemeData(

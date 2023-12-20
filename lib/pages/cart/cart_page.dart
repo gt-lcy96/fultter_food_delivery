@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:food_delivery/common/values/colors.dart';
 import 'package:food_delivery/common/values/constants.dart';
+import 'package:food_delivery/common/values/enums.dart';
 import 'package:food_delivery/common/widgets/app_icons.dart';
 import 'package:food_delivery/common/widgets/base_text_widget.dart';
 import 'package:food_delivery/common/widgets/no_data_page.dart';
@@ -305,18 +306,18 @@ Future<void> make_payment(List<CartModel> orderItems) async {
 
     // Step 3 :  Display payment sheet
     try {
-      bool payment_isSuccess = false;
       await Stripe.instance.presentPaymentSheet().then((value) {
-        // Success State
-        payment_isSuccess = true;
+        Get.find<PaymentController>().updatePaymentStatus(Status.COMPLETED.name, client_secret!);
         print("Payment success");
       });
 
       // await Stripe.instance.confirmPaymentSheetPayment();
     } on Exception catch (e) {
       if (e is StripeException) {
+        Get.find<PaymentController>().updatePaymentStatus(Status.CANCELED.name, client_secret!);
         showCustomSnackBar('Error from Stripe: ${e.error.localizedMessage}');
       } else {
+        Get.find<PaymentController>().updatePaymentStatus(Status.REJECTED.name, client_secret!);
         showCustomSnackBar('Unforeseen error: $e');
       }
     }

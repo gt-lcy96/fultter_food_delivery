@@ -28,6 +28,6 @@ class PaymentRepo {
   }
 
   Future<Response> updatePaymentStatus(String status, String clientSecret) async {
-    return await apiClient.postData(AppConstants.FINISH_PAYMENT_URI, {'status': status, 'clientSecret': clientSecret});
+    return await apiClient.postData(AppConstants.UPDATE_PAYMENT_URI, {'status': status, 'clientSecret': clientSecret});
   }
 }

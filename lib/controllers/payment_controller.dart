@@ -1,16 +1,17 @@
 import 'package:food_delivery/data/repository/payment_repo.dart';
 import 'package:food_delivery/models/cart_model.dart';
 import 'package:food_delivery/models/response_model.dart';
+import 'package:food_delivery/utils/logging.dart';
 import 'package:get/get.dart';
 
 class PaymentController extends GetxController {
   final PaymentRepo paymentRepo;
   PaymentController({required this.paymentRepo});
 
-  String? _clientSecret = null;
+  Map<String, dynamic>? _paymentIntent = null;
   bool _isLoading = false;
 
-  String? get clientSecret => _clientSecret;
+  Map<String, dynamic>? get paymentIntent => _paymentIntent;
   bool get isLoading => _isLoading;
 
   Future<ResponseModel> createTestPaymentSheet(
@@ -21,10 +22,11 @@ class PaymentController extends GetxController {
       Response response = await paymentRepo.createTestPaymentSheet(orderItems);
 
       if (response.statusCode == 200) {
-        _clientSecret = response.body['clientSecret'];
+        _paymentIntent = response.body['payment_intent'];
         responseModel = ResponseModel(true, "Successfully Loaded");
       } else {
-        _clientSecret = null;
+        print("cant fetch payment intent");
+        _paymentIntent = null;
         responseModel = ResponseModel(false, "Failed to load client secret");
       }
       return responseModel;

@@ -290,15 +290,15 @@ Future<void> make_payment(List<CartModel> orderItems) async {
   // print("paymentIntent:  ${paymentIntent}");
 
   if (Get.find<PaymentController>().isLoading == false &&
-      Get.find<PaymentController>().clientSecret != null) {
-    var client_secret = Get.find<PaymentController>().clientSecret;
+      Get.find<PaymentController>().paymentIntent != null) {
+    var paymentIntent = Get.find<PaymentController>().paymentIntent;
     // print("client_secret:  ${client_secret}");
     await Stripe.instance
         .initPaymentSheet(
             paymentSheetParameters: SetupPaymentSheetParameters(
                 // paymentIntentClientSecret: paymentIntent!['client_secret'],
                 customFlow: false,
-                paymentIntentClientSecret: client_secret,
+                paymentIntentClientSecret: paymentIntent!['client_secret'],
                 allowsDelayedPaymentMethods: false,
                 style: ThemeMode.light,
                 merchantDisplayName: 'lohcy'))
@@ -314,10 +314,10 @@ Future<void> make_payment(List<CartModel> orderItems) async {
       // await Stripe.instance.confirmPaymentSheetPayment();
     } on Exception catch (e) {
       if (e is StripeException) {
-        Get.find<PaymentController>().updatePaymentStatus(Status.CANCELED.name, client_secret!);
+        Get.find<PaymentController>().updatePaymentStatus(Status.CANCELED.name, paymentIntent['client_secret']);
         showCustomSnackBar('Error from Stripe: ${e.error.localizedMessage}');
       } else {
-        Get.find<PaymentController>().updatePaymentStatus(Status.REJECTED.name, client_secret!);
+        Get.find<PaymentController>().updatePaymentStatus(Status.REJECTED.name, paymentIntent['client_secret']!);
         showCustomSnackBar('Unforeseen error: $e');
       }
     }

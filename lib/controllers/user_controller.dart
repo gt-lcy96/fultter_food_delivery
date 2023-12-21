@@ -29,7 +29,6 @@ class UserController extends GetxController implements GetxService {
     // _isLoading = true;
     
     if(response.statusCode == 200) {
-      print("response.body in user_controller:  ${response.body}");
       _userModel = UserModel.fromJson(response.body);
       _isLoading=true;
       responseModel = ResponseModel(true, "successfully");

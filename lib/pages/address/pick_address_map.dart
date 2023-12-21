@@ -66,17 +66,13 @@ class _PickAddressMapState extends State<PickAddressMap> {
       return latlng_position;
     } on TimeoutException catch (e) {
       // Handle the timeout exception
-      print("--------------------------------");
       print(e);
-      print("--------------------------------");
       // Return a default position or handle the situation appropriately
       isFetchLocationTimeOut = true;
       return _initialPosition;
     } catch (e) {
       // Handle exception
-      print("--------------------------------");
       print("Exception: ${e} in add_address_page");
-      print("--------------------------------");
       return _initialPosition;
     }
   }

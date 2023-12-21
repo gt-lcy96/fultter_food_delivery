@@ -75,10 +75,6 @@ class CartRepo {
     removeCart();
     sharedPreferences.setStringList(
         AppConstants.CART_HISTORY_LIST, cartHistory);
-    print("--------------------------------------------------------");
-    getCartHistoryList().forEach((element) {
-      prettyPrintJsonEncodedString(jsonEncode(element));
-    });
     
     print("getCartHistoryList().length.toString():  ${getCartHistoryList().length.toString()}");
   }

@@ -315,7 +315,7 @@ Future<void> make_payment(List<CartModel> orderItems) async {
     try {
       await Stripe.instance.presentPaymentSheet().then((value) {
         Get.find<PaymentController>().updatePaymentStatus(Status.COMPLETED.name, paymentIntent!['client_secret']);
-        
+        Get.offNamed(RouteHelper.getOrderSuccess());
         // Get.find<OrderController>().createOrder(placeOrder);
         print("Payment success");
       });

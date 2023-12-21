@@ -5,14 +5,6 @@ import 'package:food_delivery/common/values/constants.dart';
 import 'package:food_delivery/controllers/cart_controller.dart';
 import 'package:food_delivery/controllers/popular_product_controller.dart';
 import 'package:food_delivery/controllers/recommended_product_controller.dart';
-import 'package:food_delivery/pages/auth/sign_in_page.dart';
-import 'package:food_delivery/pages/auth/sign_up_page.dart';
-import 'package:food_delivery/pages/cart/cart_page.dart';
-import 'package:food_delivery/pages/food_detail/PopularFoodDetail_page.dart';
-import 'package:food_delivery/pages/food_detail/recommended_food_detail.dart';
-import 'package:food_delivery/pages/home/main_food_page.dart';
-import 'package:food_delivery/pages/payment/payment_form_page.dart';
-import 'package:food_delivery/pages/splash/splash_page.dart';
 import 'package:food_delivery/routes/route_helper.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -43,7 +35,7 @@ class MyApp extends StatelessWidget {
                 title: 'Flutter Demo',
 
                 // home: SignInPage(),
-                // home: PaymentForm(),
+                // home: OrderSuccessPage(),
                 initialRoute: RouteHelper.getSplashPage(),
                 getPages: RouteHelper.routes,
                 theme: ThemeData(

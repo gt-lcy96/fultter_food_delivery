@@ -12,7 +12,6 @@ import 'package:food_delivery/common/widgets/showCustomSnackBar.dart';
 import 'package:food_delivery/controllers/auth_controller.dart';
 import 'package:food_delivery/controllers/cart_controller.dart';
 import 'package:food_delivery/controllers/location_controller.dart';
-import 'package:food_delivery/controllers/order_controller.dart';
 import 'package:food_delivery/controllers/payment_controller.dart';
 import 'package:food_delivery/controllers/popular_product_controller.dart';
 import 'package:food_delivery/controllers/recommended_product_controller.dart';

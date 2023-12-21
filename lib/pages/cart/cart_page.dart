@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:food_delivery/common/functions/convert.dart';
 import 'package:food_delivery/common/values/colors.dart';
 import 'package:food_delivery/common/values/constants.dart';
 import 'package:food_delivery/common/values/enums.dart';
@@ -11,10 +12,13 @@ import 'package:food_delivery/common/widgets/showCustomSnackBar.dart';
 import 'package:food_delivery/controllers/auth_controller.dart';
 import 'package:food_delivery/controllers/cart_controller.dart';
 import 'package:food_delivery/controllers/location_controller.dart';
+import 'package:food_delivery/controllers/order_controller.dart';
 import 'package:food_delivery/controllers/payment_controller.dart';
 import 'package:food_delivery/controllers/popular_product_controller.dart';
 import 'package:food_delivery/controllers/recommended_product_controller.dart';
+import 'package:food_delivery/controllers/user_controller.dart';
 import 'package:food_delivery/models/cart_model.dart';
+import 'package:food_delivery/models/place_order_model.dart';
 import 'package:food_delivery/models/response_model.dart';
 import 'package:food_delivery/pages/food_detail/widgets/PopularFoodDetail_widget.dart';
 import 'package:food_delivery/routes/route_helper.dart';
@@ -265,21 +269,25 @@ Widget priceValue(CartController cartController) {
 
 Future<void> make_payment(List<CartModel> orderItems) async {
   try {
-    // Map<String, dynamic> body = {
-    //   'amount': 500,
-    //   'currency': 'SGD',
-    // };
-
-    // var response = await http.post(
-    //   Uri.parse('https://api.stripe.com/v1/payment_intents'),
-    //   headers: {
-    //     'Authorization': 'Bearer ${AppConstants.STRIPE_PUBLISHABLE_KEY}',
-    //     'Content-type': 'application/x-www-form-urlencoded'
-    //   },
-    // );
+    await Get.find<UserController>().getUserInfo();
+    var location = Get.find<LocationController>().getUserAddress();
+    var cart = Get.find<CartController>().getItems;
+    var user = Get.find<UserController>().userModel;
+    PlaceOrderBody placeOrderInfo  = PlaceOrderBody(
+      cart: cart,
+      // orderAmount: Convert.centsToDollar(paymentIntent['amount']),
+        orderNote: "Note about the food",
+        address: location.address,
+        latitude: location.latitude,
+        longitude: location.longitude,
+        contactPersonNumber: user.phone,
+        contactPersonName: user.username,
+        scheduleAt: '',
+        distance: 10.0
+    );
 
     var response =
-        await Get.find<PaymentController>().createTestPaymentSheet(orderItems);
+        await Get.find<PaymentController>().createTestPaymentSheet(orderItems, placeOrderInfo);
 
     // paymentIntent = json.decode(response.body);
   } catch (error) {
@@ -307,7 +315,9 @@ Future<void> make_payment(List<CartModel> orderItems) async {
     // Step 3 :  Display payment sheet
     try {
       await Stripe.instance.presentPaymentSheet().then((value) {
-        Get.find<PaymentController>().updatePaymentStatus(Status.COMPLETED.name, client_secret!);
+        Get.find<PaymentController>().updatePaymentStatus(Status.COMPLETED.name, paymentIntent!['client_secret']);
+        
+        // Get.find<OrderController>().createOrder(placeOrder);
         print("Payment success");
       });
 

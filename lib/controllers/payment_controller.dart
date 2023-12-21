@@ -1,5 +1,6 @@
 import 'package:food_delivery/data/repository/payment_repo.dart';
 import 'package:food_delivery/models/cart_model.dart';
+import 'package:food_delivery/models/place_order_model.dart';
 import 'package:food_delivery/models/response_model.dart';
 import 'package:food_delivery/utils/logging.dart';
 import 'package:get/get.dart';
@@ -15,11 +16,11 @@ class PaymentController extends GetxController {
   bool get isLoading => _isLoading;
 
   Future<ResponseModel> createTestPaymentSheet(
-      List<CartModel> orderItems) async {
+      List<CartModel> orderItems, PlaceOrderBody placeOrderInfo) async {
     late ResponseModel responseModel;
     _isLoading = true;
     try {
-      Response response = await paymentRepo.createTestPaymentSheet(orderItems);
+      Response response = await paymentRepo.createTestPaymentSheet(orderItems, placeOrderInfo);
 
       if (response.statusCode == 200) {
         _paymentIntent = response.body['payment_intent'];

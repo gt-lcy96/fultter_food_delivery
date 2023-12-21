@@ -2,7 +2,7 @@ import 'package:food_delivery/models/cart_model.dart';
 
 class PlaceOrderBody {
    List<CartModel>? _cart;
-  late double _orderAmount;
+  late double? _orderAmount;
   late String _orderNote;
   late double _distance;
   late String _address;
@@ -13,7 +13,7 @@ class PlaceOrderBody {
 
   PlaceOrderBody(
       {required List<CartModel> cart,
-        required double orderAmount,
+        double? orderAmount,
         required double distance,
         required String scheduleAt,
         required String orderNote,
@@ -36,7 +36,7 @@ class PlaceOrderBody {
 
   List<CartModel> get cart => _cart!;
 
-  double get orderAmount => _orderAmount;
+  double? get orderAmount => _orderAmount;
 
   String get orderNote => _orderNote;
 

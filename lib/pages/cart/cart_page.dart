@@ -16,6 +16,7 @@ import 'package:food_delivery/controllers/payment_controller.dart';
 import 'package:food_delivery/controllers/popular_product_controller.dart';
 import 'package:food_delivery/controllers/recommended_product_controller.dart';
 import 'package:food_delivery/controllers/user_controller.dart';
+import 'package:food_delivery/data/repository/payment_repo.dart';
 import 'package:food_delivery/models/cart_model.dart';
 import 'package:food_delivery/models/place_order_model.dart';
 import 'package:food_delivery/models/response_model.dart';
@@ -23,8 +24,24 @@ import 'package:food_delivery/pages/food_detail/widgets/PopularFoodDetail_widget
 import 'package:food_delivery/routes/route_helper.dart';
 import 'package:get/get.dart';
 
-class CartPage extends StatelessWidget {
+class CartPage extends StatefulWidget {
   const CartPage({super.key});
+
+  @override
+  State<CartPage> createState() => _CartPageState();
+}
+
+class _CartPageState extends State<CartPage> {
+  @override
+  void initState() {
+    super.initState();
+    // Re-initializing the controller
+    if (Get.isRegistered<PaymentController>()) {
+      Get.delete<PaymentController>();
+    }
+    Get.put(PaymentRepo(apiClient: Get.find()));
+    Get.put(PaymentController(paymentRepo: Get.find()));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -236,11 +253,10 @@ Widget checkOutButton(CartController cartController) {
             Get.find<LocationController>().saveUserAddress(
                 Get.find<LocationController>().addressList.last);
           }
-
           make_payment(cartController.getItems);
         } else if (Get.find<LocationController>().addressList.isEmpty) {
           Get.toNamed(RouteHelper.getAddressPage());
-        } 
+        }
       } else {
         Get.toNamed(RouteHelper.getSignIn());
       }
@@ -272,9 +288,9 @@ Future<void> make_payment(List<CartModel> orderItems) async {
     var location = Get.find<LocationController>().getUserAddress();
     var cart = Get.find<CartController>().getItems;
     var user = Get.find<UserController>().userModel;
-    PlaceOrderBody placeOrderInfo  = PlaceOrderBody(
-      cart: cart,
-      // orderAmount: Convert.centsToDollar(paymentIntent['amount']),
+    PlaceOrderBody placeOrderInfo = PlaceOrderBody(
+        cart: cart,
+        // orderAmount: Convert.centsToDollar(paymentIntent['amount']),
         orderNote: "Note about the food",
         address: location.address,
         latitude: location.latitude,
@@ -282,11 +298,10 @@ Future<void> make_payment(List<CartModel> orderItems) async {
         contactPersonNumber: user.phone,
         contactPersonName: user.username,
         scheduleAt: '',
-        distance: 10.0
-    );
+        distance: 10.0);
 
-    var response =
-        await Get.find<PaymentController>().createTestPaymentSheet(orderItems, placeOrderInfo);
+    var response = await Get.find<PaymentController>()
+        .createTestPaymentSheet(orderItems, placeOrderInfo);
 
     // paymentIntent = json.decode(response.body);
   } catch (error) {
@@ -314,25 +329,33 @@ Future<void> make_payment(List<CartModel> orderItems) async {
     // Step 3 :  Display payment sheet
     try {
       await Stripe.instance.presentPaymentSheet().then((value) {
-        Get.find<PaymentController>().updatePaymentStatus(Status.COMPLETED.name, paymentIntent!['client_secret']);
-        Get.offNamed(RouteHelper.getOrderSuccess());
-        // Get.find<OrderController>().createOrder(placeOrder);
-        print("Payment success");
+        paymentSuccessCallback(paymentIntent);
       });
 
       // await Stripe.instance.confirmPaymentSheetPayment();
     } on Exception catch (e) {
       if (e is StripeException) {
-        Get.find<PaymentController>().updatePaymentStatus(Status.CANCELED.name, paymentIntent['client_secret']);
+        Get.find<PaymentController>().updatePaymentStatus(
+            Status.CANCELED.name, paymentIntent['client_secret']);
         showCustomSnackBar('Error from Stripe: ${e.error.localizedMessage}');
       } else {
-        Get.find<PaymentController>().updatePaymentStatus(Status.REJECTED.name, paymentIntent['client_secret']!);
+        Get.find<PaymentController>().updatePaymentStatus(
+            Status.REJECTED.name, paymentIntent['client_secret']!);
         showCustomSnackBar('Unforeseen error: $e');
       }
     }
   } else {
     showCustomSnackBar("fail to fetch client secret");
   }
+}
+
+Future<void> paymentSuccessCallback(Map<String, dynamic>? paymentIntent) async {
+  await Get.find<PaymentController>().updatePaymentStatus(
+      Status.COMPLETED.name, paymentIntent!['client_secret']);
+  Get.find<CartController>().clear();
+  Get.find<CartController>().removeCartSharedPreferences();
+  Get.find<CartController>().addToHistory();
+  Get.offNamed(RouteHelper.getOrderSuccess());
 }
 
 Widget counterWidget(CartController cartController, int index) {

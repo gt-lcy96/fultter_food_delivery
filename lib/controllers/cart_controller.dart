@@ -148,4 +148,10 @@ class CartController extends GetxController {
     cartRepo.clearCartHistory();
     update();
   }
+
+  void removeCartSharedPreferences() {
+    cartRepo.removeCartSharedPreferences();
+  }
+
+
 }

@@ -72,7 +72,7 @@ class CartRepo {
       cartHistory.add(cart[i]);
     }
     
-    removeCart();
+    cart=[];
     sharedPreferences.setStringList(
         AppConstants.CART_HISTORY_LIST, cartHistory);
     
@@ -87,6 +87,11 @@ class CartRepo {
   void clearCartHistory() {
     removeCart();
     cartHistory=[];
+    sharedPreferences.remove(AppConstants.CART_HISTORY_LIST);
+  }
+
+  void removeCartSharedPreferences() {
+    sharedPreferences.remove(AppConstants.CART_LIST);
     sharedPreferences.remove(AppConstants.CART_HISTORY_LIST);
   }
 }

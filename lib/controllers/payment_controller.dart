@@ -19,6 +19,7 @@ class PaymentController extends GetxController {
       List<CartModel> orderItems, PlaceOrderBody placeOrderInfo) async {
     late ResponseModel responseModel;
     _isLoading = true;
+    update();
     try {
       Response response = await paymentRepo.createTestPaymentSheet(orderItems, placeOrderInfo);
 
@@ -38,6 +39,7 @@ class PaymentController extends GetxController {
       return responseModel;
     } finally {
       _isLoading = false;
+      update();
     }
   }
 
@@ -57,4 +59,5 @@ class PaymentController extends GetxController {
     }
     return responseModel;
   }
+
 }

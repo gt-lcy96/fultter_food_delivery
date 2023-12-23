@@ -38,5 +38,5 @@ class AppConstants {
   static const String STRIPE_PUBLISHABLE_KEY = "pk_test_51OMmDtCIn4X0lBeBLK9CzoJTEAFSW1GsDcgRsqV51THIZvp69k9yEVjTrEWFCm83YwLPQ95cwU4bPDbkCCEMGGJo00T4X5dyzx";
   static const String PAYMENT_CREATE_INTENT_URI = '/api/payment/create_intent';
   static const String UPDATE_PAYMENT_URI = '/api/payment/update_status';
-  
+  static const String GET_ORDER_LIST_URI = '/api/order/get_order_list';
 }

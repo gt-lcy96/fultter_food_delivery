@@ -28,7 +28,8 @@ class OrderModel {
   String? failed;
   int? detailsCount;
 
-  AddressModel? deliveryAddress;
+  // AddressModel? deliveryAddress;
+  String? deliveryAddress;
 
   OrderModel(
       { required this.id,
@@ -59,8 +60,8 @@ class OrderModel {
   OrderModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     userId = json['user_id'];
-    orderAmount = json['order_amount'].toDouble();
-    paymentStatus = json['payment_status']??"pending";
+    orderAmount = double.parse(json['total_amount']);
+    paymentStatus = json['payment_status']??"PENDING";
     totalTaxAmount =10.0;
     orderNote = json['order_note'];
     createdAt = json['created_at'];
@@ -80,10 +81,10 @@ class OrderModel {
     scheduled = json['scheduled'];
     failed = json['failed']??"";
     detailsCount = json['details_count'];
-
-    deliveryAddress = (json['delivery_address'] != null
-        ? new AddressModel.fromJson(json['delivery_address'])
-        : null)!;
+    deliveryAddress = json['address'];
+    // deliveryAddress = (json['address'] != null
+    //     ? new AddressModel.fromJson(json['address'])
+    //     : null)!;
   }
 
   Map<String, dynamic> toJson() {
@@ -113,9 +114,10 @@ class OrderModel {
     data['scheduled'] = this.scheduled;
     data['failed'] = this.failed;
     data['details_count'] = this.detailsCount;
-    if (this.deliveryAddress != null) {
-      data['delivery_address'] = this.deliveryAddress?.toJson();
-    }
+    data['delivery_address'] = this.deliveryAddress;
+    // if (this.deliveryAddress != null) {
+    //   data['delivery_address'] = this.deliveryAddress?.toJson();
+    // }
     return data;
   }
 }

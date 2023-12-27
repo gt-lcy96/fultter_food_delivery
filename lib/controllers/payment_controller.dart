@@ -43,6 +43,10 @@ class PaymentController extends GetxController {
     }
   }
 
+  void resetPaymentIntent () {
+    _paymentIntent = null;
+  }
+
   Future<ResponseModel> updatePaymentStatus(
       String status, String clientSecret) async {
     late ResponseModel responseModel;

@@ -347,6 +347,8 @@ Future<void> make_payment(List<CartModel> orderItems) async {
   } else {
     showCustomSnackBar("fail to fetch client secret");
   }
+
+  Get.find<PaymentController>().resetPaymentIntent();
 }
 
 Future<void> paymentSuccessCallback(Map<String, dynamic>? paymentIntent) async {

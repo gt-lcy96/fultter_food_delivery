@@ -35,8 +35,8 @@ class _ViewOrderState extends State<ViewOrder> {
         late List<OrderModel> orderList;
         if (orderController.currentOrderList.isNotEmpty) {
           orderList = widget.isCurrent
-              ? orderController.currentOrderList.reversed.toList()
-              : orderController.historyOrderList.reversed.toList();
+              ? orderController.currentOrderList.toList()
+              : orderController.historyOrderList.toList();
         }
         return SizedBox(
           width: Dimensions.screenWidth,

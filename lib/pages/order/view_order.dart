@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/common/values/colors.dart';
 import 'package:food_delivery/common/values/dimensions.dart';
+import 'package:food_delivery/common/widgets/customLoader.dart';
 import 'package:food_delivery/controllers/order_controller.dart';
 import 'package:food_delivery/data/repository/order_repo.dart';
 import 'package:food_delivery/models/order_model.dart';
@@ -101,7 +102,7 @@ class _ViewOrderState extends State<ViewOrder> {
           ),
         );
       } else {
-        return Text("Loeading...");
+        return CustomLoader();
       }
     });
   }

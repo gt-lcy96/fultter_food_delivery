@@ -6,6 +6,7 @@ import 'package:food_delivery/common/widgets/customLoader.dart';
 import 'package:food_delivery/controllers/order_controller.dart';
 import 'package:food_delivery/data/repository/order_repo.dart';
 import 'package:food_delivery/models/order_model.dart';
+import 'package:food_delivery/utils/logging.dart';
 import 'package:get/get.dart';
 
 class ViewOrder extends StatefulWidget {
@@ -38,13 +39,18 @@ class _ViewOrderState extends State<ViewOrder> {
           orderList = widget.isCurrent
               ? orderController.currentOrderList.toList()
               : orderController.historyOrderList.toList();
+          print("------------------------------------");
+          // print("orderList:  ${}");
+          prettyPrintJsonDecodedItem(orderList[0].toJson());
+          print("------------------------------------");
         }
         return SizedBox(
           width: Dimensions.screenWidth,
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
-            child: ListView.builder(
+            child: ListView.separated(
                 itemCount: orderList.length,
+                separatorBuilder: (BuildContext context, int index) => Divider(thickness: 2),
                 itemBuilder: (context, index) {
                   return InkWell(
                       onTap: () => null,
@@ -55,7 +61,13 @@ class _ViewOrderState extends State<ViewOrder> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text("order ID :   ${orderList[index].id}"),
+                                  Column(
+                                    children: [
+                                      Text("order ID :   ${orderList[index].id}"),
+                                      // '''jump'''
+                                    ],  
+                                  ),
+                                  
                                   Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,

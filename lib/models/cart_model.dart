@@ -25,12 +25,12 @@ class CartModel {
     id = json['id'];
     name = json['name'];
     // price = double.parse(json['price']);
-    price = json['price'];
+    price = json['price'] != null ? double.parse(json['price']) : null; 
     img = json['img'];
     quantity = json['quantity'];
     isExist = json['isExist'];
     time = json['time'];
-    product = ProductModel.fromJson(json['product']);
+    product = json['product'] != null ? ProductModel.fromJson(json['product']) : null;
   }
 
   Map<String, dynamic> toJson() {

@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:food_delivery/models/address_model.dart';
+import 'package:food_delivery/models/cart_model.dart';
+import 'package:food_delivery/utils/logging.dart';
 
 class OrderModel {
   late int id;
@@ -27,6 +31,7 @@ class OrderModel {
   int? scheduled;
   String? failed;
   int? detailsCount;
+  List<CartModel>? items;
 
   // AddressModel? deliveryAddress;
   String? deliveryAddress;
@@ -55,6 +60,7 @@ class OrderModel {
          this.failed,
          this.detailsCount,
          this.deliveryAddress,
+         this.items,
       });
 
   OrderModel.fromJson(Map<String, dynamic> json) {
@@ -82,9 +88,12 @@ class OrderModel {
     failed = json['failed']??"";
     detailsCount = json['details_count'];
     deliveryAddress = json['address'];
-    // deliveryAddress = (json['address'] != null
-    //     ? new AddressModel.fromJson(json['address'])
-    //     : null)!;
+    if (json['items'] != null) {
+      items = <CartModel>[];
+      json['items'].forEach((v) {
+        items!.add(CartModel.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -115,6 +124,7 @@ class OrderModel {
     data['failed'] = this.failed;
     data['details_count'] = this.detailsCount;
     data['delivery_address'] = this.deliveryAddress;
+    data['items'] = this.items;
     // if (this.deliveryAddress != null) {
     //   data['delivery_address'] = this.deliveryAddress?.toJson();
     // }

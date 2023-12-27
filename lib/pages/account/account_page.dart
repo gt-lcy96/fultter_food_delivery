@@ -28,6 +28,14 @@ class AccountPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: AppColors.primaryElement,
         title: bigText("Profile", fontSize: 24, color: Colors.white),
+        leading:
+          IconButton(
+            icon: Icon(Icons.arrow_back_ios),
+            onPressed: () {
+              // Navigate to a different screen or pop the current screen.
+              Get.offNamed(RouteHelper.getInitial());
+            },
+          ),
       ),
       body: GetBuilder<UserController>(builder: (userController) {
         return _userLoggedIn

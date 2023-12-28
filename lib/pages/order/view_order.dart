@@ -37,12 +37,8 @@ class _ViewOrderState extends State<ViewOrder> {
         late List<OrderModel> orderList;
         if (orderController.currentOrderList.isNotEmpty) {
           orderList = widget.isCurrent
-              ? orderController.currentOrderList.toList()
-              : orderController.historyOrderList.toList();
-          print("------------------------------------");
-          // print("orderList:  ${}");
-          prettyPrintJsonDecodedItem(orderList[0].toJson());
-          print("------------------------------------");
+              ? orderController.currentOrderList.reversed.toList()
+              : orderController.historyOrderList.reversed.toList();
         }
         return SizedBox(
           width: Dimensions.screenWidth,
@@ -50,8 +46,10 @@ class _ViewOrderState extends State<ViewOrder> {
             padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
             child: ListView.separated(
                 itemCount: orderList.length,
-                separatorBuilder: (BuildContext context, int index) => Divider(thickness: 2),
+                separatorBuilder: (BuildContext context, int index) =>
+                    Divider(thickness: 2),
                 itemBuilder: (context, index) {
+                  var itemCount = orderList[index].items?.length ?? 0;
                   return InkWell(
                       onTap: () => null,
                       child: Column(
@@ -61,13 +59,24 @@ class _ViewOrderState extends State<ViewOrder> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Column(
-                                    children: [
-                                      Text("order ID :   ${orderList[index].id}"),
-                                      // '''jump'''
-                                    ],  
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 5.w),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: List.generate(
+                                          itemCount,
+                                          (inner_index) => Text(orderList[index]
+                                                  .items?[inner_index]
+                                                  ?.name
+                                                  ?.toString() ??
+                                              '')),
+                                      // [
+                                      //   Text("${}")
+                                      //   Text("order ID :   ${orderList[index].id}"),
+                                      //   // '''jump'''
+                                      // ],
+                                    ),
                                   ),
-                                  
                                   Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -94,11 +103,14 @@ class _ViewOrderState extends State<ViewOrder> {
                                             color: Colors.white,
                                             borderRadius:
                                                 BorderRadius.circular(5.w),
-                                            border: Border.all(width: 1, color: Theme.of(context).primaryColor),
+                                            border: Border.all(
+                                                width: 1,
+                                                color: Theme.of(context)
+                                                    .primaryColor),
                                           ),
                                           child: Container(
-                                            margin: EdgeInsets.all(5.w),
-                                            child: Text("Track Order")),
+                                              margin: EdgeInsets.all(5.w),
+                                              child: Text("Track Order")),
                                         ),
                                       )
                                     ],

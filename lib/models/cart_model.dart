@@ -25,7 +25,7 @@ class CartModel {
     id = json['id'];
     name = json['name'];
     // price = double.parse(json['price']);
-    price = json['price'] != null ? double.parse(json['price']) : null; 
+    price = json['price'] != null ? double.parse(json['price'].toString()) : null; 
     img = json['img'];
     quantity = json['quantity'];
     isExist = json['isExist'];

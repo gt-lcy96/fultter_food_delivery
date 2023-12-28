@@ -6,6 +6,7 @@ import 'package:food_delivery/common/widgets/customLoader.dart';
 import 'package:food_delivery/controllers/order_controller.dart';
 import 'package:food_delivery/data/repository/order_repo.dart';
 import 'package:food_delivery/models/order_model.dart';
+import 'package:food_delivery/routes/route_helper.dart';
 import 'package:food_delivery/utils/logging.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -55,7 +56,7 @@ class _ViewOrderState extends State<ViewOrder> {
                   var createAt = DateTime.parse(orderList[index].createdAt!);
                   DateFormat dateFormat = DateFormat('dd-MM-yyyy HH:mm');
                   return InkWell(
-                      onTap: () => null,
+                      onTap: () => Get.toNamed(RouteHelper.getOrderDetail()),
                       child: Column(
                         children: [
                           Container(

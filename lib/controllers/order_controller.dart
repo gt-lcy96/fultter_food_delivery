@@ -39,7 +39,6 @@ class OrderController extends GetxController {
     }
 
     _isLoading=false;
-    print(_currentOrderList.length.toString());
     update();
   }
 }

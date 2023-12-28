@@ -8,6 +8,7 @@ import 'package:food_delivery/data/repository/order_repo.dart';
 import 'package:food_delivery/models/order_model.dart';
 import 'package:food_delivery/utils/logging.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class ViewOrder extends StatefulWidget {
   final bool isCurrent;
@@ -50,6 +51,9 @@ class _ViewOrderState extends State<ViewOrder> {
                     Divider(thickness: 2),
                 itemBuilder: (context, index) {
                   var itemCount = orderList[index].items?.length ?? 0;
+
+                  var createAt = DateTime.parse(orderList[index].createdAt!);
+                  DateFormat dateFormat = DateFormat('dd-MM-yyyy HH:mm');
                   return InkWell(
                       onTap: () => null,
                       child: Column(
@@ -62,20 +66,31 @@ class _ViewOrderState extends State<ViewOrder> {
                                   Padding(
                                     padding: EdgeInsets.only(left: 5.w),
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: List.generate(
-                                          itemCount,
-                                          (inner_index) => Text(orderList[index]
-                                                  .items?[inner_index]
-                                                  ?.name
-                                                  ?.toString() ??
-                                              '')),
-                                      // [
-                                      //   Text("${}")
-                                      //   Text("order ID :   ${orderList[index].id}"),
-                                      //   // '''jump'''
-                                      // ],
-                                    ),
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          ...List.generate(
+                                              itemCount,
+                                              (inner_index) => Text(
+                                                  orderList[index]
+                                                          .items?[inner_index]
+                                                          ?.name
+                                                          ?.toString() ??
+                                                      '')),
+                                          SizedBox(height: 10.h),
+                                          Text(
+                                            dateFormat.format(createAt),
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.w300,
+                                            ),
+                                          )
+                                        ]
+                                        // [
+                                        //   Text("${}")
+                                        //   Text("order ID :   ${orderList[index].id}"),
+                                        //   // '''jump'''
+                                        // ],
+                                        ),
                                   ),
                                   Column(
                                     crossAxisAlignment:

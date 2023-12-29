@@ -39,7 +39,6 @@ class RouteHelper {
   static String getOrderSuccess() => '$orderSuccess';
   static String getOrderDetail() => '$orderDetail';
 
-
   static List<GetPage> routes = [
     GetPage(name: splashPage, page: () => SplashScreen()),
     GetPage(name: initial, page: () => const HomePage()),
@@ -66,11 +65,18 @@ class RouteHelper {
     GetPage(name: cart, page: () => const CartPage()),
     GetPage(name: addAddress, page: () => AddAddressPage()),
     GetPage(name: account, page: () => AccountPage()),
-    GetPage(name: pickAddressMap, page: () { 
-      PickAddressMap _pickAddress = Get.arguments;
-      return _pickAddress;
-    }),
+    GetPage(
+        name: pickAddressMap,
+        page: () {
+          PickAddressMap _pickAddress = Get.arguments;
+          return _pickAddress;
+        }),
     GetPage(name: orderSuccess, page: () => OrderSuccessPage()),
-    GetPage(name: orderDetail, page: () => OrderDetailPage()),
+    GetPage(
+        name: orderDetail,
+        page: () {
+          OrderDetailPage _orderDetail = Get.arguments;
+          return _orderDetail;
+        }),
   ];
 }

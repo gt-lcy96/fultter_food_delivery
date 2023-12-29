@@ -6,6 +6,7 @@ import 'package:food_delivery/common/widgets/customLoader.dart';
 import 'package:food_delivery/controllers/order_controller.dart';
 import 'package:food_delivery/data/repository/order_repo.dart';
 import 'package:food_delivery/models/order_model.dart';
+import 'package:food_delivery/pages/order/order_detail_page.dart';
 import 'package:food_delivery/routes/route_helper.dart';
 import 'package:food_delivery/utils/logging.dart';
 import 'package:get/get.dart';
@@ -54,9 +55,14 @@ class _ViewOrderState extends State<ViewOrder> {
                   var itemCount = orderList[index].items?.length ?? 0;
 
                   var createAt = DateTime.parse(orderList[index].createdAt!);
-                  DateFormat dateFormat = DateFormat('dd-MM-yyyy HH:mm');
+                  DateFormat dateFormat = DateFormat('dd-MM-yyyy hh:mm a');
                   return InkWell(
-                      onTap: () => Get.toNamed(RouteHelper.getOrderDetail()),
+                      onTap: () => Get.toNamed(RouteHelper.getOrderDetail(),
+                          arguments: OrderDetailPage(
+                            totalAmount: orderList[index].orderAmount!,
+                            items: orderList[index].items!,
+                            createdAt: dateFormat.format(createAt),
+                          )),
                       child: Column(
                         children: [
                           Container(

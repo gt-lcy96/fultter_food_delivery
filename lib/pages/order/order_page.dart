@@ -3,6 +3,7 @@ import 'package:food_delivery/common/values/colors.dart';
 import 'package:food_delivery/common/values/dimensions.dart';
 import 'package:food_delivery/controllers/auth_controller.dart';
 import 'package:food_delivery/controllers/order_controller.dart';
+import 'package:food_delivery/data/repository/order_repo.dart';
 import 'package:food_delivery/pages/order/view_order.dart';
 import 'package:get/get.dart';
 
@@ -20,6 +21,13 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+
+    if (Get.isRegistered<OrderController>()) {
+      Get.delete<OrderController>();
+    }
+    Get.put(OrderRepo(apiClient: Get.find()));
+    Get.put(OrderController(orderRepo: Get.find()));
+
     _isLoggedIn = Get.find<AuthController>().userLoggedIn();
     if (_isLoggedIn) {
       _tabController = TabController(length: 2, vsync: this);

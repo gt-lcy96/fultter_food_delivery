@@ -1,7 +1,8 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class AppConstants {
-  static const String BASE_URL = "http://127.0.0.1:8000";
+  // static const String BASE_URL = "http://127.0.0.1:8000";
+  static const String BASE_URL = "https://lohcy.pythonanywhere.com";
   // static const String BASE_URL = "http://192.168.68.103:8000";
   static const POPULAR_TYPE_ID = 2;
   static const RECOMMENDED_TYPE_ID = 3;

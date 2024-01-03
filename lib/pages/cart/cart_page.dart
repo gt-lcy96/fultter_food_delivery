@@ -54,11 +54,16 @@ class _CartPageState extends State<CartPage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              AppIcon(
-                icon: Icons.arrow_back_ios,
-                iconColor: Colors.white,
-                backgroundColor: AppColors.primaryElement,
-                iconSize: 20,
+              GestureDetector(
+                onTap: () {
+                  Get.back();
+                },
+                child: AppIcon(
+                  icon: Icons.arrow_back_ios,
+                  iconColor: Colors.white,
+                  backgroundColor: AppColors.primaryElement,
+                  iconSize: 20,
+                ),
               ),
               SizedBox(width: 100.w),
               GestureDetector(

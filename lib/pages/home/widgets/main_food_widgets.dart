@@ -20,14 +20,10 @@ Widget mainTitleBar() {
           top: 20,
           child: Column(
             children: [
-              bigText(
-                "Bangladesh",
-                color: AppColors.primaryElement,
-              ),
               Row(
                 children: [
-                  reusableText("Narshingdi",
-                      fontSize: 12.sp, fontWeight: FontWeight.normal),
+                  bigText("Singapore",
+                       fontWeight: FontWeight.normal),
                   const Icon(Icons.arrow_drop_down)
                 ],
               )

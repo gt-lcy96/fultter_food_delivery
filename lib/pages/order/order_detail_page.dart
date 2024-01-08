@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:food_delivery/common/values/colors.dart';
 import 'package:food_delivery/common/values/dimensions.dart';
 import 'package:food_delivery/common/widgets/base_text_widget.dart';
 import 'package:food_delivery/models/cart_model.dart';
@@ -47,7 +48,7 @@ class OrderDetailPage extends StatelessWidget {
                   ),
                   SizedBox(height: 20.h),
                   Container(
-                    height: 200.h,
+                    height: 150.h,
                     width: Dimensions.screenWidth,
                     child: ListView.separated(
                       shrinkWrap: true,
@@ -92,6 +93,7 @@ class OrderDetailPage extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.all(16.0), // Set padding
                 minimumSize: Size(200.w, 48.h), // Set button size
+                backgroundColor: AppColors.primaryElement
               ),
               onPressed: () => null,
               child: bigText("Contact Us", color: Colors.white),

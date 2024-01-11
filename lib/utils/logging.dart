@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 void prettyPrintJsonDecodedItem(Map<String, dynamic> jsonObject) {
-  var prettyString = JsonEncoder.withIndent('  ').convert(jsonObject);
+  var prettyString = const JsonEncoder.withIndent('  ').convert(jsonObject);
   print(prettyString);
 }
 

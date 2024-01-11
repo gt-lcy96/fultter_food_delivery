@@ -58,7 +58,7 @@ class _CartPageState extends State<CartPage> {
                 onTap: () {
                   Get.back();
                 },
-                child: AppIcon(
+                child: const AppIcon(
                   icon: Icons.arrow_back_ios,
                   iconColor: Colors.white,
                   backgroundColor: AppColors.primaryElement,
@@ -70,14 +70,14 @@ class _CartPageState extends State<CartPage> {
                 onTap: () {
                   Get.toNamed(RouteHelper.initial);
                 },
-                child: AppIcon(
+                child: const AppIcon(
                   icon: Icons.home_outlined,
                   iconColor: Colors.white,
                   backgroundColor: AppColors.primaryElement,
                   iconSize: 20,
                 ),
               ),
-              AppIcon(
+              const AppIcon(
                 icon: Icons.shopping_cart,
                 iconColor: Colors.white,
                 backgroundColor: AppColors.primaryElement,
@@ -213,7 +213,7 @@ class _CartPageState extends State<CartPage> {
                         ),
                       )),
                 )
-              : NoDataPage(text: "Your cart is empty");
+              : const NoDataPage(text: "Your cart is empty");
         }),
       ]),
       bottomNavigationBar: GetBuilder<CartController>(

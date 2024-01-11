@@ -74,7 +74,7 @@ class CartHistory extends StatelessWidget {
                     "Cart History",
                     color: Colors.white,
                   ),
-                  AppIcon(
+                  const AppIcon(
                     icon: Icons.shopping_cart_outlined,
                     iconColor: AppColors.primaryElement,
                   ),
@@ -133,7 +133,7 @@ class CartHistory extends StatelessWidget {
                 )
               : Container(
                   height: MediaQuery.of(context).size.height / 1.5,
-                  child: NoDataPage(
+                  child: const NoDataPage(
                     text: "You didn't buy anything so far!",
                     imgPath: "assets/images/empty_cart.png",
                   ));

@@ -50,7 +50,7 @@ class _ViewOrderState extends State<ViewOrder> {
             child: ListView.separated(
                 itemCount: orderList.length,
                 separatorBuilder: (BuildContext context, int index) =>
-                    Divider(thickness: 2),
+                    const Divider(thickness: 2),
                 itemBuilder: (context, index) {
                   var itemCount = orderList[index].items?.length ?? 0;
 
@@ -113,7 +113,7 @@ class _ViewOrderState extends State<ViewOrder> {
                                           margin: EdgeInsets.all(5.h),
                                           child: Text(
                                               "${orderList[index].orderStatus}",
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   color: Colors.white)),
                                         ),
                                       ),
@@ -132,7 +132,7 @@ class _ViewOrderState extends State<ViewOrder> {
                                           ),
                                           child: Container(
                                               margin: EdgeInsets.all(5.w),
-                                              child: Text("Track Order")),
+                                              child: const Text("Track Order")),
                                         ),
                                       )
                                     ],
@@ -148,7 +148,7 @@ class _ViewOrderState extends State<ViewOrder> {
           ),
         );
       } else {
-        return CustomLoader();
+        return const CustomLoader();
       }
     });
   }

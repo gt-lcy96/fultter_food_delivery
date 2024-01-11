@@ -30,7 +30,7 @@ class AccountPage extends StatelessWidget {
         title: bigText("Profile", fontSize: 24, color: Colors.white),
         leading:
           IconButton(
-            icon: Icon(Icons.arrow_back_ios),
+            icon: const Icon(Icons.arrow_back_ios),
             onPressed: () {
               // Navigate to a different screen or pop the current screen.
               Get.offNamed(RouteHelper.getInitial());
@@ -178,7 +178,7 @@ class AccountPage extends StatelessWidget {
                 : Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CustomLoader(),
+                      const CustomLoader(),
                       SizedBox(height: 30.h),
                       SignInButton(),
                     ],
@@ -201,7 +201,7 @@ Widget LoginPrompt() {
           margin: EdgeInsets.only(left: 20.w, right: 20.w),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20.w),
-              image: DecorationImage(
+              image: const DecorationImage(
                   fit: BoxFit.cover,
                   image: AssetImage("assets/images/sign_in_cont.png")))),
       SignInButton(),

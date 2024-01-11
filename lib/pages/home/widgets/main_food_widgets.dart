@@ -91,15 +91,15 @@ Widget recommendedTitleTexts() {
     mainAxisAlignment: MainAxisAlignment.start,
     children: [
       Container(
-        margin: EdgeInsets.only(left: 20),
+        margin: const EdgeInsets.only(left: 20),
         child: bigText("Recommended"),
       ),
       Container(
-        margin: EdgeInsets.only(left: 20),
+        margin: const EdgeInsets.only(left: 20),
         child: bigText("."),
       ),
       Container(
-        margin: EdgeInsets.only(left: 20, top: 10),
+        margin: const EdgeInsets.only(left: 20, top: 10),
         child: smallText('Food paring'),
       )
     ],
@@ -112,7 +112,7 @@ Widget recommendedSuggestList() {
         return recommendedProduct.isLoaded
             ? ListView.separated(
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 scrollDirection: Axis.vertical,
                 separatorBuilder: (context, index) => SizedBox(height: 10.h),
                 itemCount: recommendedProduct.recommendedProductList.length,
@@ -128,7 +128,7 @@ Widget recommendedSuggestList() {
                       child: Row(
                         children: [
                           Container(
-                              margin: EdgeInsets.only(left: 10),
+                              margin: const EdgeInsets.only(left: 10),
                               height: 100.h,
                               width: 100.w,
                               decoration: BoxDecoration(
@@ -143,7 +143,7 @@ Widget recommendedSuggestList() {
                           Expanded(
                             child: Container(
                               height: 90.h,
-                              margin: EdgeInsets.only(top: 10, bottom: 10),
+                              margin: const EdgeInsets.only(top: 10, bottom: 10),
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(20.w),
@@ -170,6 +170,6 @@ Widget recommendedSuggestList() {
                     ),
                   );
                 })
-            : CircularProgressIndicator(color: AppColors.primaryElement);
+            : const CircularProgressIndicator(color: AppColors.primaryElement);
       });
 }

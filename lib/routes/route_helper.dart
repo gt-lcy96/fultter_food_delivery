@@ -40,7 +40,7 @@ class RouteHelper {
   static String getOrderDetail() => '$orderDetail';
 
   static List<GetPage> routes = [
-    GetPage(name: splashPage, page: () => SplashScreen()),
+    GetPage(name: splashPage, page: () => const SplashScreen()),
     GetPage(name: initial, page: () => const HomePage()),
     GetPage(
         name: signIn, page: () => SignInPage(), transition: Transition.fade),
@@ -63,15 +63,15 @@ class RouteHelper {
         },
         transition: Transition.fadeIn),
     GetPage(name: cart, page: () => const CartPage()),
-    GetPage(name: addAddress, page: () => AddAddressPage()),
-    GetPage(name: account, page: () => AccountPage()),
+    GetPage(name: addAddress, page: () => const AddAddressPage()),
+    GetPage(name: account, page: () => const AccountPage()),
     GetPage(
         name: pickAddressMap,
         page: () {
           PickAddressMap _pickAddress = Get.arguments;
           return _pickAddress;
         }),
-    GetPage(name: orderSuccess, page: () => OrderSuccessPage()),
+    GetPage(name: orderSuccess, page: () => const OrderSuccessPage()),
     GetPage(
         name: orderDetail,
         page: () {

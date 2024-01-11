@@ -37,7 +37,7 @@ class LocationDialogue extends StatelessWidget {
                         hintText: "search location",
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.w),
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             style: BorderStyle.none, 
                             width: 0,
                           )
@@ -61,7 +61,7 @@ class LocationDialogue extends StatelessWidget {
                         padding: EdgeInsets.all(10.w),
                         child: Row(
                           children: [
-                            Icon(Icons.location_on),
+                            const Icon(Icons.location_on),
                             Expanded(child: Text(
                               suggestion.description!,
                               maxLines: 1,

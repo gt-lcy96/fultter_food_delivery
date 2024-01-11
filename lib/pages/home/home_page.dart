@@ -21,10 +21,10 @@ class _HomePageState extends State<HomePage> {
   // late PersistentTabController _controller;
 
   List pages = [
-    MainFoodPage(),
-    OrderPage(),
-    CartHistory(),
-    AccountPage(),
+    const MainFoodPage(),
+    const OrderPage(),
+    const CartHistory(),
+    const AccountPage(),
   ];
 
   // @override

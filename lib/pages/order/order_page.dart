@@ -42,7 +42,7 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("My order"),
+          title: const Text("My order"),
           backgroundColor: AppColors.primaryElement,
         ),
         body: Get.find<AuthController>().userLoggedIn()
@@ -68,8 +68,8 @@ class _OrderPageState extends State<OrderPage> with TickerProviderStateMixin {
                       children: [
                         // Text("true"),
                         // Text("false"),
-                        ViewOrder(isCurrent: true),
-                        ViewOrder(isCurrent: false),
+                        const ViewOrder(isCurrent: true),
+                        const ViewOrder(isCurrent: false),
                       ],
                     ),
                   )
@@ -91,7 +91,7 @@ Widget LoginPrompt() {
           margin: EdgeInsets.only(left: 20.w, right: 20.w),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20.w),
-              image: DecorationImage(
+              image: const DecorationImage(
                   fit: BoxFit.cover,
                   image: AssetImage("assets/images/sign_in_cont.png")))),
       SignInButton(),

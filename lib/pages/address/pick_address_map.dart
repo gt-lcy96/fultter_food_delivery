@@ -128,7 +128,7 @@ class _PickAddressMapState extends State<PickAddressMap> {
                                       height: 50,
                                       width: 50,
                                     )
-                                  : CircularProgressIndicator()),
+                                  : const CircularProgressIndicator()),
                           Positioned(
                             top: 45.h,
                             left: 20.w,
@@ -144,7 +144,7 @@ class _PickAddressMapState extends State<PickAddressMap> {
                                   borderRadius: BorderRadius.circular(10.w),
                                 ),
                                 child: Row(children: [
-                                  Icon(Icons.location_on,
+                                  const Icon(Icons.location_on,
                                       size: 25, color: AppColors.yellowColor),
                                   Expanded(
                                     child: Text(
@@ -173,7 +173,7 @@ class _PickAddressMapState extends State<PickAddressMap> {
                             left: 20.w,
                             right: 20.w,
                             child: locationController.isLoading
-                                ? Center(
+                                ? const Center(
                                     child: CircularProgressIndicator(),
                                   )
                                 : CustomButton(
@@ -227,7 +227,7 @@ class _PickAddressMapState extends State<PickAddressMap> {
                       ),
                     )),
                   )
-                : Center(
+                : const Center(
                     child: CircularProgressIndicator(),
                   ));
       },

@@ -47,7 +47,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
 
     // Delay setting the user interaction flag
     Future.delayed(
-        Duration(seconds: AppConstants.ALLOW_USER_SET_MAP_AFTER_SECONDS), () {
+        const Duration(seconds: AppConstants.ALLOW_USER_SET_MAP_AFTER_SECONDS), () {
       setState(() {
         _isUserInteraction = true;
       });
@@ -151,7 +151,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Address page"),
+        title: const Text("Address page"),
         backgroundColor: AppColors.primaryElement,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
@@ -302,7 +302,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
                               icon: Icons.phone),
                         ]),
                   )
-                : Center(
+                : const Center(
                     child: CircularProgressIndicator(),
                   );
           },

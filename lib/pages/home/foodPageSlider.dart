@@ -58,7 +58,7 @@ class _FoodPageSliderState extends State<FoodPageSlider> {
                     },
                   ),
                 )
-              : CircularProgressIndicator(
+              : const CircularProgressIndicator(
                   color: AppColors.primaryElement,
                 );
         }),

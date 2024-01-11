@@ -36,7 +36,7 @@ class OrderDetailPage extends StatelessWidget {
                       color: Colors.grey.withOpacity(0.5),
                       spreadRadius: 1,
                       blurRadius: 7,
-                      offset: Offset(0, 3),
+                      offset: const Offset(0, 3),
                     )
                   ]),
               child: Column(
@@ -79,7 +79,7 @@ class OrderDetailPage extends StatelessWidget {
                       color: Colors.grey.withOpacity(0.5),
                       spreadRadius: 1,
                       blurRadius: 7,
-                      offset: Offset(0, 3),
+                      offset: const Offset(0, 3),
                     )
                   ]),
               child: Row(
@@ -91,7 +91,7 @@ class OrderDetailPage extends StatelessWidget {
 
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.all(16.0), // Set padding
+                padding: const EdgeInsets.all(16.0), // Set padding
                 minimumSize: Size(200.w, 48.h), // Set button size
                 backgroundColor: AppColors.primaryElement
               ),

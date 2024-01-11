@@ -70,13 +70,13 @@ class _ExpandableTextWidgetState extends State<ExpandableTextWidget> {
 Widget show_more() {
   return Row(children: [
     smallText("Show more", color: AppColors.primaryElement),
-    Icon(Icons.arrow_drop_down, color: AppColors.primaryElement),
+    const Icon(Icons.arrow_drop_down, color: AppColors.primaryElement),
   ]);
 }
 
 Widget show_less() {
   return Row(children: [
     smallText("Show less", color: AppColors.primaryElement),
-    Icon(Icons.arrow_drop_up, color: AppColors.primaryElement),
+    const Icon(Icons.arrow_drop_up, color: AppColors.primaryElement),
   ]);
 }

@@ -227,7 +227,7 @@ class LocationController extends GetxController implements GetxService {
     }
     update();
     await Future.delayed(
-        Duration(milliseconds: AppConstants.DELAY_FOR_GET_ZONE), () {
+        const Duration(milliseconds: AppConstants.DELAY_FOR_GET_ZONE), () {
       _responseModel = ResponseModel(true, "success");
       if (markerLoad) {
         _loading = false;

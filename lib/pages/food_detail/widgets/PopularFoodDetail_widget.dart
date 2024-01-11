@@ -109,7 +109,7 @@ Widget shopping_cart_icon() {
         },
         child: Stack(
           children: [
-            AppIcon(icon: Icons.shopping_cart_outlined),
+            const AppIcon(icon: Icons.shopping_cart_outlined),
             Get.find<PopularProductController>().totalItems >= 1
                 ? const Positioned(
                     right: 0,

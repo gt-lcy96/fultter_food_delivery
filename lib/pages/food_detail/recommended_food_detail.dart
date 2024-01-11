@@ -40,7 +40,7 @@ class RecommendedFoodDetail extends StatelessWidget {
                     Get.toNamed(RouteHelper.getInitial());
                   }
                 },
-                child: AppIcon(icon: Icons.clear)),
+                child: const AppIcon(icon: Icons.clear)),
             shopping_cart_icon(),
             // AppIcon(icon: Icons.shopping_cart_outlined)
           ]),
@@ -96,7 +96,7 @@ class RecommendedFoodDetail extends StatelessWidget {
                         onTap: () {
                           controller.setQuantity(false);
                         },
-                        child: AppIcon(
+                        child: const AppIcon(
                             iconSize: 24,
                             iconColor: Colors.white,
                             backgroundColor: AppColors.primaryElement,
@@ -110,7 +110,7 @@ class RecommendedFoodDetail extends StatelessWidget {
                         onTap: () {
                           controller.setQuantity(true);
                         },
-                        child: AppIcon(
+                        child: const AppIcon(
                             iconSize: 24,
                             iconColor: Colors.white,
                             backgroundColor: AppColors.primaryElement,
@@ -134,7 +134,7 @@ class RecommendedFoodDetail extends StatelessWidget {
                   children: [
                     Container(
                       padding: EdgeInsets.all(15.w),
-                      child: Icon(
+                      child: const Icon(
                         Icons.favorite,
                         color: AppColors.primaryElement,
                       ),

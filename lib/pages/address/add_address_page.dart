@@ -94,36 +94,35 @@ class _AddAddressPageState extends State<AddAddressPage> {
   Future<void> loadUserData() async {
     UserController userController = Get.find<UserController>();
     try {
-      // await userController.getUserInfo();
       _isLogged = Get.find<AuthController>().userLoggedIn();
       if (_isLogged && userController.userModel == null) {
         await userController.getUserInfo();
       }
       if (Get.find<LocationController>().addressList.isNotEmpty) {
         await Get.find<UserController>().getUserInfo();
-        // new
-        Get.find<LocationController>().getUserAddress();
-        if (Get.find<LocationController>().getUserAddressFromLocalStorage() ==
-            "") {
-          Get.find<LocationController>()
-              .saveUserAddress(Get.find<LocationController>().addressList.last);
+        // Modify here to handle potential null
+        var userAddress =
+            Get.find<LocationController>().getUserAddressFromLocalStorage();
+        if (userAddress.isNotEmpty) {
+          var lastAddress = Get.find<LocationController>().addressList.last;
+          Get.find<LocationController>().saveUserAddress(lastAddress);
+
+          _cameraPosition = CameraPosition(
+              target: LatLng(
+            double.parse(lastAddress.latitude),
+            double.parse(lastAddress.longitude),
+          ));
+
+          _initialPosition = LatLng(
+            double.parse(lastAddress.latitude),
+            double.parse(lastAddress.longitude),
+          );
+        } else {
+          // Handle the case where the local storage does not have an address
+          // You can prompt the user or set a default position
         }
-        // end new
-
-        _cameraPosition = CameraPosition(
-            target: LatLng(
-          double.parse(Get.find<LocationController>().getAddress["latitude"]),
-          double.parse(Get.find<LocationController>().getAddress["longitude"]),
-        ));
-
-        _initialPosition = LatLng(
-          double.parse(Get.find<LocationController>().getAddress["latitude"]),
-          double.parse(Get.find<LocationController>().getAddress["longitude"]),
-        );
       }
-      // Use userModel for further operations
     } catch (error) {
-      // Handle error
       print("Error fetching user info: $error");
     }
   }
@@ -133,12 +132,17 @@ class _AddAddressPageState extends State<AddAddressPage> {
     await userController.getUserInfo();
 
     if (userController.userModel != null && _contactPersonName.text.isEmpty) {
-      // if(_contactPersonName.text.isEmpty) {
       _contactPersonName.text = '${userController.userModel.username}';
       _contactPersonNumber.text = '${userController.userModel.phone}';
       if (Get.find<LocationController>().addressList.isNotEmpty) {
-        _addressController.text =
-            Get.find<LocationController>().getUserAddress().address;
+        // Add a null check here for getUserAddress()
+        var address = Get.find<LocationController>().getUserAddress();
+        if (address != null) {
+          _addressController.text = address.address;
+        } else {
+          // Handle the null case, maybe by setting a default value or leaving it empty
+          _addressController.text = 'No address found';
+        }
       }
     }
   }

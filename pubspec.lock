@@ -234,10 +234,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_stripe
-      sha256: "5c63e17aa66b76c79935334e23805b154dd5520cd5eff0aa3cb923db5a1204bb"
+      sha256: "8cde3b8f6d60e1299deb61053f5800bb16ae1311d7523bac1b20a5e635f6d672"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.0"
+    version: "3.1.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter

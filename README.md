@@ -12,6 +12,20 @@ Minimum Java Version: Java 8
 Maximum Java Version: Java 17  
 Ensure your development environment is set up with a compatible Java version to avoid any build issues.
 
+## Usage
+### Card payments
+Currently the payment only support test payment as this app is a demo app.Use the following card number with any CVC and date exceed current date to implement payment.  
+For more detail, please refer to this link [doc](https://stripe.com/docs/testing?testing-method=card-numbers#visa)
+
+
+| NUMBER            | DESCRIPTION                                             |
+|-------------------|---------------------------------------------------------|
+| 4242424242424242  | Succeeds and immediately processes the payment.         |
+| 4000002500003155  | Requires authentication. Stripe will trigger a modal asking for the customer to authenticate. |
+| 4000000000009995  | Always fails with a decline code of insufficient_funds. |
+
+
+
 
 ## Contributing
 We appreciate contributions from the community. If you wish to contribute, feel free to fork the repository, make your changes, and create a pull request.
